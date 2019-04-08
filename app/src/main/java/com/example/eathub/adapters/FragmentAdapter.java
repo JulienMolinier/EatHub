@@ -1,4 +1,4 @@
-package com.example.eathub;
+package com.example.eathub.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

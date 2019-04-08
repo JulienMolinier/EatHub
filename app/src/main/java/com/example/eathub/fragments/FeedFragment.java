@@ -1,4 +1,4 @@
-package com.example.eathub;
+package com.example.eathub.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
