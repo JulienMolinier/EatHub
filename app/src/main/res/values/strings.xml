@@ -6,4 +6,5 @@
     <string name="checkbox30"><![CDATA[> 20]]></string>
     <string name="price">Price :</string>
     <string name="filter">Filter by :</string>
+    <string name="buttonBack">Back</string>
 </resources>
