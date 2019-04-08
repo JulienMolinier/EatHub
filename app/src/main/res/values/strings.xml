@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">EatHub</string>
+
+    <string name="bottom_navigation_profile_details">Details</string>
+    <string name="bottom_navigation_profile_charts">Charts</string>
+    <string name="bottom_navigation_profile_stats">Stats</string>
 </resources>
