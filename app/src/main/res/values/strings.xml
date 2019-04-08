@@ -4,4 +4,11 @@
     <string name="bottom_navigation_profile_details">Details</string>
     <string name="bottom_navigation_profile_charts">Charts</string>
     <string name="bottom_navigation_profile_stats">Stats</string>
+    <string name="checkboxRate">Hightest rate :</string>
+    <string name="checkbox10">0 - 10</string>
+    <string name="checkbox20">10 - 20</string>
+    <string name="checkbox30"><![CDATA[> 20]]></string>
+    <string name="price">Price :</string>
+    <string name="filter">Filter by :</string>
+    <string name="buttonBack">Back</string>
 </resources>
