@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="?android:attr/windowBackground"
+            app:theme="@style/AppThemeProfile"
             app:menu="@layout/navigation" />
     </RelativeLayout>
 
