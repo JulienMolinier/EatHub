@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.eathub.R;
 import com.example.eathub.adapters.FragmentAdapter;
 import com.example.eathub.fragments.FeedFragment;
+import com.example.eathub.fragments.profile.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
     private FragmentAdapter fragAdapter;
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         fragAdapter = new FragmentAdapter(getSupportFragmentManager());
         //ActivityList.buildList(getFilesDir());
 
-        vwPager = (ViewPager) findViewById(R.id.container);
+        vwPager = findViewById(R.id.container);
         setupViewPager(vwPager);
 
         TabLayout tabLayout = findViewById(R.id.tabs);
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
         adapter.addFragment(new FeedFragment(), "Feed");
-        //adapter.addFragment(new ProfileFragment(), "Profile");
+        adapter.addFragment(new ProfileFragment(), "Profile");
         viewPager.setAdapter(adapter);
     }
 }
