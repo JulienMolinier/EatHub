@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <item
+        android:id="@+id/navigation_details"
+        android:icon="@drawable/baseline_perm_identity_black_18dp"
+        android:title="@string/bottom_navigation_profile_details" />
+
+    <item
+        android:id="@+id/navigation_charts"
+        android:icon="@drawable/baseline_show_chart_black_18dp"
+        android:title="@string/bottom_navigation_profile_charts" />
+
+    <item
+        android:id="@+id/navigation_stats"
+        android:icon="@drawable/baseline_equalizer_black_18dp"
+        android:title="@string/bottom_navigation_profile_stats" />
+</menu>

@@ -1,6 +1,5 @@
-package com.example.eathub.fragments;
+package com.example.eathub.fragments.profile;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,20 +10,15 @@ import android.view.ViewGroup;
 
 import com.example.eathub.R;
 
-public class FeedFragment extends Fragment {
+public class ProfileStatsFragment extends Fragment {
+
     private View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.feed,container,false);
+        view = inflater.inflate(R.layout.profilestats, container, false);
+
         return view;
     }
-
-    /*
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-    */
 }
