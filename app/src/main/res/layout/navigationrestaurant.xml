@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <item
+        android:id="@+id/navigationRestaurant_profile"
+        android:icon="@mipmap/baseline_contact_phone_black_48"
+        android:title="Profile" />
+
+    <item
+        android:id="@+id/navigationRestaurant_map"
+        android:icon="@mipmap/baseline_map_black_48"
+        android:title="Map" />
+
+    <item
+        android:id="@+id/navigationRestaurant_comments"
+        android:icon="@mipmap/baseline_message_black_48"
+        android:title="Comments" />
+
+</menu>
