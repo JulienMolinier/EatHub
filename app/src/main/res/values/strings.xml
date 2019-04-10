@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">EatHub</string>
+    <string name="title_activity_restaurant">RestaurantActivity</string>
 </resources>
