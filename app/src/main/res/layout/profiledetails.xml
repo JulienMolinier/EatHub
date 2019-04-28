@@ -11,7 +11,7 @@
         android:layout_centerHorizontal="true"
         android:paddingTop="50dp"
         android:paddingBottom="50dp"
-        app:srcCompat="@drawable/etudiant" />
+        app:srcCompat="@drawable/jordanpot" />
 
     <ListView
         android:layout_width="match_parent"
