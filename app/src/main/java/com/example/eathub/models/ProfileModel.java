@@ -1,12 +1,8 @@
 package com.example.eathub.models;
-import com.example.eathub.models.databases.VisitDatabase;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProfileModel {
 
@@ -22,7 +18,6 @@ public class ProfileModel {
     private double budget;
     private Diet diet;
     private CulinaryFence culinaryFence;
-    //private Image profilePic;
     private List<ProfileModel> friendList;
     private List<RestaurantModel> sharedRestaurants;
 
@@ -41,7 +36,7 @@ public class ProfileModel {
         this.firstName = firstName;
         this.surname = surname;
         this.birthdate = birthdate;
-        this.age = computeAge();
+        //this.age = computeAge();
         this.height = height;
         this.weight = weight;
         this.budget = budget;
@@ -107,16 +102,17 @@ public class ProfileModel {
         visitNumber = this.history.size();
     }*/
 
-    @Override
-    public String toString() {
-        return "FirstName: " + firstName + '\n' +
-                "Surname: " + surname + '\n' +
-                "birthdate: " + birthdate + '\n' +
-                "height: " + height + '\n' +
-                "Weight: " + weight + '\n' +
-                "Budget: " + budget + '\n' +
-                "Diet: " + diet + '\n' +
-                "CulinaryFence: " + culinaryFence;
+    public ArrayList<String> getDetails() {
+        ArrayList<String> details = new ArrayList<>();
+        details.add("FirstName: " + firstName);
+        details.add("Surname: " + surname);
+        details.add("Birthdate: " + birthdate);
+        details.add("Height: " + height + " m");
+        details.add("Weight: " + weight + " kg");
+        details.add("Budget: " + budget + " €");
+        details.add("Diet: " + diet);
+        details.add("CulinaryFence: " + culinaryFence);
+        return details;
     }
 
     public String getFirstName() {
@@ -249,23 +245,23 @@ public class ProfileModel {
         return false;
     }
 
-    private int computeAge() {
-        LocalDate today = LocalDate.now();
-        String[] date = birthdate.split("-");
-        int year1 = Integer.parseInt(date[0]);
-        int month1 = Integer.parseInt(date[1]);
-        int day1 = Integer.parseInt(date[2]);
-
-        int diffDays = today.getDayOfMonth() - day1;
-        int diffMonths = today.getMonthValue() - month1;
-        int diffYears = today.getYear() - year1;
-
-        if (diffDays < 0) {
-            diffMonths--;
-        }
-        if (diffMonths < 0) {
-            diffYears--;
-        }
-        return diffYears;
-    }
+//    private int computeAge() {
+//        LocalDate today = LocalDate.now();
+//        String[] date = birthdate.split("-");
+//        int year1 = Integer.parseInt(date[0]);
+//        int month1 = Integer.parseInt(date[1]);
+//        int day1 = Integer.parseInt(date[2]);
+//
+//        int diffDays = today.getDayOfMonth() - day1;
+//        int diffMonths = today.getMonthValue() - month1;
+//        int diffYears = today.getYear() - year1;
+//
+//        if (diffDays < 0) {
+//            diffMonths--;
+//        }
+//        if (diffMonths < 0) {
+//            diffYears--;
+//        }
+//        return diffYears;
+//    }
 }
