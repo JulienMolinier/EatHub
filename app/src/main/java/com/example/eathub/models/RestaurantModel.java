@@ -6,18 +6,14 @@ import java.util.List;
 
 public class RestaurantModel {
     private String name;
-    //private Image pic;
     private double price;
     private CulinaryFence culinaryFence;
-    private String imagePath;
     private String address;
     private String phoneNumber;
 
-    public RestaurantModel(String name, String imagePath, double price, CulinaryFence culinaryFence,
+    public RestaurantModel(String name, double price, CulinaryFence culinaryFence,
                            String address, String phoneNumber) {
         this.name = name;
-        this.imagePath = imagePath;
-        //this.pic = new Image(imagePath);
         this.price = price;
         this.culinaryFence = culinaryFence;
         this.address = address;
@@ -30,10 +26,6 @@ public class RestaurantModel {
 
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public String getImagePath() {
-        return imagePath;
     }
 
     public Double getRating() {

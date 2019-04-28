@@ -1,24 +1,19 @@
 package com.example.eathub.models.databases;
 
-import android.util.JsonReader;
-import android.util.Log;
+import com.example.eathub.models.CulinaryFence;
+import com.example.eathub.models.RestaurantModel;
 
-import org.json.JSONTokener;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import com.example.eathub.models.CulinaryFence;
-import com.example.eathub.models.RestaurantModel;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class RestaurantsFactory {
 
@@ -53,10 +48,9 @@ public class RestaurantsFactory {
         String name = (String) object.get("name");
         double price = (double) object.get("price");
         CulinaryFence culinaryFence = CulinaryFence.valueOf((String) object.get("culinaryFence"));
-        String imagePath = (String) object.get("imagePath");
         String address = (String) object.get("address");
         String phoneNumber = (String) object.get("phoneNumber");
 
-        return new RestaurantModel(name, imagePath, price, culinaryFence, address, phoneNumber);
+        return new RestaurantModel(name, price, culinaryFence, address, phoneNumber);
     }
 }

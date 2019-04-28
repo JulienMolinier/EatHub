@@ -8,7 +8,6 @@ public class ProfileModel {
 
     private String email;
     private String password;
-    private String imagePath;
     private String firstName;
     private String surname;
     private String birthdate;
@@ -29,10 +28,9 @@ public class ProfileModel {
     private String spendString;
     private String caloriesString;
 
-    public ProfileModel(String email, String password, String imagePath, String firstName, String surname,
+    public ProfileModel(String email, String password, String firstName, String surname,
                         String birthdate, double height, double weight, double budget, Diet diet,
                         CulinaryFence culinaryFence) {
-        this.imagePath = imagePath;
         this.firstName = firstName;
         this.surname = surname;
         this.birthdate = birthdate;
@@ -45,15 +43,10 @@ public class ProfileModel {
         this.email = email;
         this.password = password;
         this.friendList = new ArrayList<>();
-        //this.profilePic = new Image(imagePath);
         this.sharedRestaurants = new ArrayList<>();
         this.history = new ArrayList<>();
         this.profileDetailsList = new ArrayList<>();
 
-    }
-
-    public String getImagePath() {
-        return imagePath;
     }
 
     public void updateProfileList() {

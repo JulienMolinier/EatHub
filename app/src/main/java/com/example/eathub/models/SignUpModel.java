@@ -53,7 +53,6 @@ public class SignUpModel {
     }
 
     public void addUserToDatabase() {
-        String defaultImage = "/program/resources/images/user.png";
 
         double averageHeight;
         if (height.contains("<") || height.contains(">")) {
@@ -79,7 +78,7 @@ public class SignUpModel {
             averageBudget = (Double.parseDouble(budgetRange[0]) + Double.parseDouble(budgetRange[1])) / 2;
         }
 
-        ProfileModel newProfile = new ProfileModel(email,password,defaultImage,firstName,lastName,birthdate,
+        ProfileModel newProfile = new ProfileModel(email, password, firstName, lastName, birthdate,
                 averageHeight,averageWeight,averageBudget,specialDiet,favoriteCuisine);
 
         ProfileDatabase.addNewProfile(newProfile);
