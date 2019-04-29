@@ -15,6 +15,7 @@ import com.example.eathub.R;
 import com.example.eathub.adapters.FragmentAdapter;
 import com.example.eathub.fragments.FeedFragment;
 import com.example.eathub.fragments.profile.ProfileFragment;
+import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.databases.ProfileDatabase;
 import com.example.eathub.models.databases.ProfilesFactory;
 import com.example.eathub.models.databases.RestaurantDatabase;
@@ -26,19 +27,18 @@ public class MainActivity extends AppCompatActivity {
     private FragmentAdapter fragAdapter;
     private ViewPager vwPager;
     private SearchView search;
+    private ProfileModel connectedProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        RestaurantDatabase DbResto = new RestaurantDatabase();
-        ProfileDatabase DbProfile = new ProfileDatabase();
-        VisitDatabase DbVisit = new VisitDatabase();
-        RestaurantsFactory.createRestaurantsList(getResources().openRawResource(R.raw.restaurants));
-        ProfilesFactory.createProfilesList(getResources().openRawResource(R.raw.profiles));
-        VisitsFactory.createVisitList(getResources().openRawResource(R.raw.visits));
-
         setContentView(R.layout.activity_main);
+
+        final Intent myIntent = getIntent();
+        connectedProfile = (ProfileModel) myIntent.getParcelableExtra("userprofile");
+        System.out.println("L'user connecté est"+connectedProfile);
+
+
         fragAdapter = new FragmentAdapter(getSupportFragmentManager());
 
         vwPager = findViewById(R.id.container);
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
         FeedFragment feedFragment = new FeedFragment();
-        feedFragment.setProfile(ProfileDatabase.getAllProfiles().get(0));
+        feedFragment.setProfile(connectedProfile);
         adapter.addFragment(feedFragment, "Feed");
         adapter.addFragment(new ProfileFragment(), "Profile");
         viewPager.setAdapter(adapter);
