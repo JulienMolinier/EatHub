@@ -1,10 +1,13 @@
 package com.example.eathub.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.eathub.models.databases.VisitDatabase;
 
 import java.util.List;
 
-public class RestaurantModel {
+public class RestaurantModel implements Parcelable {
     private String name;
     private double price;
     private CulinaryFence culinaryFence;
@@ -19,6 +22,40 @@ public class RestaurantModel {
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
+
+    protected RestaurantModel(Parcel in) {
+        name = in.readString();
+        price = in.readDouble();
+        culinaryFence = CulinaryFence.values()[in.readInt()];
+        address = in.readString();
+        phoneNumber = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeDouble(price);
+        dest.writeInt(culinaryFence.ordinal());
+        dest.writeString(address);
+        dest.writeString(phoneNumber);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<RestaurantModel> CREATOR = new Creator<RestaurantModel>() {
+        @Override
+        public RestaurantModel createFromParcel(Parcel in) {
+            return new RestaurantModel(in);
+        }
+
+        @Override
+        public RestaurantModel[] newArray(int size) {
+            return new RestaurantModel[size];
+        }
+    };
 
     public String getAddress() {
         return address;

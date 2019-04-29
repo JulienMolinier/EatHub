@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.SearchPageActivity"/>
+        <activity android:name=".activities.LogInActivity"/>
     </application>
 
 </manifest>

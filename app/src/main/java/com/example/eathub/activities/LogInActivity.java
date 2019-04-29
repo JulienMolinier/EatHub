@@ -2,6 +2,8 @@ package com.example.eathub.activities;
 
 import com.example.eathub.R;
 import com.example.eathub.models.LogInModel;
+import com.example.eathub.models.ProfileModel;
+import com.example.eathub.models.databases.ProfileDatabase;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,53 +34,45 @@ public class LogInActivity extends AppCompatActivity {
 
 
 
-        signupLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                //startActivity(intent);
-            }
+        signupLink.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+            startActivity(intent);
         });
 
 
 
-        forgotPasswordLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
-                //startActivity(intent);
-            }
+        forgotPasswordLink.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
+            startActivity(intent);
         });
 
 
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
+        loginButton.setOnClickListener(view -> {
+            EditText emailField = findViewById(R.id.email);
+            String email = emailField.getText().toString();
 
-                EditText emailField = findViewById(R.id.email);
-                String email = emailField.getText().toString();
+            EditText passwordField = findViewById(R.id.password);
+            String password = passwordField.getText().toString();
 
-                EditText passwordField = findViewById(R.id.password);
-                String password = passwordField.getText().toString();
+            TextView errorMessage = findViewById(R.id.errorMessage);
 
-                TextView errorMessage = findViewById(R.id.errorMessage);
+            LogInModel model = new LogInModel(email, password);
 
-                LogInModel model = new LogInModel(email, password);
-
-                if (model.correctEmail()) {
-                    if (model.correctPassword()) {
-                        errorMessage.setVisibility(View.INVISIBLE);
-                        //Intent intent = new Intent(getApplicationContext(), FeedActivity.class);
-                        //startActivity(intent);
-                    } else {
-                        errorMessage.setText("Incorrect password");
-                        errorMessage.setVisibility(View.VISIBLE);
-                    }
-                } else  {
-                    errorMessage.setText("Incorrect e-mail");
+            if (model.correctEmail()) {
+                if (model.correctPassword()) {
+                    errorMessage.setVisibility(View.INVISIBLE);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    ProfileModel profile = ProfileDatabase.getProfile(email);
+                    intent.putExtra("user profile",profile);
+                    startActivity(intent);
+                } else {
+                    errorMessage.setText(getString(R.string.logInErrorBadPassword));
                     errorMessage.setVisibility(View.VISIBLE);
                 }
+            } else  {
+                errorMessage.setText(getString(R.string.logInErrorBadEmail));
+                errorMessage.setVisibility(View.VISIBLE);
             }
         });
     }
