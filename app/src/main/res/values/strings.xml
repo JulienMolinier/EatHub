@@ -1,5 +1,9 @@
 <resources>
+    <!-- general -->
     <string name="app_name">EatHub</string>
+    <string name="kilogram">kg</string>
+    <string name="centimeter">cm</string>
+    <string name="euro">€</string>
 
     <!-- for log in page -->
     <string name="logInErrorBadEmail">Incorrect e-mail</string>
@@ -9,12 +13,26 @@
     <string name="firstNamePrompt">first name</string>
     <string name="lastNamePrompt">last name</string>
     <string name="genderPrompt">gender</string>
+    <string name="genderArray">
+        <item>male</item>
+        <item>female</item>
+    </string>
     <string name="birthDatePrompt">birth date</string>
     <string name="weightPrompt">weight</string>
     <string name="heightPrompt">height</string>
     <string name="budgetPrompt">budget</string>
     <string name="dietPrompt">special diet</string>
+    <string name="dietArray">
+        <item>vegan</item>
+        <item>gluten free</item>
+    </string>
     <string name="cuisinePrompt">favorite cuisine</string>
+    <string name="cuisineArray">
+        <item>american</item>
+        <item>asian</item>
+        <item>italian</item>
+        <item>french</item>
+    </string>
     <string name="objectivePrompt">objective</string>
     <string name="emailPrompt">e-mail</string>
     <string name="passwordPrompt">password</string>
