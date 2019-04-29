@@ -1,10 +1,18 @@
 package com.example.eathub.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.example.eathub.models.databases.VisitDatabase;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class ProfileModel {
+public class ProfileModel implements Parcelable {
 
     private String email;
     private String password;
@@ -34,7 +42,7 @@ public class ProfileModel {
         this.firstName = firstName;
         this.surname = surname;
         this.birthdate = birthdate;
-        //this.age = computeAge();
+        this.age = computeAge();
         this.height = height;
         this.weight = weight;
         this.budget = budget;
@@ -50,6 +58,64 @@ public class ProfileModel {
 
     }
 
+    protected ProfileModel(Parcel in) {
+        email = in.readString();
+        password = in.readString();
+        firstName = in.readString();
+        surname = in.readString();
+        birthdate = in.readString();
+        age = in.readInt();
+        height = in.readDouble();
+        weight = in.readDouble();
+        budget = in.readDouble();
+        diet = Diet.values()[in.readInt()];
+        friendList = in.createTypedArrayList(ProfileModel.CREATOR);
+        profileDetailsList = in.createStringArrayList();
+        visitNumber = in.readInt();
+        spendPercentage = in.readDouble();
+        caloriesPercentage = in.readDouble();
+        spendString = in.readString();
+        caloriesString = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(email);
+        dest.writeString(password);
+        dest.writeString(firstName);
+        dest.writeString(surname);
+        dest.writeString(birthdate);
+        dest.writeInt(age);
+        dest.writeDouble(height);
+        dest.writeDouble(weight);
+        dest.writeInt(diet.ordinal());
+        dest.writeDouble(budget);
+        dest.writeTypedList(friendList);
+        dest.writeStringList(profileDetailsList);
+        dest.writeInt(visitNumber);
+        dest.writeDouble(spendPercentage);
+        dest.writeDouble(caloriesPercentage);
+        dest.writeString(spendString);
+        dest.writeString(caloriesString);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<ProfileModel> CREATOR = new Creator<ProfileModel>() {
+        @Override
+        public ProfileModel createFromParcel(Parcel in) {
+            return new ProfileModel(in);
+        }
+
+        @Override
+        public ProfileModel[] newArray(int size) {
+            return new ProfileModel[size];
+        }
+    };
+
     public void updateProfileList() {
         profileDetailsList.clear();
         profileDetailsList.addAll(Arrays.asList("Firstname: " + this.firstName,
@@ -61,40 +127,39 @@ public class ProfileModel {
                 "Diet: " + this.diet,
                 "Fence: " + this.culinaryFence));
     }
-    /*
-    public void setHistory(Object comboBoxChoice, ArrayList choices) {
+
+    public void setHistory(int spinnerChoice) {
         LocalDate today = LocalDate.now();
         this.history.clear();
-        if (comboBoxChoice.equals(choices.get(0))) {
+        if (spinnerChoice == 2) {
             this.history.addAll(VisitDatabase.getVisitsByProfile(this)
                     .stream()
-                    .filter(visitModel -> visitModel.getDate().getMonth().equals(today.getMonth()))
+                    .filter(visitModel -> visitModel.getDate().getMonth() == today.getMonth())
                     .collect(Collectors.toList()));
-        } else if (comboBoxChoice.equals(choices.get(1))) {
+        } else if (spinnerChoice == 1) {
             this.history.addAll(VisitDatabase.getVisitsByProfile(this)
                     .stream()
                     .filter(visitModel -> visitModel.getDate().isAfter(today.minusWeeks(1)))
                     .collect(Collectors.toList()));
-        } else {
+        } else if (spinnerChoice == 0) {
             this.history.addAll(VisitDatabase.getVisitsByProfile(this)
                     .stream()
                     .filter(visitModel -> visitModel.getDate().equals(today))
                     .collect(Collectors.toList()));
+        } else {
+            this.history.addAll(VisitDatabase.getVisitsByProfile(this)
+                    .stream()
+                    .filter(visitModel -> visitModel.getDate().getYear() == today.getYear())
+                    .collect(Collectors.toList()));
         }
         history.sort(Comparator.comparing(VisitModel::getDate).reversed());
 
-    }*/
+    }
 
     public void computeValues(int numberOfDay) {
         double required = this.computeRequired();
-        double spend = 0;
-        double caloriesConsumed = 0;
-        for (VisitModel v : history) {
-            spend += v.getPrice();
-            caloriesConsumed += v.getCalories();
-        }
-        //double spend = this.history.stream().mapToDouble(value -> value.getPrice()).sum();
-        //double caloriesConsumed = this.history.stream().mapToDouble(value -> value.getCalories()).sum();
+        double spend = this.history.stream().mapToDouble(value -> value.getPrice()).sum();
+        double caloriesConsumed = this.history.stream().mapToDouble(value -> value.getCalories()).sum();
         spendString = spend + "/" + (this.budget * numberOfDay);
         caloriesString = caloriesConsumed + " / " + (required * numberOfDay);
         spendPercentage = spend / (this.budget * numberOfDay);
@@ -223,28 +288,29 @@ public class ProfileModel {
     public boolean equals(Object obj) {
         if (obj != null) {
             ProfileModel person = (ProfileModel) obj;
-            return this.toString().equals(person.toString());
+            return this.email.equals(person.email) && this.firstName.equals(person.firstName)
+                    && this.surname.equals(person.surname);
         }
         return false;
     }
 
-//    private int computeAge() {
-//        LocalDate today = LocalDate.now();
-//        String[] date = birthdate.split("-");
-//        int year1 = Integer.parseInt(date[0]);
-//        int month1 = Integer.parseInt(date[1]);
-//        int day1 = Integer.parseInt(date[2]);
-//
-//        int diffDays = today.getDayOfMonth() - day1;
-//        int diffMonths = today.getMonthValue() - month1;
-//        int diffYears = today.getYear() - year1;
-//
-//        if (diffDays < 0) {
-//            diffMonths--;
-//        }
-//        if (diffMonths < 0) {
-//            diffYears--;
-//        }
-//        return diffYears;
-//    }
+    private int computeAge() {
+        LocalDate today = LocalDate.now();
+        String[] date = birthdate.split("-");
+        int year1 = Integer.parseInt(date[0]);
+        int month1 = Integer.parseInt(date[1]);
+        int day1 = Integer.parseInt(date[2]);
+
+        int diffDays = today.getDayOfMonth() - day1;
+        int diffMonths = today.getMonthValue() - month1;
+        int diffYears = today.getYear() - year1;
+
+        if (diffDays < 0) {
+            diffMonths--;
+        }
+        if (diffMonths < 0) {
+            diffYears--;
+        }
+        return diffYears;
+    }
 }

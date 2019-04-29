@@ -33,4 +33,11 @@
     <string name="filter">Filter by :</string>
     <string name="buttonBack">Back</string>
 
+    <string-array name="choice_array">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Yearly</item>
+    </string-array>
+
 </resources>
