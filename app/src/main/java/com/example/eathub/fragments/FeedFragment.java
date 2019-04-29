@@ -40,7 +40,7 @@ public class FeedFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.feed,container,false);
+        view = inflater.inflate(R.layout.feed, container, false);
         feedLV = view.findViewById(R.id.feedLV);
         shared = view.findViewById(R.id.shared);
         shared.setChecked(true);
@@ -77,14 +77,15 @@ public class FeedFragment extends Fragment {
         return view;
     }
 
-    private void buildFriendList(){
+    private void buildFriendList() {
         friendLL = view.findViewById(R.id.friendLL);
         LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-        for(ProfileModel profile : profile.getFriendList()){
+        for (ProfileModel profile : profile.getFriendList()) {
             RelativeLayout rL = (RelativeLayout) inflater.inflate(R.layout.friend_list_item, null);
             ImageView avatarFriend = rL.findViewById(R.id.avatarFriend);
             TextView nameFriend = rL.findViewById(R.id.nameFriend);
-            avatarFriend.setImageResource(view.getResources().getIdentifier(profile.getName().replaceAll(" ", "").replaceAll("-","").toLowerCase(),"drawable", view.getContext().getPackageName()));
+            avatarFriend.setImageResource(view.getResources().getIdentifier(profile.getName()
+                    .replaceAll(" ", "").replaceAll("-", "").toLowerCase(), "drawable", view.getContext().getPackageName()));
             nameFriend.setText(profile.getName());
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(0, 0, 40, 0);
@@ -92,7 +93,7 @@ public class FeedFragment extends Fragment {
         }
     }
 
-    private void buildFeedList(){
+    private void buildFeedList() {
         restaurantList.clear();
         if (shared.isChecked()) {
             System.out.println("On est dans le checked du shared");
@@ -107,7 +108,7 @@ public class FeedFragment extends Fragment {
                     restaurantList.add(visit.getRestaurant());
             }
         }
-        System.out.println("La liste vaut"+ restaurantList.toString());
+        System.out.println("La liste vaut" + restaurantList.toString());
 
     }
 

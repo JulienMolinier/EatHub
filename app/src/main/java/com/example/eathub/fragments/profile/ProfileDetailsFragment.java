@@ -13,7 +13,6 @@ import android.widget.ListView;
 
 import com.example.eathub.R;
 import com.example.eathub.models.ProfileModel;
-import com.example.eathub.models.databases.ProfileDatabase;
 
 public class ProfileDetailsFragment extends Fragment {
 
@@ -29,8 +28,6 @@ public class ProfileDetailsFragment extends Fragment {
         detailsListView = view.findViewById(R.id.detailsListView);
         profilePic = view.findViewById(R.id.profilePic);
 
-        this.profileModel = ProfileDatabase.getProfile("mm.durand@gmail.com");
-
         profilePic.setImageResource(view.getResources()
                 .getIdentifier(this.profileModel.getName().replaceAll(" ", "")
                                 .replaceAll("-", "").toLowerCase(), "drawable",
@@ -38,5 +35,9 @@ public class ProfileDetailsFragment extends Fragment {
 
         this.detailsListView.setAdapter(new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, this.profileModel.getProfileDetailsList()));
         return view;
+    }
+
+    public void setProfile(ProfileModel profile) {
+        this.profileModel = profile;
     }
 }

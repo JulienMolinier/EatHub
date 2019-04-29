@@ -59,10 +59,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
+
         FeedFragment feedFragment = new FeedFragment();
         feedFragment.setProfile(connectedProfile);
         adapter.addFragment(feedFragment, "Feed");
-        adapter.addFragment(new ProfileFragment(), "Profile");
+
+        ProfileFragment profileFragment = new ProfileFragment();
+        profileFragment.setProfile(connectedProfile);
+        adapter.addFragment(profileFragment, "Profile");
+
         viewPager.setAdapter(adapter);
     }
 }

@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.example.eathub.R;
 import com.example.eathub.models.ProfileModel;
-import com.example.eathub.models.databases.ProfileDatabase;
 
 import java.time.LocalDate;
 
@@ -39,8 +38,6 @@ public class ProfileStatsFragment extends Fragment {
         budgetBar = view.findViewById(R.id.budgetBar);
         restVis = view.findViewById(R.id.restVis);
         spinner = view.findViewById(R.id.spinner);
-
-        this.profileModel = ProfileDatabase.getProfile("mm.durand@gmail.com");
 
         adapter = ArrayAdapter.createFromResource(this.getContext(),
                 R.array.choice_array, android.R.layout.simple_spinner_item);
@@ -94,6 +91,10 @@ public class ProfileStatsFragment extends Fragment {
         budgetBar.setProgress((int) (this.profileModel.getSpend() /
                 (this.profileModel.getBudget() * this.numberOfDay) * 100));
 
+    }
+
+    public void setProfile(ProfileModel profile) {
+        this.profileModel = profile;
     }
 
 }

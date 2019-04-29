@@ -12,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.eathub.R;
+import com.example.eathub.models.ProfileModel;
 
 public class ProfileFragment extends Fragment {
     private View view;
+    private ProfileModel profileModel;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -23,13 +25,19 @@ public class ProfileFragment extends Fragment {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_details:
-                    showFragment(new ProfileDetailsFragment());
+                    ProfileDetailsFragment profileDetailsFragment = new ProfileDetailsFragment();
+                    profileDetailsFragment.setProfile(profileModel);
+                    showFragment(profileDetailsFragment);
                     return true;
                 case R.id.navigation_charts:
-                    showFragment(new ProfileChartsFragment());
+                    ProfileChartsFragment profileChartsFragment = new ProfileChartsFragment();
+                    profileChartsFragment.setProfile(profileModel);
+                    showFragment(profileChartsFragment);
                     return true;
                 case R.id.navigation_stats:
-                    showFragment(new ProfileStatsFragment());
+                    ProfileStatsFragment profileStatsFragment = new ProfileStatsFragment();
+                    profileStatsFragment.setProfile(profileModel);
+                    showFragment(profileStatsFragment);
                     return true;
             }
             return false;
@@ -45,7 +53,9 @@ public class ProfileFragment extends Fragment {
         BottomNavigationView navigation = view.findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        showFragment(new ProfileDetailsFragment());
+        ProfileDetailsFragment defaultFragment = new ProfileDetailsFragment();
+        defaultFragment.setProfile(profileModel);
+        showFragment(defaultFragment);
 
         return view;
     }
@@ -55,5 +65,9 @@ public class ProfileFragment extends Fragment {
         fragmentManager.beginTransaction()
                 .replace(R.id.contain, fragment)
                 .commit();
+    }
+
+    public void setProfile(ProfileModel profile) {
+        this.profileModel = profile;
     }
 }

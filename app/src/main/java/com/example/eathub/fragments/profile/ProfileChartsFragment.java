@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.eathub.R;
+import com.example.eathub.models.ProfileModel;
 
 public class ProfileChartsFragment extends Fragment {
     private View view;
+    private ProfileModel profileModel;
 
     @Nullable
     @Override
@@ -19,5 +21,9 @@ public class ProfileChartsFragment extends Fragment {
         view = inflater.inflate(R.layout.profilecharts, container, false);
 
         return view;
+    }
+
+    public void setProfile(ProfileModel profile) {
+        this.profileModel = profile;
     }
 }
