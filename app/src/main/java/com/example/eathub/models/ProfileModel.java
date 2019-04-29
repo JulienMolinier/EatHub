@@ -72,6 +72,7 @@ public class ProfileModel implements Parcelable {
         profileDetailsList = in.createStringArrayList();
         visitNumber = in.readInt();
         sharedRestaurants = in.createTypedArrayList(RestaurantModel.CREATOR);
+        history = in.createTypedArrayList(VisitModel.CREATOR);
     }
 
     @Override
@@ -90,6 +91,7 @@ public class ProfileModel implements Parcelable {
         dest.writeStringList(profileDetailsList);
         dest.writeInt(visitNumber);
         dest.writeTypedList(sharedRestaurants);
+        dest.writeTypedList(history);
     }
 
     @Override
