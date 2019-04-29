@@ -67,23 +67,28 @@ public class ProfileModel {
                 "Fence: " + this.culinaryFence));
     }
 
-    public void setHistory(Object comboBoxChoice, ArrayList choices) {
+    public void setHistory(int spinnerChoice) {
         LocalDate today = LocalDate.now();
         this.history.clear();
-        if (comboBoxChoice.equals(choices.get(0))) {
+        if (spinnerChoice == 2) {
             this.history.addAll(VisitDatabase.getVisitsByProfile(this)
                     .stream()
-                    .filter(visitModel -> visitModel.getDate().getMonth().equals(today.getMonth()))
+                    .filter(visitModel -> visitModel.getDate().getMonth() == today.getMonth())
                     .collect(Collectors.toList()));
-        } else if (comboBoxChoice.equals(choices.get(1))) {
+        } else if (spinnerChoice == 1) {
             this.history.addAll(VisitDatabase.getVisitsByProfile(this)
                     .stream()
                     .filter(visitModel -> visitModel.getDate().isAfter(today.minusWeeks(1)))
                     .collect(Collectors.toList()));
-        } else {
+        } else if (spinnerChoice == 0) {
             this.history.addAll(VisitDatabase.getVisitsByProfile(this)
                     .stream()
                     .filter(visitModel -> visitModel.getDate().equals(today))
+                    .collect(Collectors.toList()));
+        } else {
+            this.history.addAll(VisitDatabase.getVisitsByProfile(this)
+                    .stream()
+                    .filter(visitModel -> visitModel.getDate().getYear() == today.getYear())
                     .collect(Collectors.toList()));
         }
         history.sort(Comparator.comparing(VisitModel::getDate).reversed());
@@ -222,7 +227,8 @@ public class ProfileModel {
     public boolean equals(Object obj) {
         if (obj != null) {
             ProfileModel person = (ProfileModel) obj;
-            return this.toString().equals(person.toString());
+            return this.email.equals(person.email) && this.firstName.equals(person.firstName)
+                    && this.surname.equals(person.surname);
         }
         return false;
     }
