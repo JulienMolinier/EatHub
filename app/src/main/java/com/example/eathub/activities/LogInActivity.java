@@ -4,6 +4,11 @@ import com.example.eathub.R;
 import com.example.eathub.models.LogInModel;
 import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.databases.ProfileDatabase;
+import com.example.eathub.models.databases.ProfilesFactory;
+import com.example.eathub.models.databases.RestaurantDatabase;
+import com.example.eathub.models.databases.RestaurantsFactory;
+import com.example.eathub.models.databases.VisitDatabase;
+import com.example.eathub.models.databases.VisitsFactory;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +29,12 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        RestaurantDatabase DbResto = new RestaurantDatabase();
+        ProfileDatabase DbProfile = new ProfileDatabase();
+        VisitDatabase DbVisit = new VisitDatabase();
+        RestaurantsFactory.createRestaurantsList(getResources().openRawResource(R.raw.restaurants));
+        ProfilesFactory.createProfilesList(getResources().openRawResource(R.raw.profiles));
+        VisitsFactory.createVisitList(getResources().openRawResource(R.raw.visits));
         setContentView(R.layout.login);
 
 
@@ -64,7 +75,8 @@ public class LogInActivity extends AppCompatActivity {
                     errorMessage.setVisibility(View.INVISIBLE);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     ProfileModel profile = ProfileDatabase.getProfile(email);
-                    intent.putExtra("user profile",profile);
+                    System.out.println("Le profil renvoyé est"+profile.getName());
+                    intent.putExtra("userprofile",profile);
                     startActivity(intent);
                 } else {
                     errorMessage.setText(getString(R.string.logInErrorBadPassword));

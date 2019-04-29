@@ -76,6 +76,7 @@ public class ProfileModel implements Parcelable {
         caloriesPercentage = in.readDouble();
         spendString = in.readString();
         caloriesString = in.readString();
+        sharedRestaurants = in.createTypedArrayList(RestaurantModel.CREATOR);
     }
 
     @Override
@@ -88,8 +89,8 @@ public class ProfileModel implements Parcelable {
         dest.writeInt(age);
         dest.writeDouble(height);
         dest.writeDouble(weight);
-        dest.writeInt(diet.ordinal());
         dest.writeDouble(budget);
+        dest.writeInt(diet.ordinal());
         dest.writeTypedList(friendList);
         dest.writeStringList(profileDetailsList);
         dest.writeInt(visitNumber);
@@ -97,6 +98,7 @@ public class ProfileModel implements Parcelable {
         dest.writeDouble(caloriesPercentage);
         dest.writeString(spendString);
         dest.writeString(caloriesString);
+        dest.writeTypedList(sharedRestaurants);
     }
 
     @Override
