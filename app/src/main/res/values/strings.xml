@@ -1,6 +1,27 @@
 <resources>
     <string name="app_name">EatHub</string>
 
+    <!-- for log in page -->
+    <string name="logInErrorBadEmail">Incorrect e-mail</string>
+    <string name="logInErrorBadPassword">Incorrect password</string>
+
+    <!-- for sign up page -->
+    <string name="firstNamePrompt">first name</string>
+    <string name="lastNamePrompt">last name</string>
+    <string name="genderPrompt">gender</string>
+    <string name="birthDatePrompt">birth date</string>
+    <string name="weightPrompt">weight</string>
+    <string name="heightPrompt">height</string>
+    <string name="budgetPrompt">budget</string>
+    <string name="dietPrompt">special diet</string>
+    <string name="cuisinePrompt">favorite cuisine</string>
+    <string name="objectivePrompt">objective</string>
+    <string name="emailPrompt">e-mail</string>
+    <string name="passwordPrompt">password</string>
+    <string name="passwordAgainPrompt">password again</string>
+    <string name="iAcceptThePrivacyPolicy">I accept the privacy policy</string>
+    <string name="iWantNotifications">I want to receive notifications</string>
+
     <string name="bottom_navigation_profile_details">Details</string>
     <string name="bottom_navigation_profile_charts">Charts</string>
     <string name="bottom_navigation_profile_stats">Stats</string>
@@ -12,6 +33,4 @@
     <string name="filter">Filter by :</string>
     <string name="buttonBack">Back</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

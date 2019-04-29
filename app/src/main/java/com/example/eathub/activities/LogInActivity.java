@@ -2,6 +2,8 @@ package com.example.eathub.activities;
 
 import com.example.eathub.R;
 import com.example.eathub.models.LogInModel;
+import com.example.eathub.models.ProfileModel;
+import com.example.eathub.models.databases.ProfileDatabase;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,9 +36,9 @@ public class LogInActivity extends AppCompatActivity {
 
         signupLink.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                //startActivity(intent);
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -44,9 +46,9 @@ public class LogInActivity extends AppCompatActivity {
 
         forgotPasswordLink.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
-                //startActivity(intent);
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -54,7 +56,7 @@ public class LogInActivity extends AppCompatActivity {
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View arg0) {
+            public void onClick(View view) {
 
                 EditText emailField = findViewById(R.id.email);
                 String email = emailField.getText().toString();
@@ -69,14 +71,16 @@ public class LogInActivity extends AppCompatActivity {
                 if (model.correctEmail()) {
                     if (model.correctPassword()) {
                         errorMessage.setVisibility(View.INVISIBLE);
-                        //Intent intent = new Intent(getApplicationContext(), FeedActivity.class);
-                        //startActivity(intent);
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        ProfileModel profile = ProfileDatabase.getProfile(email);
+                        //intent.putExtra("user profile",profile);
+                        startActivity(intent);
                     } else {
-                        errorMessage.setText("Incorrect password");
+                        errorMessage.setText(getString(R.string.logInErrorBadPassword));
                         errorMessage.setVisibility(View.VISIBLE);
                     }
                 } else  {
-                    errorMessage.setText("Incorrect e-mail");
+                    errorMessage.setText(getString(R.string.logInErrorBadEmail));
                     errorMessage.setVisibility(View.VISIBLE);
                 }
             }
