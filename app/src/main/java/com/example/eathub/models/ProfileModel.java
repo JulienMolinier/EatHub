@@ -1,4 +1,8 @@
 package com.example.eathub.models;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.eathub.models.databases.VisitDatabase;
 
 import java.time.LocalDate;
@@ -8,11 +12,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProfileModel {
+public class ProfileModel implements Parcelable {
 
     private String email;
     private String password;
-    private String imagePath;
     private String firstName;
     private String surname;
     private String birthdate;
@@ -22,7 +25,6 @@ public class ProfileModel {
     private double budget;
     private Diet diet;
     private CulinaryFence culinaryFence;
-    //private Image profilePic;
     private List<ProfileModel> friendList;
     private List<RestaurantModel> sharedRestaurants;
 
@@ -34,10 +36,9 @@ public class ProfileModel {
     private String spendString;
     private String caloriesString;
 
-    public ProfileModel(String email, String password, String imagePath, String firstName, String surname,
+    public ProfileModel(String email, String password, String firstName, String surname,
                         String birthdate, double height, double weight, double budget, Diet diet,
                         CulinaryFence culinaryFence) {
-        this.imagePath = imagePath;
         this.firstName = firstName;
         this.surname = surname;
         this.birthdate = birthdate;
@@ -50,46 +51,105 @@ public class ProfileModel {
         this.email = email;
         this.password = password;
         this.friendList = new ArrayList<>();
-        //this.profilePic = new Image(imagePath);
         this.sharedRestaurants = new ArrayList<>();
         this.history = new ArrayList<>();
         this.profileDetailsList = new ArrayList<>();
+        updateProfileList();
 
     }
 
-    public String getImagePath() {
-        return imagePath;
+    protected ProfileModel(Parcel in) {
+        email = in.readString();
+        password = in.readString();
+        firstName = in.readString();
+        surname = in.readString();
+        birthdate = in.readString();
+        age = in.readInt();
+        height = in.readDouble();
+        weight = in.readDouble();
+        budget = in.readDouble();
+        diet = Diet.values()[in.readInt()];
+        friendList = in.createTypedArrayList(ProfileModel.CREATOR);
+        profileDetailsList = in.createStringArrayList();
+        visitNumber = in.readInt();
+        spendPercentage = in.readDouble();
+        caloriesPercentage = in.readDouble();
+        spendString = in.readString();
+        caloriesString = in.readString();
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(email);
+        dest.writeString(password);
+        dest.writeString(firstName);
+        dest.writeString(surname);
+        dest.writeString(birthdate);
+        dest.writeInt(age);
+        dest.writeDouble(height);
+        dest.writeDouble(weight);
+        dest.writeInt(diet.ordinal());
+        dest.writeDouble(budget);
+        dest.writeTypedList(friendList);
+        dest.writeStringList(profileDetailsList);
+        dest.writeInt(visitNumber);
+        dest.writeDouble(spendPercentage);
+        dest.writeDouble(caloriesPercentage);
+        dest.writeString(spendString);
+        dest.writeString(caloriesString);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<ProfileModel> CREATOR = new Creator<ProfileModel>() {
+        @Override
+        public ProfileModel createFromParcel(Parcel in) {
+            return new ProfileModel(in);
+        }
+
+        @Override
+        public ProfileModel[] newArray(int size) {
+            return new ProfileModel[size];
+        }
+    };
 
     public void updateProfileList() {
         profileDetailsList.clear();
-        profileDetailsList.addAll(Arrays.asList(this.firstName,
-                this.surname,
-                this.age + " years old",
-                this.height + " m",
-                this.weight + " kg",
-                this.budget + " €",
+        profileDetailsList.addAll(Arrays.asList("Firstname: " + this.firstName,
+                "Surname: " + this.surname,
+                "Age: " + this.age + " years old",
+                "Height: " + this.height + " m",
+                "Weight: " + this.weight + " kg",
+                "Budget: " + this.budget + " €",
                 "Diet: " + this.diet,
                 "Fence: " + this.culinaryFence));
     }
-    /*
-    public void setHistory(Object comboBoxChoice, ArrayList choices) {
+
+    public void setHistory(int spinnerChoice) {
         LocalDate today = LocalDate.now();
         this.history.clear();
-        if (comboBoxChoice.equals(choices.get(0))) {
+        if (spinnerChoice == 2) {
             this.history.addAll(VisitDatabase.getVisitsByProfile(this)
                     .stream()
-                    .filter(visitModel -> visitModel.getDate().getMonth().equals(today.getMonth()))
+                    .filter(visitModel -> visitModel.getDate().getMonth() == today.getMonth())
                     .collect(Collectors.toList()));
-        } else if (comboBoxChoice.equals(choices.get(1))) {
+        } else if (spinnerChoice == 1) {
             this.history.addAll(VisitDatabase.getVisitsByProfile(this)
                     .stream()
                     .filter(visitModel -> visitModel.getDate().isAfter(today.minusWeeks(1)))
                     .collect(Collectors.toList()));
-        } else {
+        } else if (spinnerChoice == 0) {
             this.history.addAll(VisitDatabase.getVisitsByProfile(this)
                     .stream()
                     .filter(visitModel -> visitModel.getDate().equals(today))
+                    .collect(Collectors.toList()));
+        } else {
+            this.history.addAll(VisitDatabase.getVisitsByProfile(this)
+                    .stream()
+                    .filter(visitModel -> visitModel.getDate().getYear() == today.getYear())
                     .collect(Collectors.toList()));
         }
         history.sort(Comparator.comparing(VisitModel::getDate).reversed());
@@ -105,18 +165,6 @@ public class ProfileModel {
         spendPercentage = spend / (this.budget * numberOfDay);
         caloriesPercentage = caloriesConsumed / (required * numberOfDay);
         visitNumber = this.history.size();
-    }*/
-
-    @Override
-    public String toString() {
-        return "FirstName: " + firstName + '\n' +
-                "Surname: " + surname + '\n' +
-                "birthdate: " + birthdate + '\n' +
-                "height: " + height + '\n' +
-                "Weight: " + weight + '\n' +
-                "Budget: " + budget + '\n' +
-                "Diet: " + diet + '\n' +
-                "CulinaryFence: " + culinaryFence;
     }
 
     public String getFirstName() {
@@ -162,10 +210,6 @@ public class ProfileModel {
     public String getName() {
         return this.firstName + " " + this.surname;
     }
-
-    /*public Image getProfilePic() {
-        return profilePic;
-    }*/
 
     public List<RestaurantModel> getSharedRestaurants() {
         return sharedRestaurants;
@@ -244,7 +288,8 @@ public class ProfileModel {
     public boolean equals(Object obj) {
         if (obj != null) {
             ProfileModel person = (ProfileModel) obj;
-            return this.toString().equals(person.toString());
+            return this.email.equals(person.email) && this.firstName.equals(person.firstName)
+                    && this.surname.equals(person.surname);
         }
         return false;
     }

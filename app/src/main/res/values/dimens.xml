@@ -1,3 +1,8 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="signUpFieldWidth1">380dp</dimen>
+    <dimen name="signUpFieldWidth2">185dp</dimen>
+    <dimen name="signUpFieldWidth3">120dp</dimen>
+    <dimen name="signUpFieldHeight">30dp</dimen>
 </resources>

@@ -6,15 +6,20 @@
     <RelativeLayout
         android:id="@+id/friendLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/friendLL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal" />
         </HorizontalScrollView>
     </RelativeLayout>
@@ -32,17 +37,17 @@
             android:gravity="center">
 
             <CheckBox
-                android:id="@+id/checkBox"
+                android:id="@+id/shared"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Shared" />
 
             <CheckBox
-                android:id="@+id/checkBox2"
+                android:id="@+id/visited"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/checkBox"
+                android:layout_toRightOf="@+id/shared"
                 android:text="Visited" />
         </RelativeLayout>
 

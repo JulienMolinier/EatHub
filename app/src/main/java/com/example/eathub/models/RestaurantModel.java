@@ -1,28 +1,61 @@
 package com.example.eathub.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.eathub.models.databases.VisitDatabase;
 
 import java.util.List;
 
-public class RestaurantModel {
+public class RestaurantModel implements Parcelable {
     private String name;
-    //private Image pic;
     private double price;
     private CulinaryFence culinaryFence;
-    private String imagePath;
     private String address;
     private String phoneNumber;
 
-    public RestaurantModel(String name, String imagePath, double price, CulinaryFence culinaryFence,
+    public RestaurantModel(String name, double price, CulinaryFence culinaryFence,
                            String address, String phoneNumber) {
         this.name = name;
-        this.imagePath = imagePath;
-        //this.pic = new Image(imagePath);
         this.price = price;
         this.culinaryFence = culinaryFence;
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
+
+    protected RestaurantModel(Parcel in) {
+        name = in.readString();
+        price = in.readDouble();
+        culinaryFence = CulinaryFence.values()[in.readInt()];
+        address = in.readString();
+        phoneNumber = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeDouble(price);
+        dest.writeInt(culinaryFence.ordinal());
+        dest.writeString(address);
+        dest.writeString(phoneNumber);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<RestaurantModel> CREATOR = new Creator<RestaurantModel>() {
+        @Override
+        public RestaurantModel createFromParcel(Parcel in) {
+            return new RestaurantModel(in);
+        }
+
+        @Override
+        public RestaurantModel[] newArray(int size) {
+            return new RestaurantModel[size];
+        }
+    };
 
     public String getAddress() {
         return address;
@@ -30,10 +63,6 @@ public class RestaurantModel {
 
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public String getImagePath() {
-        return imagePath;
     }
 
     public Double getRating() {

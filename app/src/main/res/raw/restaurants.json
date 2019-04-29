@@ -2,140 +2,40 @@
   "Restaurants": [
     {
       "name": "Pizza Corsica",
-      "pic": {
-        "progress": 1.0,
-        "requestedWidth": 0.0,
-        "requestedHeight": 0.0,
-        "width": 500.0,
-        "height": 500.0,
-        "preserveRatio": false,
-        "smooth": false,
-        "backgroundLoading": false,
-        "error": false,
-        "exception": null,
-        "pixelReader": {
-          "pixelFormat": {
-            "type": "BYTE_RGB",
-            "writable": true,
-            "premultiplied": false
-          }
-        }
-      },
       "price": 15.0,
       "culinaryFence": "italian",
-      "imagePath": "pizzacorsica.jpg",
       "address": "5895 rue des arbres",
       "phoneNumber": "0102030405",
       "rating": 3.0
     },
     {
       "name": "Le Belagio",
-      "pic": {
-        "progress": 1.0,
-        "requestedWidth": 0.0,
-        "requestedHeight": 0.0,
-        "width": 366.0,
-        "height": 366.0,
-        "preserveRatio": false,
-        "smooth": false,
-        "backgroundLoading": false,
-        "error": false,
-        "exception": null,
-        "pixelReader": {
-          "pixelFormat": {
-            "type": "BYTE_RGB",
-            "writable": true,
-            "premultiplied": false
-          }
-        }
-      },
       "price": 25.0,
       "culinaryFence": "italian",
-      "imagePath": "bellagio.jpg",
       "address": " 20 rue des arbres",
       "phoneNumber": "0102030405",
       "rating": 0.0
     },
     {
       "name": "Le Barbusse",
-      "pic": {
-        "progress": 1.0,
-        "requestedWidth": 0.0,
-        "requestedHeight": 0.0,
-        "width": 470.0,
-        "height": 470.0,
-        "preserveRatio": false,
-        "smooth": false,
-        "backgroundLoading": false,
-        "error": false,
-        "exception": null,
-        "pixelReader": {
-          "pixelFormat": {
-            "type": "BYTE_RGB",
-            "writable": true,
-            "premultiplied": false
-          }
-        }
-      },
       "price": 18.0,
       "culinaryFence": "vegan",
-      "imagePath": "barbusse.jpg",
       "address": "18 rue des arbres",
       "phoneNumber": "0102030405",
       "rating": 3.75
     },
     {
       "name": "McDo",
-      "pic": {
-        "progress": 1.0,
-        "requestedWidth": 0.0,
-        "requestedHeight": 0.0,
-        "width": 366.0,
-        "height": 366.0,
-        "preserveRatio": false,
-        "smooth": false,
-        "backgroundLoading": false,
-        "error": false,
-        "exception": null,
-        "pixelReader": {
-          "pixelFormat": {
-            "type": "BYTE_RGB",
-            "writable": true,
-            "premultiplied": false
-          }
-        }
-      },
       "price": 8.0,
       "culinaryFence": "american",
-      "imagePath": "mcdo.png",
       "address": "15 rue des arbres",
       "phoneNumber": "0102030405",
       "rating": 0.0
     },
     {
       "name": "Le Riche",
-      "pic": {
-        "progress": 1.0,
-        "requestedWidth": 0.0,
-        "requestedHeight": 0.0,
-        "width": 345.0,
-        "height": 345.0,
-        "preserveRatio": false,
-        "smooth": false,
-        "backgroundLoading": false,
-        "error": false,
-        "exception": null,
-        "pixelReader": {
-          "pixelFormat": {
-            "type": "BYTE_RGB",
-            "writable": true,
-            "premultiplied": false
-          }
-        }
-      },
       "price": 30.0,
       "culinaryFence": "asian",
-      "imagePath": "leriche.jpg",
       "address": "12 rue des arbres",
       "phoneNumber": "0102030405",
       "rating": 0.0

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/goBack"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        app:srcCompat="@drawable/go_back" />
+
+    <TextView
+        android:id="@+id/signUpTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/goBack"
+        android:layout_centerInParent="true"
+        android:text="Welcome to EatHub!"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/signUpSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signUpTitle"
+        android:layout_centerInParent="true"
+        android:text="Fill in the form to sign up."
+        android:textSize="24sp" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/signUpSubtitle">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/firstName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/firstNamePrompt"
+                    android:inputType="textPersonName"
+                    android:maxWidth="@dimen/signUpFieldWidth2"
+                    android:maxHeight="@dimen/signUpFieldHeight"
+                    android:minWidth="@dimen/signUpFieldWidth2"
+                    android:minHeight="@dimen/signUpFieldHeight" />
+
+                <EditText
+                    android:id="@+id/lastName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/firstName"
+                    android:ems="10"
+                    android:hint="@string/lastNamePrompt"
+                    android:inputType="textPersonName"
+                    android:maxWidth="@dimen/signUpFieldWidth2"
+                    android:maxHeight="@dimen/signUpFieldHeight"
+                    android:minWidth="@dimen/signUpFieldWidth2"
+                    android:minHeight="@dimen/signUpFieldHeight" />
+
+                <RelativeLayout
+                    android:id="@+id/genderChoiceBoxLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/firstName">
+
+                    <Spinner
+                        android:id="@+id/genderChoiceBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:animateLayoutChanges="true"
+                        android:autofillHints="@string/genderPrompt"
+                        android:clipChildren="false"
+                        android:minWidth="@dimen/signUpFieldWidth2"
+                        android:minHeight="@dimen/signUpFieldHeight" />
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/datePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/firstName"
+                    android:layout_toRightOf="@+id/genderChoiceBoxLayout"
+                    android:ems="10"
+                    android:hint="@string/birthDatePrompt"
+                    android:inputType="date"
+                    android:maxHeight="@dimen/signUpFieldHeight"
+                    android:minHeight="@dimen/signUpFieldHeight" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_row="6"
+        android:layout_column="0"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/holo_orange_light"
+        android:text="SIGN UP"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+</RelativeLayout>

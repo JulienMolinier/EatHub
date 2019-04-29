@@ -1,4 +1,5 @@
 package com.example.eathub.models;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -29,7 +30,7 @@ public class ForgotPasswordModel {
         try {
             JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(jsonFile));
             JSONArray profileArray = (JSONArray) jsonObject.get("Profiles");
-            for (Object o : profileArray) {
+            for (Object o: profileArray) {
                 JSONObject jo = (JSONObject) o;
                 String userEmail = (String) jo.get("email");
                 allEmails.add(userEmail);

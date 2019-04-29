@@ -30,6 +30,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        RestaurantDatabase DbResto = new RestaurantDatabase();
+        ProfileDatabase DbProfile = new ProfileDatabase();
+        VisitDatabase DbVisit = new VisitDatabase();
+        RestaurantsFactory.createRestaurantsList(getResources().openRawResource(R.raw.restaurants));
+        ProfilesFactory.createProfilesList(getResources().openRawResource(R.raw.profiles));
+        VisitsFactory.createVisitList(getResources().openRawResource(R.raw.visits));
+
         setContentView(R.layout.activity_main);
         fragAdapter = new FragmentAdapter(getSupportFragmentManager());
 
@@ -38,12 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(vwPager);
-        RestaurantDatabase DbResto = new RestaurantDatabase();
-        ProfileDatabase DbProfile = new ProfileDatabase();
-        VisitDatabase DbVisit = new VisitDatabase();
-        RestaurantsFactory.createRestaurantsList(getResources().openRawResource(R.raw.restaurants));
-        ProfilesFactory.createProfilesList(getResources().openRawResource(R.raw.profiles));
-        VisitsFactory.createVisitList(getResources().openRawResource(R.raw.visits));
+
 
 
         search = findViewById(R.id.search);
@@ -69,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FeedFragment(), "Feed");
+        FeedFragment feedFragment = new FeedFragment();
+        feedFragment.setProfile(ProfileDatabase.getAllProfiles().get(0));
+        adapter.addFragment(feedFragment, "Feed");
         adapter.addFragment(new ProfileFragment(), "Profile");
         viewPager.setAdapter(adapter);
     }

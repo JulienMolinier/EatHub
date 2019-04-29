@@ -1,16 +1,16 @@
 package com.example.eathub.models.databases;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import com.example.eathub.models.CulinaryFence;
 import com.example.eathub.models.Diet;
 import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -49,7 +49,6 @@ public class ProfilesFactory {
     static ProfileModel createProfile(JSONObject object) {
         String email = (String) object.get("email");
         String password = (String) object.get("password");
-        String imagePath = (String) object.get("imagePath");
         String firstName = (String) object.get("firstName");
         String surname = (String) object.get("surname");
         String birthdate = (String) object.get("birthdate");
@@ -59,7 +58,7 @@ public class ProfilesFactory {
         Diet diet = Diet.fromName((String) object.get("diet"));
         CulinaryFence culinaryFence = CulinaryFence.fromName((String) object.get("culinaryFence"));
 
-        ProfileModel profile = new ProfileModel(email, password, imagePath, firstName, surname,
+        ProfileModel profile = new ProfileModel(email, password, firstName, surname,
                 birthdate, height, weight, budget, diet, culinaryFence);
 
         JSONArray array = (JSONArray) object.get("sharedRestaurants");
