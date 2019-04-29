@@ -11,10 +11,14 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.eathub.R;
+import com.example.eathub.models.ProfileModel;
+import com.example.eathub.models.RestaurantModel;
 
 public class RestaurantCommentsFragment extends Fragment {
     private View view;
     private ListView detailsListView;
+    private ProfileModel profileModel;
+    private RestaurantModel restaurantModel;
 
     @Nullable
     @Override
@@ -24,5 +28,12 @@ public class RestaurantCommentsFragment extends Fragment {
         Button addACommentButton = view.findViewById(R.id.addACommentButton);
 
         return view;
+    }
+
+    public void setProfileModel(ProfileModel profileModel) {
+        this.profileModel = profileModel;
+    }
+    public void setRestaurantModel(RestaurantModel restaurantModel){
+        this.restaurantModel=restaurantModel;
     }
 }

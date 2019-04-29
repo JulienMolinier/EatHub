@@ -50,4 +50,11 @@ public class RestaurantProfileFragment extends Fragment {
         restaurantRate.setRating((int)this.restaurantModel.getRating());
         return view;
     }
+
+    public void setProfileModel(ProfileModel profileModel) {
+        this.profileModel = profileModel;
+    }
+    public void setRestaurantModel(RestaurantModel restaurantModel){
+        this.restaurantModel=restaurantModel;
+    }
 }

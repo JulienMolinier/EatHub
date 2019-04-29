@@ -19,7 +19,6 @@ import com.example.eathub.models.RestaurantModel;
 
 public class RestaurantFragment extends Fragment {
     private View view;
-    private RestaurantModel restaurantModel;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
