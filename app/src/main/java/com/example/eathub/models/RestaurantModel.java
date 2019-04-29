@@ -28,7 +28,7 @@ public class RestaurantModel {
         return phoneNumber;
     }
 
-    public Double getRating() {
+    public double getRating() {
         double sum = 0;
         List<VisitModel> visits = VisitDatabase.getVisitsByRestaurant(this);
         if (visits.size() == 0) {

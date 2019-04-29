@@ -25,7 +25,6 @@
             android:paddingTop="0dp"
             android:paddingBottom="0dp"
             app:layout_constrainedHeight="false"
-            app:srcCompat="@drawable/barbusse"
             tools:layout_editor_absoluteX="0dp" />
 
     </RelativeLayout>
@@ -53,18 +52,39 @@
         android:id="@+id/relativeLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="360dp"
         android:layout_marginBottom="60dp"
-        android:layout_marginLeft="30dp"
         android:gravity="start">
+
+        <TextView
+            android:id="@+id/restaurantTelLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:labelFor="@id/restaurantTel"
+            android:text="Tel:"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/restaurantTel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_horizontal"
-            android:text=" Tel: 0102030405"
-            android:textSize="20dp"/>
+            android:layout_toRightOf="@id/restaurantTelLabel"
+            android:textSize="20dp" />
+
+
+        <TextView
+            android:id="@+id/restaurantAdressLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/restaurantTel"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginTop="20dp"
+            android:labelFor="@id/restaurantAdress"
+            android:text="Adress:"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/restaurantAdress"
@@ -73,9 +93,19 @@
             android:layout_below="@id/restaurantTel"
             android:layout_gravity="center|center_horizontal"
             android:layout_marginTop="20dp"
-            android:text=" Adress : 5895 rue des arbres"
-            android:textSize="20dp"
-            />
+            android:layout_toRightOf="@id/restaurantAdressLabel"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/restaurantFoodTypeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/restaurantAdress"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginTop="20dp"
+            android:labelFor="@id/restaurantFoodType"
+            android:text="Food Type:"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/restaurantFoodType"
@@ -84,26 +114,35 @@
             android:layout_below="@id/restaurantAdress"
             android:layout_gravity="center|center_horizontal"
             android:layout_marginTop="20dp"
-            android:text=" Food Type : indian"
-            android:textSize="20dp"
-            />
+            android:layout_toRightOf="@id/restaurantFoodTypeLabel"
+            android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/restaurantRate"
+            android:id="@+id/restaurantCostLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/restaurantFoodType"
             android:layout_gravity="center|center_horizontal"
             android:layout_marginTop="20dp"
-            android:text=" Cost : $$"
-            android:textSize="20dp"
-             />
+            android:labelFor="@id/restaurantCost"
+            android:text="Cost:"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/restaurantCost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/restaurantFoodType"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/restaurantCostLabel"
+            android:textSize="20dp" />
 
         <RatingBar
-            android:id="@+id/ratingBar"
+            android:id="@+id/restaurantRate"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_below="@id/restaurantRate"
+            android:layout_below="@id/restaurantCost"
             android:layout_marginTop="20dp" />
 
     </RelativeLayout>
@@ -116,7 +155,7 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/sharedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Shared it !" />

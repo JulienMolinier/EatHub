@@ -15,9 +15,11 @@ import com.example.eathub.R;
 import com.example.eathub.fragments.profile.ProfileChartsFragment;
 import com.example.eathub.fragments.profile.ProfileDetailsFragment;
 import com.example.eathub.fragments.profile.ProfileStatsFragment;
+import com.example.eathub.models.RestaurantModel;
 
 public class RestaurantFragment extends Fragment {
     private View view;
+    private RestaurantModel restaurantModel;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
