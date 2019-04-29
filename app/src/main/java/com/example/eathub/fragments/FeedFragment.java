@@ -1,6 +1,5 @@
 package com.example.eathub.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,8 +21,6 @@ import com.example.eathub.adapters.RestaurantListAdapter;
 import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
 import com.example.eathub.models.VisitModel;
-import com.example.eathub.models.databases.ProfileDatabase;
-import com.example.eathub.models.databases.RestaurantDatabase;
 import com.example.eathub.models.databases.VisitDatabase;
 
 import java.util.ArrayList;
@@ -39,9 +36,6 @@ public class FeedFragment extends Fragment {
     private CheckBox shared;
     private CheckBox visited;
     private RestaurantListAdapter myRestaurantListAdapter;
-
-
-
 
     @Nullable
     @Override

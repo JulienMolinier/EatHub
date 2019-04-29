@@ -1,5 +1,13 @@
 package com.example.eathub.activities;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import com.example.eathub.R;
 import com.example.eathub.models.LogInModel;
 import com.example.eathub.models.ProfileModel;
@@ -9,15 +17,6 @@ import com.example.eathub.models.databases.RestaurantDatabase;
 import com.example.eathub.models.databases.RestaurantsFactory;
 import com.example.eathub.models.databases.VisitDatabase;
 import com.example.eathub.models.databases.VisitsFactory;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-
 
 
 /**
@@ -37,27 +36,19 @@ public class LogInActivity extends AppCompatActivity {
         VisitsFactory.createVisitList(getResources().openRawResource(R.raw.visits));
         setContentView(R.layout.login);
 
-
-
         Button loginButton = findViewById(R.id.login);
         TextView signupLink = findViewById(R.id.signup);
         TextView forgotPasswordLink = findViewById(R.id.forgotPassword);
-
-
 
         signupLink.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
             startActivity(intent);
         });
 
-
-
         forgotPasswordLink.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
             startActivity(intent);
         });
-
-
 
         loginButton.setOnClickListener(view -> {
             EditText emailField = findViewById(R.id.email);
@@ -75,14 +66,14 @@ public class LogInActivity extends AppCompatActivity {
                     errorMessage.setVisibility(View.INVISIBLE);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     ProfileModel profile = ProfileDatabase.getProfile(email);
-                    System.out.println("Le profil renvoyé est"+profile.getName());
-                    intent.putExtra("userprofile",profile);
+                    System.out.println("Le profil renvoyé est" + profile.getName());
+                    intent.putExtra("userprofile", profile);
                     startActivity(intent);
                 } else {
                     errorMessage.setText(getString(R.string.logInErrorBadPassword));
                     errorMessage.setVisibility(View.VISIBLE);
                 }
-            } else  {
+            } else {
                 errorMessage.setText(getString(R.string.logInErrorBadEmail));
                 errorMessage.setVisibility(View.VISIBLE);
             }

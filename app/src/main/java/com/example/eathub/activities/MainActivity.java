@@ -1,14 +1,10 @@
 package com.example.eathub.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
 import android.widget.SearchView;
 
 import com.example.eathub.R;
@@ -16,12 +12,6 @@ import com.example.eathub.adapters.FragmentAdapter;
 import com.example.eathub.fragments.FeedFragment;
 import com.example.eathub.fragments.profile.ProfileFragment;
 import com.example.eathub.models.ProfileModel;
-import com.example.eathub.models.databases.ProfileDatabase;
-import com.example.eathub.models.databases.ProfilesFactory;
-import com.example.eathub.models.databases.RestaurantDatabase;
-import com.example.eathub.models.databases.RestaurantsFactory;
-import com.example.eathub.models.databases.VisitDatabase;
-import com.example.eathub.models.databases.VisitsFactory;
 
 public class MainActivity extends AppCompatActivity {
     private FragmentAdapter fragAdapter;
@@ -35,9 +25,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final Intent myIntent = getIntent();
-        connectedProfile = (ProfileModel) myIntent.getParcelableExtra("userprofile");
-        System.out.println("L'user connecté est"+connectedProfile);
-
+        connectedProfile = myIntent.getParcelableExtra("userprofile");
+        System.out.println("L'user connecté est" + connectedProfile);
 
         fragAdapter = new FragmentAdapter(getSupportFragmentManager());
 
@@ -46,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(vwPager);
-
-
 
         search = findViewById(R.id.search);
         final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {

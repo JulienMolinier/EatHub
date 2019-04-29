@@ -31,10 +31,9 @@ public class ProfileModel implements Parcelable {
     private ArrayList<String> profileDetailsList;
     private ArrayList<VisitModel> history;
     private int visitNumber;
-    private double spendPercentage;
-    private double caloriesPercentage;
-    private String spendString;
-    private String caloriesString;
+    private double required;
+    private double spend;
+    private double caloriesConsumed;
 
     public ProfileModel(String email, String password, String firstName, String surname,
                         String birthdate, double height, double weight, double budget, Diet diet,
@@ -72,10 +71,6 @@ public class ProfileModel implements Parcelable {
         friendList = in.createTypedArrayList(ProfileModel.CREATOR);
         profileDetailsList = in.createStringArrayList();
         visitNumber = in.readInt();
-        spendPercentage = in.readDouble();
-        caloriesPercentage = in.readDouble();
-        spendString = in.readString();
-        caloriesString = in.readString();
         sharedRestaurants = in.createTypedArrayList(RestaurantModel.CREATOR);
     }
 
@@ -94,10 +89,6 @@ public class ProfileModel implements Parcelable {
         dest.writeTypedList(friendList);
         dest.writeStringList(profileDetailsList);
         dest.writeInt(visitNumber);
-        dest.writeDouble(spendPercentage);
-        dest.writeDouble(caloriesPercentage);
-        dest.writeString(spendString);
-        dest.writeString(caloriesString);
         dest.writeTypedList(sharedRestaurants);
     }
 
@@ -136,7 +127,7 @@ public class ProfileModel implements Parcelable {
         if (spinnerChoice == 2) {
             this.history.addAll(VisitDatabase.getVisitsByProfile(this)
                     .stream()
-                    .filter(visitModel -> visitModel.getDate().getMonth() == today.getMonth())
+                    .filter(visitModel -> visitModel.getDate().getMonth().equals(today.getMonth()))
                     .collect(Collectors.toList()));
         } else if (spinnerChoice == 1) {
             this.history.addAll(VisitDatabase.getVisitsByProfile(this)
@@ -158,47 +149,16 @@ public class ProfileModel implements Parcelable {
 
     }
 
-    public void computeValues(int numberOfDay) {
-        double required = this.computeRequired();
-        double spend = this.history.stream().mapToDouble(value -> value.getPrice()).sum();
-        double caloriesConsumed = this.history.stream().mapToDouble(value -> value.getCalories()).sum();
-        spendString = spend + "/" + (this.budget * numberOfDay);
-        caloriesString = caloriesConsumed + " / " + (required * numberOfDay);
-        spendPercentage = spend / (this.budget * numberOfDay);
-        caloriesPercentage = caloriesConsumed / (required * numberOfDay);
+    public void computeValues(int numberOfDay, int spinnerChoice) {
+        setHistory(spinnerChoice);
+        required = this.computeRequired();
+        spend = this.history.stream().mapToDouble(value -> value.getPrice()).sum();
+        caloriesConsumed = this.history.stream().mapToDouble(value -> value.getCalories()).sum();
         visitNumber = this.history.size();
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getSurname() {
-        return surname;
     }
 
     public String getPassword() {
         return password;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getBirthdate() {
-        return birthdate;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public Diet getDiet() {
-        return diet;
     }
 
     public CulinaryFence getCulinaryFence() {
@@ -245,6 +205,22 @@ public class ProfileModel implements Parcelable {
         return friendList.contains(person);
     }
 
+    public int getVisitNumber() {
+        return visitNumber;
+    }
+
+    public double getRequired() {
+        return required;
+    }
+
+    public double getSpend() {
+        return spend;
+    }
+
+    public double getCaloriesConsumed() {
+        return caloriesConsumed;
+    }
+
     public void addFriend(ProfileModel person) {
         if (!friendList.contains(person) && !person.equals(this))
             friendList.add(person);
@@ -252,30 +228,6 @@ public class ProfileModel implements Parcelable {
 
     public ArrayList<String> getProfileDetailsList() {
         return profileDetailsList;
-    }
-
-    public ArrayList<VisitModel> getHistory() {
-        return history;
-    }
-
-    public int visitNumberProperty() {
-        return visitNumber;
-    }
-
-    public double spendPercentageProperty() {
-        return spendPercentage;
-    }
-
-    public double caloriesPercentageProperty() {
-        return caloriesPercentage;
-    }
-
-    public String spendStringProperty() {
-        return spendString;
-    }
-
-    public String caloriesStringProperty() {
-        return caloriesString;
     }
 
     public List<ProfileModel> getFriendList() {
