@@ -11,4 +11,7 @@
     <string name="price">Price :</string>
     <string name="filter">Filter by :</string>
     <string name="buttonBack">Back</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

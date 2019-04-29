@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/avatarRestaurant"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/lebarbusse" />
+
+    <RelativeLayout
+        android:id="@+id/indicator"
+        android:layout_width="7dp"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/avatarRestaurant"
+        android:background="@android:color/holo_red_dark">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/detailsRestaurant"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/indicator">
+
+        <TextView
+            android:id="@+id/nameRestaurant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/descriptionRestaurant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameRestaurant"
+            android:text="TextView" />
+
+        <RelativeLayout
+            android:id="@+id/markLayout"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentBottom="true">
+
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>
