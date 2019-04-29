@@ -46,17 +46,18 @@ public class ProfileModel {
         this.sharedRestaurants = new ArrayList<>();
         this.history = new ArrayList<>();
         this.profileDetailsList = new ArrayList<>();
+        updateProfileList();
 
     }
 
     public void updateProfileList() {
         profileDetailsList.clear();
-        profileDetailsList.addAll(Arrays.asList(this.firstName,
-                this.surname,
-                this.age + " years old",
-                this.height + " m",
-                this.weight + " kg",
-                this.budget + " €",
+        profileDetailsList.addAll(Arrays.asList("Firstname: " + this.firstName,
+                "Surname: " + this.surname,
+                "Age: " + this.age + " years old",
+                "Height: " + this.height + " m",
+                "Weight: " + this.weight + " kg",
+                "Budget: " + this.budget + " €",
                 "Diet: " + this.diet,
                 "Fence: " + this.culinaryFence));
     }
@@ -82,30 +83,23 @@ public class ProfileModel {
         }
         history.sort(Comparator.comparing(VisitModel::getDate).reversed());
 
-    }
+    }*/
 
     public void computeValues(int numberOfDay) {
         double required = this.computeRequired();
-        double spend = this.history.stream().mapToDouble(value -> value.getPrice()).sum();
-        double caloriesConsumed = this.history.stream().mapToDouble(value -> value.getCalories()).sum();
+        double spend = 0;
+        double caloriesConsumed = 0;
+        for (VisitModel v : history) {
+            spend += v.getPrice();
+            caloriesConsumed += v.getCalories();
+        }
+        //double spend = this.history.stream().mapToDouble(value -> value.getPrice()).sum();
+        //double caloriesConsumed = this.history.stream().mapToDouble(value -> value.getCalories()).sum();
         spendString = spend + "/" + (this.budget * numberOfDay);
         caloriesString = caloriesConsumed + " / " + (required * numberOfDay);
         spendPercentage = spend / (this.budget * numberOfDay);
         caloriesPercentage = caloriesConsumed / (required * numberOfDay);
         visitNumber = this.history.size();
-    }*/
-
-    public ArrayList<String> getDetails() {
-        ArrayList<String> details = new ArrayList<>();
-        details.add("FirstName: " + firstName);
-        details.add("Surname: " + surname);
-        details.add("Birthdate: " + birthdate);
-        details.add("Height: " + height + " m");
-        details.add("Weight: " + weight + " kg");
-        details.add("Budget: " + budget + " €");
-        details.add("Diet: " + diet);
-        details.add("CulinaryFence: " + culinaryFence);
-        return details;
     }
 
     public String getFirstName() {
@@ -151,10 +145,6 @@ public class ProfileModel {
     public String getName() {
         return this.firstName + " " + this.surname;
     }
-
-    /*public Image getProfilePic() {
-        return profilePic;
-    }*/
 
     public List<RestaurantModel> getSharedRestaurants() {
         return sharedRestaurants;

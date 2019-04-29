@@ -36,7 +36,7 @@ public class ProfileDetailsFragment extends Fragment {
                                 .replaceAll("-", "").toLowerCase(), "drawable",
                         view.getContext().getPackageName()));
 
-        this.detailsListView.setAdapter(new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, this.profileModel.getDetails()));
+        this.detailsListView.setAdapter(new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, this.profileModel.getProfileDetailsList()));
         return view;
     }
 }
