@@ -11,9 +11,11 @@ import android.widget.TextView;
 
 import com.example.eathub.R;
 import com.example.eathub.adapters.RestaurantListAdapter;
+import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
 import com.example.eathub.models.databases.RestaurantDatabase;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class SearchPageActivity extends AppCompatActivity {
@@ -37,6 +39,8 @@ public class SearchPageActivity extends AppCompatActivity {
 
     public RestaurantListAdapter restaurantAdapter;
 
+    private ProfileModel profile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,8 @@ public class SearchPageActivity extends AppCompatActivity {
         search = intent.getStringExtra("data");
         Bundle bundle = new Bundle();
         bundle.putString("params", search);
+
+        profile = (ProfileModel) intent.getParcelableExtra("userprofile");
 
         // initialisation bouton retour
         Button button = findViewById(R.id.buttonBackSearch);
@@ -60,7 +66,7 @@ public class SearchPageActivity extends AppCompatActivity {
         if (search != null) {
             restaurantsListBySearch = RestaurantDatabase.getRestaurantsBySearch(search);
             filterRestaurants = RestaurantDatabase.getRestaurantsBySearch(search);
-            restaurantAdapter = new RestaurantListAdapter(getApplicationContext(), filterRestaurants);
+            restaurantAdapter = new RestaurantListAdapter(getApplicationContext(), filterRestaurants, profile);
             listRestaurant.setAdapter(restaurantAdapter);
         }
 
@@ -153,11 +159,12 @@ public class SearchPageActivity extends AppCompatActivity {
                 }
             }
         }
-        /*
+
         if (buttonHighestRate) {
             filterRestaurants.sort(Comparator.comparing(RestaurantModel::getRating).reversed());
-        }*/
-        if(!button10 && !button10To20 && !button20){
+        }
+
+        if(!button10 && !button10To20 && !button20 && !buttonHighestRate){
             for(RestaurantModel restaurant : RestaurantDatabase.getRestaurantsBySearch(searchQuery)){
                 filterRestaurants.add(restaurant);
             }
