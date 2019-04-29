@@ -32,7 +32,7 @@ public class FeedFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.feed,container,false);
         feedLV = view.findViewById(R.id.feedLV);
-        feedLV.setAdapter(new RestaurantListAdapter(this.getContext(), RestaurantDatabase.getRestaurants()));
+        feedLV.setAdapter(new RestaurantListAdapter(this.getContext(), RestaurantDatabase.getRestaurants(), null));
         buildFriendList();
         return view;
     }

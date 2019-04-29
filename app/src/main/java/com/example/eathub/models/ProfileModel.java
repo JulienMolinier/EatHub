@@ -1,5 +1,8 @@
 package com.example.eathub.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.eathub.models.databases.VisitDatabase;
 
 import java.time.LocalDate;
@@ -9,7 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProfileModel {
+public class ProfileModel implements Parcelable {
 
     private String email;
     private String password;
@@ -54,6 +57,64 @@ public class ProfileModel {
         updateProfileList();
 
     }
+
+    protected ProfileModel(Parcel in) {
+        email = in.readString();
+        password = in.readString();
+        firstName = in.readString();
+        surname = in.readString();
+        birthdate = in.readString();
+        age = in.readInt();
+        height = in.readDouble();
+        weight = in.readDouble();
+        budget = in.readDouble();
+        diet = Diet.values()[in.readInt()];
+        friendList = in.createTypedArrayList(ProfileModel.CREATOR);
+        profileDetailsList = in.createStringArrayList();
+        visitNumber = in.readInt();
+        spendPercentage = in.readDouble();
+        caloriesPercentage = in.readDouble();
+        spendString = in.readString();
+        caloriesString = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(email);
+        dest.writeString(password);
+        dest.writeString(firstName);
+        dest.writeString(surname);
+        dest.writeString(birthdate);
+        dest.writeInt(age);
+        dest.writeDouble(height);
+        dest.writeDouble(weight);
+        dest.writeInt(diet.ordinal());
+        dest.writeDouble(budget);
+        dest.writeTypedList(friendList);
+        dest.writeStringList(profileDetailsList);
+        dest.writeInt(visitNumber);
+        dest.writeDouble(spendPercentage);
+        dest.writeDouble(caloriesPercentage);
+        dest.writeString(spendString);
+        dest.writeString(caloriesString);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<ProfileModel> CREATOR = new Creator<ProfileModel>() {
+        @Override
+        public ProfileModel createFromParcel(Parcel in) {
+            return new ProfileModel(in);
+        }
+
+        @Override
+        public ProfileModel[] newArray(int size) {
+            return new ProfileModel[size];
+        }
+    };
 
     public void updateProfileList() {
         profileDetailsList.clear();
