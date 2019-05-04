@@ -39,6 +39,11 @@ public class ProfileFragment extends Fragment {
                     profileStatsFragment.setProfile(profileModel);
                     showFragment(profileStatsFragment);
                     return true;
+                case R.id.navigation_history:
+                    ProfileHistoryFragment profileHistoryFragment = new ProfileHistoryFragment();
+                    profileHistoryFragment.setProfile(profileModel);
+                    showFragment(profileHistoryFragment);
+                    return true;
             }
             return false;
         }

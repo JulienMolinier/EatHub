@@ -24,8 +24,8 @@ public class RestaurantListAdapter extends BaseAdapter {
         this.context = context;
         this.restaurantList = restaurantList;
         this.profile = profile;
-
     }
+
     @Override
     public int getCount() {
         return this.restaurantList.size();
@@ -56,7 +56,6 @@ public class RestaurantListAdapter extends BaseAdapter {
         avatarRestaurant.setImageResource(avatar);
 
         RelativeLayout indicator = view.findViewById(R.id.indicator);
-
 
         TextView descriptionRestaurant = view.findViewById(R.id.descriptionRestaurant);
         descriptionRestaurant.setText(theRestaurant.getAddress() + " " + theRestaurant.getPhoneNumber());

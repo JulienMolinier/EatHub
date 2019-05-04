@@ -151,7 +151,11 @@ public class ProfileModel implements Parcelable {
 
     }
 
-    public void computeValues(int numberOfDay, int spinnerChoice) {
+    public ArrayList<VisitModel> getHistory() {
+        return history;
+    }
+
+    public void computeValues(int spinnerChoice) {
         setHistory(spinnerChoice);
         required = this.computeRequired();
         spend = this.history.stream().mapToDouble(value -> value.getPrice()).sum();

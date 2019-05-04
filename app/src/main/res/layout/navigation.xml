@@ -16,4 +16,9 @@
         android:id="@+id/navigation_stats"
         android:icon="@drawable/baseline_equalizer_black_18dp"
         android:title="@string/bottom_navigation_profile_stats" />
+
+    <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/baseline_history_black_18dp"
+        android:title="@string/bottom_navigation_profile_history" />
 </menu>

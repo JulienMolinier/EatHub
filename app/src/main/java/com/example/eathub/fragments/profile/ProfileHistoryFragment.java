@@ -9,34 +9,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ProgressBar;
+import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.eathub.R;
+import com.example.eathub.adapters.HistoryAdapter;
 import com.example.eathub.models.ProfileModel;
 
-import java.time.LocalDate;
 
-public class ProfileStatsFragment extends Fragment {
+public class ProfileHistoryFragment extends Fragment {
 
-    private View view;
     private ProfileModel profileModel;
-    private TextView restVis;
-    private ProgressBar caloriesBar;
-    private ProgressBar budgetBar;
+    private View view;
+    private ListView historyView;
+    private HistoryAdapter historyAdapter;
     private Spinner spinner;
     private ArrayAdapter<CharSequence> adapter;
-    private int numberOfDay;
     private int spinnerChoice;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.profilestats, container, false);
-        caloriesBar = view.findViewById(R.id.caloriesBar);
-        budgetBar = view.findViewById(R.id.budgetBar);
-        restVis = view.findViewById(R.id.restVis);
+        view = inflater.inflate(R.layout.profilehistory, container, false);
+        historyView = view.findViewById(R.id.historyView);
+
         spinner = view.findViewById(R.id.spinner);
 
         adapter = ArrayAdapter.createFromResource(this.getContext(),
@@ -47,54 +43,38 @@ public class ProfileStatsFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                LocalDate today = LocalDate.now();
                 switch (position) {
                     case 0:
-                        numberOfDay = 1;
                         spinnerChoice = position;
                         break;
                     case 1:
-                        numberOfDay = 7;
                         spinnerChoice = position;
                         break;
                     case 2:
-                        numberOfDay = today.lengthOfMonth();
                         spinnerChoice = position;
                         break;
                     case 3:
-                        numberOfDay = today.lengthOfYear();
                         spinnerChoice = position;
                         break;
                 }
                 profileModel.computeValues(spinnerChoice);
-                update();
+                historyAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                numberOfDay = 1;
                 spinnerChoice = 0;
                 profileModel.computeValues(spinnerChoice);
-                update();
+                historyAdapter.notifyDataSetChanged();
             }
         });
 
-        update();
-
+        historyAdapter = new HistoryAdapter(this.getContext(), this.profileModel.getHistory());
+        historyView.setAdapter(historyAdapter);
         return view;
-    }
-
-    private void update() {
-        restVis.setText(String.valueOf(this.profileModel.getVisitNumber()));
-        caloriesBar.setProgress((int) (this.profileModel.getCaloriesConsumed() /
-                (this.profileModel.getRequired() * this.numberOfDay) * 100));
-        budgetBar.setProgress((int) (this.profileModel.getSpend() /
-                (this.profileModel.getBudget() * this.numberOfDay) * 100));
-
     }
 
     public void setProfile(ProfileModel profile) {
         this.profileModel = profile;
     }
-
 }
