@@ -17,11 +17,13 @@
     <ListView
         android:id="@+id/detailsListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/profilePic"
         android:layout_centerInParent="true"
+        android:layout_marginBottom="50dp"
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
         android:paddingBottom="50dp"
+        android:scrollbars="none"
         android:textAlignment="center" />
 </RelativeLayout>
