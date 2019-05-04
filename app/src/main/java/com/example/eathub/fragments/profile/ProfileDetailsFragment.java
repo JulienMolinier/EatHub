@@ -8,18 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.eathub.R;
 import com.example.eathub.models.ProfileModel;
+import com.github.abdularis.civ.CircleImageView;
 
 public class ProfileDetailsFragment extends Fragment {
 
     private ProfileModel profileModel;
     private View view;
     private ListView detailsListView;
-    private ImageView profilePic;
+    private CircleImageView profilePic;
 
     @Nullable
     @Override

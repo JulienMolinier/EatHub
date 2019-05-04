@@ -5,11 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.eathub.R;
 import com.example.eathub.models.VisitModel;
+import com.github.abdularis.civ.CircleImageView;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -45,11 +45,12 @@ public class HistoryAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.history_list_item, null);
         }
+
         VisitModel visit = (VisitModel) this.getItem(position);
         TextView nameRestaurant = view.findViewById(R.id.nameRestaurant);
         nameRestaurant.setText(visit.getRestaurant().getName());
 
-        ImageView avatarRestaurant = view.findViewById(R.id.avatarRestaurant);
+        CircleImageView avatarRestaurant = view.findViewById(R.id.avatarRestaurant);
         int avatar = (view.getResources().getIdentifier(visit.getRestaurant()
                 .getName().replaceAll(" ", "").toLowerCase(), "drawable", context.getPackageName()));
         avatarRestaurant.setImageResource(avatar);
@@ -60,6 +61,10 @@ public class HistoryAdapter extends BaseAdapter {
 
         TextView price = view.findViewById(R.id.priceVisit);
         price.setText(visit.getPrice() + " €");
+
+        TextView rate = view.findViewById(R.id.rate);
+        rate.setText(visit.getMark() + " / 5");
+
         return view;
     }
 }
