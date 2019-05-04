@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.eathub.R;
 import com.example.eathub.models.ProfileModel;
@@ -26,7 +27,10 @@ public class ProfileChartsFragment extends Fragment {
     private View view;
     private ProfileModel profileModel;
     private BarChart chart1;
+    private BarChart chart2;
     private Spinner spinner;
+    private TextView text;
+    private TextView text2;
     private ArrayAdapter<CharSequence> adapter;
 
     private int spinnerChoice;
@@ -37,6 +41,12 @@ public class ProfileChartsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.profilecharts, container, false);
         chart1 = view.findViewById(R.id.chart1);
+        chart2 = view.findViewById(R.id.chart2);
+        text = view.findViewById(R.id.textView);
+        text2 = view.findViewById(R.id.textView2);
+
+        text.setText(R.string.caloriesEvolution);
+        text2.setText(R.string.budgetEvolution);
 
         spinner = view.findViewById(R.id.spinner);
         adapter = ArrayAdapter.createFromResource(this.getContext(),
@@ -77,7 +87,10 @@ public class ProfileChartsFragment extends Fragment {
 
     private void setGraph(int spinnerChoice) {
         List<BarEntry> entries = new ArrayList<>();
+        List<BarEntry> entries2 = new ArrayList<>();
         chart1.clear();
+        chart2.clear();
+
         if (!this.profileModel.getHistory().isEmpty()) {
             for (VisitModel visit : this.profileModel.getHistory()) {
                 if (spinnerChoice == 0 || spinnerChoice == 1 || spinnerChoice == 2) {
@@ -87,11 +100,16 @@ public class ProfileChartsFragment extends Fragment {
                             float old = entry.getY();
                             old += visit.getCalories();
                             entry.setY(old);
+
+                            old = entries2.get(entries.indexOf(entry)).getY();
+                            old += visit.getPrice();
+                            entries2.get(entries.indexOf(entry)).setY(old);
                             done = true;
                         }
                     }
                     if (!done) {
                         entries.add(new BarEntry((float) visit.getDate().getDayOfMonth(), (float) visit.getCalories()));
+                        entries2.add(new BarEntry((float) visit.getDate().getDayOfMonth(), (float) visit.getPrice()));
                     }
 
                 } else {
@@ -101,21 +119,34 @@ public class ProfileChartsFragment extends Fragment {
                             float old = entry.getY();
                             old += visit.getCalories();
                             entry.setY(old);
+
+                            old = entries2.get(entries.indexOf(entry)).getY();
+                            old += visit.getPrice();
+                            entries2.get(entries.indexOf(entry)).setY(old);
                             done = true;
                         }
                     }
                     if (!done) {
                         entries.add(new BarEntry((float) visit.getDate().getDayOfYear(), (float) visit.getCalories()));
+                        entries2.add(new BarEntry((float) visit.getDate().getDayOfYear(), (float) visit.getPrice()));
                     }
                 }
             }
+
             BarDataSet data = new BarDataSet(entries, "Calories");
             BarData barData = new BarData(data);
             chart1.setData(barData);
+            BarDataSet data2 = new BarDataSet(entries2, "Budget");
+            BarData barData2 = new BarData(data2);
+            chart2.setData(barData2);
         }
+
         chart1.getDescription().setText("");
         chart1.setNoDataText("No visits available to this date !");
         chart1.invalidate();
+        chart2.getDescription().setText("");
+        chart2.setNoDataText("No visits available to this date !");
+        chart2.invalidate();
     }
 
     public void setProfile(ProfileModel profile) {

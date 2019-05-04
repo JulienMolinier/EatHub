@@ -52,6 +52,9 @@
     <string name="filter">Filter by :</string>
     <string name="buttonBack">Back</string>
 
+    <string name="caloriesEvolution">Calories Evolution</string>
+    <string name="budgetEvolution">Budget Evolution</string>
+
     <string-array name="choice_array">
         <item>Daily</item>
         <item>Weekly</item>
