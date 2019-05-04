@@ -1,5 +1,6 @@
 package com.example.eathub.fragments.profile;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -90,7 +91,22 @@ public class ProfileStatsFragment extends Fragment {
                 (this.profileModel.getRequired() * this.numberOfDay) * 100));
         budgetBar.setProgress((int) (this.profileModel.getSpend() /
                 (this.profileModel.getBudget() * this.numberOfDay) * 100));
+        chooseColorProgress(caloriesBar);
+        chooseColorProgress(budgetBar);
 
+    }
+
+    private void chooseColorProgress(ProgressBar pg) {
+        if (pg.getProgress() >= 0.90) {
+            pg.getProgressDrawable().setColorFilter(
+                    Color.parseColor("#ef2929"), android.graphics.PorterDuff.Mode.SRC_IN);
+        } else if (pg.getProgress() >= 0.7 && pg.getProgress() < 0.90) {
+            pg.getProgressDrawable().setColorFilter(
+                    Color.parseColor("#ffaa04"), android.graphics.PorterDuff.Mode.SRC_IN);
+        } else {
+            pg.getProgressDrawable().setColorFilter(
+                    Color.parseColor("#2DCA73"), android.graphics.PorterDuff.Mode.SRC_IN);
+        }
     }
 
     public void setProfile(ProfileModel profile) {
