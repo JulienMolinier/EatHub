@@ -62,6 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_horizontal"
+            android:layout_marginTop="10dp"
             android:labelFor="@id/restaurantTel"
             android:text="Tel:"
             android:textSize="20dp" />
@@ -71,9 +72,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_horizontal"
+            android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/restaurantTelLabel"
             android:textSize="20dp" />
 
+
+        <Button
+            android:id="@+id/buttonTel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:text="Call" />
 
         <TextView
             android:id="@+id/restaurantAdressLabel"
