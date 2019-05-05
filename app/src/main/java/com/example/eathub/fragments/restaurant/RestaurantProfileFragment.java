@@ -26,16 +26,19 @@ public class RestaurantProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.restaurantprofile, container, false);
         ImageView imageRestaurant = view.findViewById(R.id.imageRestaurant);
-        imageRestaurant.setImageResource(this.restaurantModel.);
+        imageRestaurant.setImageResource(view.getResources()
+                .getIdentifier(this.restaurantModel.getName().replaceAll(" ", "")
+                                .replaceAll("-", "").toLowerCase(), "drawable",
+                        view.getContext().getPackageName()));
         Button sharedButton = view.findViewById(R.id.sharedButton);
         TextView restaurantName = view.findViewById(R.id.restaurantName);
         restaurantName.setText(this.restaurantModel.getName());
         TextView restaurantTel = view.findViewById(R.id.restaurantTel);
         restaurantTel.setText(this.restaurantModel.getPhoneNumber());
-        TextView restaurantAdress  = view.findViewById(R.id.restaurantAdress);
+        TextView restaurantAdress = view.findViewById(R.id.restaurantAdress);
         restaurantAdress.setText(this.restaurantModel.getAddress());
         TextView restaurantCost = view.findViewById(R.id.restaurantCost);
-        switch ((int)this.restaurantModel.getPrice()){
+        switch ((int) this.restaurantModel.getPrice()) {
             case 1:
                 restaurantCost.setText("$");
                 break;
@@ -50,14 +53,15 @@ public class RestaurantProfileFragment extends Fragment {
                 break;
         }
         RatingBar restaurantRate = view.findViewById(R.id.restaurantRate);
-        restaurantRate.setRating((int)this.restaurantModel.getRating());
+        restaurantRate.setRating((int) this.restaurantModel.getRating());
         return view;
     }
 
     public void setProfileModel(ProfileModel profileModel) {
         this.profileModel = profileModel;
     }
-    public void setRestaurantModel(RestaurantModel restaurantModel){
-        this.restaurantModel=restaurantModel;
+
+    public void setRestaurantModel(RestaurantModel restaurantModel) {
+        this.restaurantModel = restaurantModel;
     }
 }
