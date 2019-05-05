@@ -1,6 +1,7 @@
 package com.example.eathub.activities;
 
 import android.Manifest;
+import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.content.Intent;
@@ -33,10 +34,17 @@ public class RestaurantActivity extends AppCompatActivity {
                     showFragment(restaurantComments);
                     return true;
                 case R.id.navigationRestaurant_map:
-                    RestaurantMapFragment restaurantMap = new RestaurantMapFragment();
-                    restaurantMap.setTheRestaurant(theRestaurant);
-                    showFragment(restaurantMap);
-                    return true;
+
+                    if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                            && checkSelfPermission(Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {
+                        // permission not accepted
+                    } else {
+                        RestaurantMapFragment restaurantMap = new RestaurantMapFragment();
+                        restaurantMap.setTheRestaurant(theRestaurant);
+                        showFragment(restaurantMap);
+                        return true;
+                    }
+
                 case R.id.navigationRestaurant_profile:
                     RestaurantProfileFragment restaurantProfile = new RestaurantProfileFragment();
                     restaurantProfile.setTheRestaurant(theRestaurant);

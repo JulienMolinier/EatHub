@@ -1,6 +1,5 @@
 package com.example.eathub.fragments.restaurant;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -18,9 +17,8 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.OverlayItem;
+import org.osmdroid.views.overlay.Marker;
 
-import java.util.ArrayList;
 
 public class RestaurantMapFragment extends Fragment {
     private RelativeLayout view;
@@ -31,25 +29,31 @@ public class RestaurantMapFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = (RelativeLayout) inflater.inflate(R.layout.restaurantmap, container, false);
-
-        map = view.findViewById(R.id.map);
-
-        Configuration.getInstance().load(getActivity(), PreferenceManager.getDefaultSharedPreferences(getActivity()));
-        map.setBuiltInZoomControls(true);
-        map.setTileSource(TileSourceFactory.MAPNIK);
-        map.setClickable(true);
-        map.setMultiTouchControls(true);
-        map.getController().setZoom(15.0);
-        GeoPoint startPoint = new GeoPoint(43.6167, 7.0747800000000325);
-        map.getController().setCenter(startPoint);
-
-        ArrayList<OverlayItem> list = new ArrayList<>();
-        OverlayItem overlay = new OverlayItem("", "",startPoint);
-
+        initMap();
         return view;
     }
 
     public void setTheRestaurant(RestaurantModel theRestaurant) {
         this.theRestaurant = theRestaurant;
+    }
+
+    public void initMap() {
+        map = view.findViewById(R.id.map);
+        Configuration.getInstance().load(getActivity(), PreferenceManager.getDefaultSharedPreferences(getActivity()));
+        map.setBuiltInZoomControls(true);
+        map.setTileSource(TileSourceFactory.MAPNIK);
+        map.setClickable(true);
+        map.setMultiTouchControls(true);
+        map.getController().setZoom(17.0);
+        GeoPoint startPoint = new GeoPoint(43.6167, 7.0747800000000325);
+        map.getController().setCenter(startPoint);
+
+        Marker tec = new Marker(map);
+        tec.setPosition(startPoint);
+        tec.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        tec.setTitle(theRestaurant.getName());
+        map.getOverlays().add(tec);
+
+        map.invalidate();
     }
 }
