@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.example.eathub.R;
 import com.example.eathub.models.RestaurantModel;
 
-public class RestaurantMapFragement extends Fragment {
+public class RestaurantMapFragment extends Fragment {
     private View view;
     private RestaurantModel theRestaurant;
 

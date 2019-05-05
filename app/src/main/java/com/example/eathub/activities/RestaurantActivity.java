@@ -11,7 +11,7 @@ import android.view.MenuItem;
 
 import com.example.eathub.R;
 import com.example.eathub.fragments.restaurant.RestaurantCommentsFragment;
-import com.example.eathub.fragments.restaurant.RestaurantMapFragement;
+import com.example.eathub.fragments.restaurant.RestaurantMapFragment;
 import com.example.eathub.fragments.restaurant.RestaurantProfileFragment;
 import com.example.eathub.models.RestaurantModel;
 
@@ -31,7 +31,7 @@ public class RestaurantActivity extends AppCompatActivity {
                     showFragment(restaurantComments);
                     return true;
                 case R.id.navigationRestaurant_map:
-                    RestaurantMapFragement restaurantMap = new RestaurantMapFragement();
+                    RestaurantMapFragment restaurantMap = new RestaurantMapFragment();
                     restaurantMap.setTheRestaurant(theRestaurant);
                     showFragment(restaurantMap);
                     return true;
