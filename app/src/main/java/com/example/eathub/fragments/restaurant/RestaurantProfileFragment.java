@@ -7,8 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.example.eathub.R;
+import com.example.eathub.models.ProfileModel;
+import com.example.eathub.models.RestaurantModel;
 
 public class RestaurantProfileFragment extends Fragment {
     private View view;
@@ -19,6 +25,8 @@ public class RestaurantProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.restaurantprofile, container, false);
+        ImageView imageRestaurant = view.findViewById(R.id.imageRestaurant);
+        imageRestaurant.setImageResource(this.restaurantModel.);
         Button sharedButton = view.findViewById(R.id.sharedButton);
         TextView restaurantName = view.findViewById(R.id.restaurantName);
         restaurantName.setText(this.restaurantModel.getName());

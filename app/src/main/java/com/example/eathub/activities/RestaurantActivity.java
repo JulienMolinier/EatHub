@@ -27,7 +27,7 @@ public class RestaurantActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigationRestaurant_comments:
                     RestaurantCommentsFragment restaurantComments = new RestaurantCommentsFragment();
-                    restaurantComments.setTheRestaurant(theRestaurant);
+                    restaurantComments.setRestaurantModel(theRestaurant);
                     showFragment(restaurantComments);
                     return true;
                 case R.id.navigationRestaurant_map:
@@ -37,7 +37,7 @@ public class RestaurantActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigationRestaurant_profile:
                     RestaurantProfileFragment restaurantProfile = new RestaurantProfileFragment();
-                    restaurantProfile.setTheRestaurant(theRestaurant);
+                    restaurantProfile.setRestaurantModel(theRestaurant);
                     showFragment(restaurantProfile);
                     return true;
             }
@@ -59,7 +59,7 @@ public class RestaurantActivity extends AppCompatActivity {
 
 
         RestaurantProfileFragment restaurantProfile = new RestaurantProfileFragment();
-        restaurantProfile.setTheRestaurant(theRestaurant);
+        restaurantProfile.setRestaurantModel(theRestaurant);
         showFragment(restaurantProfile);
 
     }

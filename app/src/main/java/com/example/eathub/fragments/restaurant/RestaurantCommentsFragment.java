@@ -33,6 +33,7 @@ public class RestaurantCommentsFragment extends Fragment {
     public void setProfileModel(ProfileModel profileModel) {
         this.profileModel = profileModel;
     }
+
     public void setRestaurantModel(RestaurantModel restaurantModel){
         this.restaurantModel=restaurantModel;
     }
