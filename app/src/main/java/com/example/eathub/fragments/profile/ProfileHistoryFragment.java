@@ -1,5 +1,6 @@
 package com.example.eathub.fragments.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.example.eathub.R;
+import com.example.eathub.activities.RestaurantActivity;
 import com.example.eathub.adapters.HistoryAdapter;
 import com.example.eathub.models.ProfileModel;
 
@@ -71,6 +73,15 @@ public class ProfileHistoryFragment extends Fragment {
 
         historyAdapter = new HistoryAdapter(this.getContext(), this.profileModel.getHistory());
         historyView.setAdapter(historyAdapter);
+
+        final Intent myIntent = new Intent(view.getContext(), RestaurantActivity.class);
+        historyView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                myIntent.putExtra("restaurantpicked", profileModel.getHistory().get(position).getRestaurant());
+                startActivity(myIntent);
+            }
+        });
         return view;
     }
 
