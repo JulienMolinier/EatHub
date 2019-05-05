@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.eathub.R;
+import com.example.eathub.models.RestaurantModel;
 
 public class RestaurantMapFragement extends Fragment {
     private View view;
+    private RestaurantModel theRestaurant;
 
     @Nullable
     @Override
@@ -19,5 +21,9 @@ public class RestaurantMapFragement extends Fragment {
         view = inflater.inflate(R.layout.restaurantmap, container, false);
 
         return view;
+    }
+
+    public void setTheRestaurant(RestaurantModel theRestaurant) {
+        this.theRestaurant = theRestaurant;
     }
 }

@@ -7,13 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import com.example.eathub.R;
-import com.example.eathub.models.ProfileModel;
-import com.example.eathub.models.RestaurantModel;
 
 public class RestaurantProfileFragment extends Fragment {
     private View view;

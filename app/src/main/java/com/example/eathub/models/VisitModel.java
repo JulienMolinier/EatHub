@@ -1,7 +1,12 @@
 package com.example.eathub.models;
-import java.time.LocalDate;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class VisitModel {
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
+public class VisitModel implements Parcelable {
     private RestaurantModel restaurant;
     private ProfileModel profileModel;
     private LocalDate date;
@@ -20,6 +25,46 @@ public class VisitModel {
         this.mark = mark;
         this.commentary = commentary;
     }
+
+    protected VisitModel(Parcel in) {
+        restaurant = in.readParcelable(RestaurantModel.class.getClassLoader());
+        profileModel = in.readParcelable(ProfileModel.class.getClassLoader());
+        Date theDate = new Date(in.readLong());
+        date = theDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        calories = in.readDouble();
+        price = in.readDouble();
+        commentary = in.readString();
+        mark = in.readDouble();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(restaurant, flags);
+        dest.writeParcelable(profileModel, flags);
+        Date theDate = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        dest.writeLong(theDate.getTime());
+        dest.writeDouble(calories);
+        dest.writeDouble(price);
+        dest.writeString(commentary);
+        dest.writeDouble(mark);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<VisitModel> CREATOR = new Creator<VisitModel>() {
+        @Override
+        public VisitModel createFromParcel(Parcel in) {
+            return new VisitModel(in);
+        }
+
+        @Override
+        public VisitModel[] newArray(int size) {
+            return new VisitModel[size];
+        }
+    };
 
     public ProfileModel getProfileModel() {
         return profileModel;

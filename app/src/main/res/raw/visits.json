@@ -39,17 +39,17 @@
       },
       "date": {
         "year": 2019,
-        "month": "MARCH",
+        "month": "MAY",
         "chronology": {
           "id": "ISO",
           "calendarType": "iso8601"
         },
         "era": "CE",
         "leapYear": false,
-        "dayOfWeek": "SUNDAY",
-        "dayOfYear": 69,
-        "dayOfMonth": 10,
-        "monthValue": 3
+        "dayOfWeek": "THURSDAY",
+        "dayOfYear": 122,
+        "dayOfMonth": 2,
+        "monthValue": 5
       },
       "calories": 30.0,
       "price": 16.0,
@@ -291,17 +291,17 @@
       },
       "date": {
         "year": 2019,
-        "month": "MARCH",
+        "month": "APRIL",
         "chronology": {
           "id": "ISO",
           "calendarType": "iso8601"
         },
         "era": "CE",
         "leapYear": false,
-        "dayOfWeek": "MONDAY",
-        "dayOfYear": 70,
-        "dayOfMonth": 11,
-        "monthValue": 3
+        "dayOfWeek": "TUESDAY",
+        "dayOfYear": 92,
+        "dayOfMonth": 2,
+        "monthValue": 4
       },
       "calories": 1100.0,
       "price": 15.0,
