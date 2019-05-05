@@ -22,6 +22,7 @@
 
         </activity>
         <activity android:name=".activities.SearchPageActivity"/>
+        <activity android:name=".activities.RestaurantActivity" />
     </application>
 
 </manifest>

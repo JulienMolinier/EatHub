@@ -1,5 +1,6 @@
 package com.example.eathub.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.eathub.R;
+import com.example.eathub.activities.RestaurantActivity;
 import com.example.eathub.adapters.RestaurantListAdapter;
 import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
@@ -66,12 +68,12 @@ public class FeedFragment extends Fragment {
                 myRestaurantListAdapter.notifyDataSetChanged();
             }
         });
-        //final Intent myIntent = new Intent(view.getContext(), RestaurantActivity.class);
+        final Intent myIntent = new Intent(view.getContext(), RestaurantActivity.class);
         feedLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //myIntent.putExtra("restaurantSelected", restaurantList.get(position));
-                //startActivity(myIntent);
+                myIntent.putExtra("restaurantpicked", restaurantList.get(position));
+                startActivity(myIntent);
             }
         });
         return view;
