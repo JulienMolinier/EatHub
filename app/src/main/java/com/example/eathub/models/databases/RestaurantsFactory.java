@@ -50,7 +50,9 @@ public class RestaurantsFactory {
         CulinaryFence culinaryFence = CulinaryFence.valueOf((String) object.get("culinaryFence"));
         String address = (String) object.get("address");
         String phoneNumber = (String) object.get("phoneNumber");
+        double longitude = (double) object.get("longitude");
+        double latitude = (double) object.get("latitude");
 
-        return new RestaurantModel(name, price, culinaryFence, address, phoneNumber);
+        return new RestaurantModel(name, price, culinaryFence, address, phoneNumber, longitude, latitude);
     }
 }

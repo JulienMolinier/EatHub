@@ -6,7 +6,9 @@
       "culinaryFence": "italian",
       "address": "5895 rue des arbres",
       "phoneNumber": "0102030405",
-      "rating": 3.0
+      "rating": 3.0,
+      "longitude": 7.07197,
+      "latitude": 43.6295
     },
     {
       "name": "Le Belagio",
@@ -14,7 +16,9 @@
       "culinaryFence": "italian",
       "address": " 20 rue des arbres",
       "phoneNumber": "0102030405",
-      "rating": 0.0
+      "rating": 0.0,
+      "longitude": 7.05796,
+      "latitude": 43.6184
     },
     {
       "name": "Le Barbusse",
@@ -22,7 +26,9 @@
       "culinaryFence": "vegan",
       "address": "18 rue des arbres",
       "phoneNumber": "0102030405",
-      "rating": 3.75
+      "rating": 3.75,
+      "longitude": 7.06452,
+      "latitude": 43.6166
     },
     {
       "name": "McDo",
@@ -30,7 +36,9 @@
       "culinaryFence": "american",
       "address": "15 rue des arbres",
       "phoneNumber": "0102030405",
-      "rating": 0.0
+      "rating": 0.0,
+      "longitude": 7.02949,
+      "latitude": 43.6277
     },
     {
       "name": "Le Riche",
@@ -38,7 +46,9 @@
       "culinaryFence": "asian",
       "address": "12 rue des arbres",
       "phoneNumber": "0102030405",
-      "rating": 0.0
+      "rating": 0.0,
+      "longitude": 7.08028,
+      "latitude": 43.618
     }
   ]
 }
