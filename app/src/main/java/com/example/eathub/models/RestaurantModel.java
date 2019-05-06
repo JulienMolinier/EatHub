@@ -13,14 +13,18 @@ public class RestaurantModel implements Parcelable {
     private CulinaryFence culinaryFence;
     private String address;
     private String phoneNumber;
+    private double latitude;
+    private double longitude;
 
     public RestaurantModel(String name, double price, CulinaryFence culinaryFence,
-                           String address, String phoneNumber) {
+                           String address, String phoneNumber, double longitude, double latitude) {
         this.name = name;
         this.price = price;
         this.culinaryFence = culinaryFence;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     protected RestaurantModel(Parcel in) {
@@ -29,6 +33,8 @@ public class RestaurantModel implements Parcelable {
         culinaryFence = CulinaryFence.values()[in.readInt()];
         address = in.readString();
         phoneNumber = in.readString();
+        longitude = in.readDouble();
+        latitude = in.readDouble();
     }
 
     @Override
@@ -38,6 +44,8 @@ public class RestaurantModel implements Parcelable {
         dest.writeInt(culinaryFence.ordinal());
         dest.writeString(address);
         dest.writeString(phoneNumber);
+        dest.writeDouble(longitude);
+        dest.writeDouble(latitude);
     }
 
     @Override
@@ -98,6 +106,10 @@ public class RestaurantModel implements Parcelable {
     public CulinaryFence getCulinaryFence() {
         return culinaryFence;
     }
+
+    public double getLatitude() { return latitude; }
+
+    public double getLongitude() { return longitude; }
 
     public void addVisit(VisitModel visit) {
         VisitDatabase.getVisits().add(visit);

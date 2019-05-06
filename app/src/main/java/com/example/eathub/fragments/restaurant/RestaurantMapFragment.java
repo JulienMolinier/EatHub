@@ -45,7 +45,7 @@ public class RestaurantMapFragment extends Fragment {
         map.setClickable(true);
         map.setMultiTouchControls(true);
         map.getController().setZoom(17.0);
-        GeoPoint startPoint = new GeoPoint(43.6167, 7.0747800000000325);
+        GeoPoint startPoint = new GeoPoint(theRestaurant.getLatitude(), theRestaurant.getLongitude());
         map.getController().setCenter(startPoint);
 
         Marker tec = new Marker(map);

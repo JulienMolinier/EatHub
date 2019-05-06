@@ -135,7 +135,9 @@
           "culinaryFence": "american",
           "address": "15 rue des arbres",
           "phoneNumber": "0102030405",
-          "rating": 0.0
+          "rating": 0.0,
+          "longitude": 7.02949,
+          "latitude": 43.6277
         },
         {
           "name": "Pizza Corsica",
@@ -162,7 +164,9 @@
           "culinaryFence": "italian",
           "address": "5895 rue des arbres",
           "phoneNumber": "0102030405",
-          "rating": 3.0
+          "rating": 3.0,
+          "longitude": 7.07197,
+          "latitude": 43.6295
         }
       ],
       "profileDetailsList": [
@@ -202,7 +206,9 @@
             "culinaryFence": "vegan",
             "address": "18 rue des arbres",
             "phoneNumber": "0102030405",
-            "rating": 3.75
+            "rating": 3.75,
+            "longitude": 7.06452,
+            "latitude": 43.6166
           },
           "profileModel": {
             "email": "mm.durand@gmail.com",
@@ -339,7 +345,9 @@
                 "culinaryFence": "american",
                 "address": "15 rue des arbres",
                 "phoneNumber": "0102030405",
-                "rating": 0.0
+                "rating": 0.0,
+                "longitude": 7.02949,
+                "latitude": 43.6277
               },
               {
                 "name": "Pizza Corsica",
@@ -366,7 +374,9 @@
                 "culinaryFence": "italian",
                 "address": "5895 rue des arbres",
                 "phoneNumber": "0102030405",
-                "rating": 3.0
+                "rating": 3.0,
+                "longitude": 7.07197,
+                "latitude": 43.6295
               }
             ],
             "profileDetailsList": [],
@@ -419,7 +429,9 @@
             "culinaryFence": "italian",
             "address": "5895 rue des arbres",
             "phoneNumber": "0102030405",
-            "rating": 3.0
+            "rating": 3.0,
+            "longitude": 7.07197,
+            "latitude": 43.6295
           },
           "profileModel": {
             "email": "mm.durand@gmail.com",
@@ -479,7 +491,9 @@
                 "culinaryFence": "american",
                 "address": "15 rue des arbres",
                 "phoneNumber": "0102030405",
-                "rating": 0.0
+                "rating": 0.0,
+                "longitude": 7.02949,
+                "latitude": 43.6277
               }
             ],
             "profileDetailsList": [],
@@ -606,7 +620,9 @@
           "culinaryFence": "vegan",
           "address": "18 rue des arbres",
           "phoneNumber": "0102030405",
-          "rating": 3.75
+          "rating": 3.75,
+          "longitude": 7.06452,
+          "latitude": 43.6166
         }
       ],
       "profileDetailsList": [],
