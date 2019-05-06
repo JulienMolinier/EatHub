@@ -1,5 +1,6 @@
 package com.example.eathub.fragments.profile;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -134,9 +135,11 @@ public class ProfileChartsFragment extends Fragment {
             }
 
             BarDataSet data = new BarDataSet(entries, "Calories");
+            data.setColor(Color.parseColor("#ffaa04"));
             BarData barData = new BarData(data);
             chart1.setData(barData);
             BarDataSet data2 = new BarDataSet(entries2, "Budget");
+            data2.setColor(Color.parseColor("#ffaa04"));
             BarData barData2 = new BarData(data2);
             chart2.setData(barData2);
         }

@@ -16,7 +16,7 @@ import com.example.eathub.models.RestaurantModel;
 
 public class RestaurantCommentsFragment extends Fragment {
     private View view;
-    private ListView detailsListView;
+    private ListView listComments;
     private ProfileModel profileModel;
     private RestaurantModel restaurantModel;
 
@@ -24,7 +24,7 @@ public class RestaurantCommentsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.restaurantcomments, container, false);
-        detailsListView = view.findViewById(R.id.detailsListView);
+        listComments = view.findViewById(R.id.listComments);
         Button addACommentButton = view.findViewById(R.id.addACommentButton);
 
         return view;
