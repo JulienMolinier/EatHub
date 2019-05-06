@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.eathub.R;
@@ -16,6 +17,8 @@ import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
 import com.example.eathub.models.databases.RestaurantDatabase;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -25,15 +28,12 @@ public class SearchPageActivity extends AppCompatActivity {
     public TextView text;
     public ListView listRestaurant;
 
-    public CheckBox hightestRate;
-    public CheckBox price0to10;
-    public CheckBox price10to20;
-    public CheckBox price20;
-
     public boolean rate;
     public boolean isPrice10;
     public boolean isPrice20;
     public boolean isPrice30;
+
+    SearchView searchView;
 
     public List<RestaurantModel> filterRestaurants;
     public List<RestaurantModel> restaurantsListBySearch;
@@ -52,32 +52,12 @@ public class SearchPageActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("params", search);
 
+        searchView = findViewById(R.id.search);
+
         profile = (ProfileModel) intent.getParcelableExtra("userprofile");
 
-        // initialisation bouton retour
-        Button button = findViewById(R.id.buttonBackSearch);
-        // initialisation checkbox
-        hightestRate = findViewById(R.id.checkBoxRate);
-        price0to10 = findViewById(R.id.checkBox10);
-        price10to20 = findViewById(R.id.checkBox20);
-        price20 = findViewById(R.id.checkBox30);
+        getRestaurantList();
 
-        // recuperation liste des restaurants
-        listRestaurant = findViewById(R.id.listRestaurant);
-        if (search != null) {
-            restaurantsListBySearch = RestaurantDatabase.getRestaurantsBySearch(search);
-            filterRestaurants = RestaurantDatabase.getRestaurantsBySearch(search);
-            restaurantAdapter = new RestaurantListAdapter(getApplicationContext(), filterRestaurants, profile);
-            listRestaurant.setAdapter(restaurantAdapter);
-        }
-
-        // retour en arriere avec le bouton back
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         final Intent intentRestaurant = new Intent(getApplicationContext(), RestaurantActivity.class);
         listRestaurant.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -87,6 +67,51 @@ public class SearchPageActivity extends AppCompatActivity {
                 startActivity(intentRestaurant);
             }
         });
+
+
+        final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                search = query;
+                getRestaurantList();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                search = newText;
+                getRestaurantList();
+                return true;
+            }
+        };
+        searchView.setOnQueryTextListener(queryTextListener);
+
+        goBack();
+    }
+
+    public void getRestaurantList() {
+        // recuperation liste des restaurants
+        listRestaurant = findViewById(R.id.listRestaurant);
+        if (search != null) {
+            restaurantsListBySearch = RestaurantDatabase.getRestaurantsBySearch(search);
+            filterRestaurants = RestaurantDatabase.getRestaurantsBySearch(search);
+            restaurantAdapter = new RestaurantListAdapter(getApplicationContext(), filterRestaurants, profile);
+            listRestaurant.setAdapter(restaurantAdapter);
+        }
+    }
+
+    public void goBack() {
+        // initialisation bouton retour
+        Button button = findViewById(R.id.buttonBackSearch);
+
+        // retour en arriere avec le bouton back
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     public void addListenerOnCheckBox(View v) {
@@ -130,11 +155,8 @@ public class SearchPageActivity extends AppCompatActivity {
                 }
                 break;
         }
-
         buildRestaurantList(search, isPrice10, isPrice20, isPrice30, rate);
         restaurantAdapter.notifyDataSetChanged();
-
-
 
     }
 
