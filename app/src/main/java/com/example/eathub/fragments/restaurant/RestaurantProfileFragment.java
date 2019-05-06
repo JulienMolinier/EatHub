@@ -43,7 +43,6 @@ public class RestaurantProfileFragment extends Fragment {
         TextView restaurantAdress = view.findViewById(R.id.restaurantAdress);
         restaurantAdress.setText(this.restaurantModel.getAddress());
         TextView restaurantCost = view.findViewById(R.id.restaurantCost);
-        Button buttonTel = view.findViewById(R.id.buttonTel);
         switch ((int) this.restaurantModel.getPrice()) {
             case 1:
                 restaurantCost.setText("$");
@@ -61,7 +60,7 @@ public class RestaurantProfileFragment extends Fragment {
         RatingBar restaurantRate = view.findViewById(R.id.restaurantRate);
         restaurantRate.setRating((int) this.restaurantModel.getRating());
 
-        buttonTel.setOnClickListener(new View.OnClickListener() {
+        restaurantTel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg) {
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
                 callIntent.setData(Uri.parse("tel:" + restaurantModel.getPhoneNumber()));
