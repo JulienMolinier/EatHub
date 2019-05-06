@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.eathub.R;
+import com.example.eathub.activities.FriendProfileActivity;
 import com.example.eathub.activities.RestaurantActivity;
 import com.example.eathub.adapters.RestaurantListAdapter;
 import com.example.eathub.models.ProfileModel;
@@ -81,9 +82,17 @@ public class FeedFragment extends Fragment {
 
     private void buildFriendList() {
         friendLL = view.findViewById(R.id.friendLL);
+        final Intent myIntent = new Intent(view.getContext(), FriendProfileActivity.class);
         LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         for (ProfileModel profile : profile.getFriendList()) {
             RelativeLayout rL = (RelativeLayout) inflater.inflate(R.layout.friend_list_item, null);
+            rL.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    myIntent.putExtra("profilepicked", profile);
+                    startActivity(myIntent);
+                }
+            });
             ImageView avatarFriend = rL.findViewById(R.id.avatarFriend);
             TextView nameFriend = rL.findViewById(R.id.nameFriend);
             avatarFriend.setImageResource(view.getResources().getIdentifier(profile.getName()
@@ -93,6 +102,7 @@ public class FeedFragment extends Fragment {
             layoutParams.setMargins(0, 0, 40, 0);
             friendLL.addView(rL, layoutParams);
         }
+
     }
 
     private void buildFeedList() {

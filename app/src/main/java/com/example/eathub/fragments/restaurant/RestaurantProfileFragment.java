@@ -1,10 +1,13 @@
 package com.example.eathub.fragments.restaurant;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +65,11 @@ public class RestaurantProfileFragment extends Fragment {
             public void onClick(View arg) {
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
                 callIntent.setData(Uri.parse("tel:" + restaurantModel.getPhoneNumber()));
-                startActivity(callIntent);
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    //no permission
+                } else {
+                    startActivity(callIntent);
+                }
             }
         });
 
