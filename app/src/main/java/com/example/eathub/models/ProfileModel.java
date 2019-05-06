@@ -254,6 +254,10 @@ public class ProfileModel implements Parcelable {
         return false;
     }
 
+    public String getFirstName(){
+        return this.firstName;
+    }
+
     private int computeAge() {
         LocalDate today = LocalDate.now();
         String[] date = birthdate.split("-");
