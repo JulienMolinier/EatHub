@@ -17,8 +17,6 @@ import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
 import com.example.eathub.models.databases.RestaurantDatabase;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -45,7 +43,7 @@ public class SearchPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_page_layout);
+        setContentView(R.layout.search_page);
 
         Intent intent = getIntent();
         search = intent.getStringExtra("data");
