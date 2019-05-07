@@ -9,14 +9,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.eathub.R;
+import com.example.eathub.models.DatabaseHandler;
 import com.example.eathub.models.LogInModel;
 import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.databases.ProfileDatabase;
-import com.example.eathub.models.databases.ProfilesFactory;
-import com.example.eathub.models.databases.RestaurantDatabase;
-import com.example.eathub.models.databases.RestaurantsFactory;
-import com.example.eathub.models.databases.VisitDatabase;
-import com.example.eathub.models.databases.VisitsFactory;
 
 
 /**
@@ -24,16 +20,15 @@ import com.example.eathub.models.databases.VisitsFactory;
  */
 public class LogInActivity extends AppCompatActivity {
 
+    private DatabaseHandler db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        RestaurantDatabase DbResto = new RestaurantDatabase();
-        ProfileDatabase DbProfile = new ProfileDatabase();
-        VisitDatabase DbVisit = new VisitDatabase();
-        RestaurantsFactory.createRestaurantsList(getResources().openRawResource(R.raw.restaurants));
-        ProfilesFactory.createProfilesList(getResources().openRawResource(R.raw.profiles));
-        VisitsFactory.createVisitList(getResources().openRawResource(R.raw.visits));
+
+        db = new DatabaseHandler(this);
+        System.out.println(db.getAllProfiles());
+
         setContentView(R.layout.login);
 
         Button loginButton = findViewById(R.id.login);
@@ -60,7 +55,6 @@ public class LogInActivity extends AppCompatActivity {
             TextView errorMessage = findViewById(R.id.errorMessage);
 
             LogInModel model = new LogInModel(email, password);
-
             if (model.correctEmail()) {
                 if (model.correctPassword()) {
                     errorMessage.setVisibility(View.INVISIBLE);

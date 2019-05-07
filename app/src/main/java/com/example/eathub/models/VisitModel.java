@@ -1,4 +1,5 @@
 package com.example.eathub.models;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 

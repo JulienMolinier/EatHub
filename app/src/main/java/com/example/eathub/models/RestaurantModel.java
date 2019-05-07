@@ -8,6 +8,7 @@ import com.example.eathub.models.databases.VisitDatabase;
 import java.util.List;
 
 public class RestaurantModel implements Parcelable {
+    private int id;
     private String name;
     private double price;
     private CulinaryFence culinaryFence;
@@ -16,8 +17,9 @@ public class RestaurantModel implements Parcelable {
     private double latitude;
     private double longitude;
 
-    public RestaurantModel(String name, double price, CulinaryFence culinaryFence,
+    public RestaurantModel(int id, String name, double price, CulinaryFence culinaryFence,
                            String address, String phoneNumber, double longitude, double latitude) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.culinaryFence = culinaryFence;
@@ -28,6 +30,7 @@ public class RestaurantModel implements Parcelable {
     }
 
     protected RestaurantModel(Parcel in) {
+        id = in.readInt();
         name = in.readString();
         price = in.readDouble();
         culinaryFence = CulinaryFence.values()[in.readInt()];
@@ -39,6 +42,7 @@ public class RestaurantModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(name);
         dest.writeDouble(price);
         dest.writeInt(culinaryFence.ordinal());
@@ -64,6 +68,10 @@ public class RestaurantModel implements Parcelable {
             return new RestaurantModel[size];
         }
     };
+
+    public int getId() {
+        return id;
+    }
 
     public String getAddress() {
         return address;
@@ -107,9 +115,13 @@ public class RestaurantModel implements Parcelable {
         return culinaryFence;
     }
 
-    public double getLatitude() { return latitude; }
+    public double getLatitude() {
+        return latitude;
+    }
 
-    public double getLongitude() { return longitude; }
+    public double getLongitude() {
+        return longitude;
+    }
 
     public void addVisit(VisitModel visit) {
         VisitDatabase.getVisits().add(visit);
