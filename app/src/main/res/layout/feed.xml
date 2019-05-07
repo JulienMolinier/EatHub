@@ -30,28 +30,38 @@
         <RelativeLayout
             android:id="@+id/filterLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+            android:layout_height="wrap_content">
 
-            <CheckBox
-                android:id="@+id/shared"
+            <TextView
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Shared" />
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:text="Feed"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-            <CheckBox
-                android:id="@+id/visited"
+            <Button
+                android:id="@+id/filterFeed"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/shared"
-                android:text="Visited" />
+                android:layout_alignParentRight="true"
+                android:keepScreenOn="false"
+                android:text="All"
+                android:textColor="#FF9800"
+                android:textSize="20sp" />
+
         </RelativeLayout>
 
-        <ListView
-            android:id="@+id/feedLV"
-            android:layout_width="match_parent"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/feedRV"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_below="@+id/filterLayout" />
+            android:layout_below="@id/filterLayout"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical" />
+
     </RelativeLayout>
 </RelativeLayout>

@@ -13,7 +13,7 @@
         app:srcCompat="@drawable/lebarbusse" />
 
     <RelativeLayout
-        android:id="@+id/indicator"
+        android:id="@+id/CVindicator"
         android:layout_width="7dp"
         android:layout_height="match_parent"
         android:layout_toRightOf="@+id/avatarRestaurant"
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/indicator">
+        android:layout_toRightOf="@+id/CVindicator">
 
         <TextView
             android:id="@+id/nameRestaurant"
