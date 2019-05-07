@@ -27,6 +27,9 @@ public class ProfileDetailsFragment extends Fragment {
         detailsList = view.findViewById(R.id.detailsList);
         profilePic = view.findViewById(R.id.profilePic);
 
+        if (savedInstanceState != null)
+            profileModel = savedInstanceState.getParcelable("connectedProfile");
+
         profilePic.setImageResource(view.getResources()
                 .getIdentifier(this.profileModel.getName().replaceAll(" ", "")
                                 .replaceAll("-", "").toLowerCase(), "drawable",
@@ -38,5 +41,14 @@ public class ProfileDetailsFragment extends Fragment {
 
     public void setProfile(ProfileModel profile) {
         this.profileModel = profile;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the state
+        savedInstanceState.putParcelable("connectedProfile", profileModel);
+        super.onSaveInstanceState(savedInstanceState);
+
+
     }
 }

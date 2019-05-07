@@ -26,6 +26,10 @@ public class RestaurantCommentsFragment extends Fragment {
         view = inflater.inflate(R.layout.restaurantcomments, container, false);
         listComments = view.findViewById(R.id.listComments);
         Button addACommentButton = view.findViewById(R.id.addACommentButton);
+        if (savedInstanceState != null){
+            restaurantModel = savedInstanceState.getParcelable("currentRestaurant");
+            profileModel = savedInstanceState.getParcelable("connectedProfile");
+        }
 
         return view;
     }
@@ -36,5 +40,15 @@ public class RestaurantCommentsFragment extends Fragment {
 
     public void setRestaurantModel(RestaurantModel restaurantModel){
         this.restaurantModel=restaurantModel;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the state
+        savedInstanceState.putParcelable("currentRestaurant", restaurantModel);
+        savedInstanceState.putParcelable("connectedProfile", profileModel);
+
+        super.onSaveInstanceState(savedInstanceState);
+
     }
 }

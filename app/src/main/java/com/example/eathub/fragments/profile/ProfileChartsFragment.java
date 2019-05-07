@@ -50,6 +50,9 @@ public class ProfileChartsFragment extends Fragment {
         text.setText(R.string.caloriesEvolution);
         text2.setText(R.string.budgetEvolution);
 
+        if (savedInstanceState != null)
+            profileModel = savedInstanceState.getParcelable("connectedProfile");
+
         spinner = view.findViewById(R.id.spinner);
         adapter = ArrayAdapter.createFromResource(this.getContext(),
                 R.array.choice_array, android.R.layout.simple_spinner_item);
@@ -162,5 +165,14 @@ public class ProfileChartsFragment extends Fragment {
 
     public void setProfile(ProfileModel profile) {
         this.profileModel = profile;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the state
+        savedInstanceState.putParcelable("connectedProfile", profileModel);
+        super.onSaveInstanceState(savedInstanceState);
+
+
     }
 }

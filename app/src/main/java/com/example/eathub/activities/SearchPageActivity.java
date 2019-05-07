@@ -17,6 +17,7 @@ import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
 import com.example.eathub.models.databases.RestaurantDatabase;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -47,14 +48,18 @@ public class SearchPageActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         search = intent.getStringExtra("data");
+        if (savedInstanceState != null)
+            search = savedInstanceState.getString("currentSearch");
         Bundle bundle = new Bundle();
         bundle.putString("params", search);
 
         searchView = findViewById(R.id.search);
 
         profile = (ProfileModel) intent.getParcelableExtra("userprofile");
+        if (savedInstanceState != null)
+            profile = savedInstanceState.getParcelable("connectedProfile");
 
-        getRestaurantList();
+        getRestaurantList(savedInstanceState);
 
 
         final Intent intentRestaurant = new Intent(getApplicationContext(), RestaurantActivity.class);
@@ -71,14 +76,14 @@ public class SearchPageActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 search = query;
-                getRestaurantList();
+                getRestaurantList(savedInstanceState);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 search = newText;
-                getRestaurantList();
+                getRestaurantList(savedInstanceState);
                 return true;
             }
         };
@@ -87,12 +92,14 @@ public class SearchPageActivity extends AppCompatActivity {
         goBack();
     }
 
-    public void getRestaurantList() {
+    public void getRestaurantList(Bundle savedInstanceState) {
         // recuperation liste des restaurants
         listRestaurant = findViewById(R.id.listRestaurant);
         if (search != null) {
             restaurantsListBySearch = RestaurantDatabase.getRestaurantsBySearch(search);
             filterRestaurants = RestaurantDatabase.getRestaurantsBySearch(search);
+            if (savedInstanceState != null)
+                filterRestaurants = savedInstanceState.getParcelableArrayList("filterRestaurants");
             restaurantAdapter = new RestaurantListAdapter(getApplicationContext(), filterRestaurants, profile);
             listRestaurant.setAdapter(restaurantAdapter);
         }
@@ -199,5 +206,16 @@ public class SearchPageActivity extends AppCompatActivity {
                 filterRestaurants.add(restaurant);
             }
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the state
+        savedInstanceState.putString("currentSearch", search);
+        savedInstanceState.putParcelable("connectedProfile", profile);
+        savedInstanceState.putParcelableArrayList("filterRestaurants", (ArrayList)filterRestaurants);
+
+        super.onSaveInstanceState(savedInstanceState);
+
     }
 }

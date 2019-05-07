@@ -54,18 +54,20 @@ public class FeedFragment extends Fragment {
         friendRV = view.findViewById(R.id.friendRV);
         feedRV = view.findViewById(R.id.feedRV);
 
+        if (savedInstanceState != null)
+            profile = savedInstanceState.getParcelable("connectedProfile");
+
         shared = true;
         visited = true;
         restaurantList = new ArrayList<>();
         buildFeedList();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        /*LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManagerFeed = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
-
         friendRV.setLayoutManager(layoutManager);
-        friendRV.setAdapter(new FriendRVAdapter(this.getContext(), profile.getFriendList()));
+        feedRV.setLayoutManager(layoutManagerFeed);*/
 
-        feedRV.setLayoutManager(layoutManagerFeed);
+        friendRV.setAdapter(new FriendRVAdapter(this.getContext(), profile.getFriendList()));
         RestaurantRVAdapter feedadapter = new RestaurantRVAdapter(this.getContext(), restaurantList, profile);
         feedRV.setAdapter(feedadapter);
 
@@ -97,6 +99,15 @@ public class FeedFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the state
+        savedInstanceState.putParcelable("connectedProfile", profile);
+        super.onSaveInstanceState(savedInstanceState);
+
+
+    }
+
     private void buildFeedList() {
         restaurantList.clear();
         if (shared) {
@@ -112,6 +123,7 @@ public class FeedFragment extends Fragment {
             }
         }
     }
+
 
     public void setProfile(ProfileModel profile) {
         this.profile = profile;

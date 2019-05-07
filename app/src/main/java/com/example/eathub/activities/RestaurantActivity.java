@@ -68,6 +68,8 @@ public class RestaurantActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         theRestaurant = intent.getParcelableExtra("restaurantpicked");
+        if (savedInstanceState != null)
+            theRestaurant = savedInstanceState.getParcelable("currentRestaurant");
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -84,5 +86,13 @@ public class RestaurantActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.contain, fragment)
                 .commit();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the state
+        savedInstanceState.putParcelable("currentRestaurant", theRestaurant);
+        super.onSaveInstanceState(savedInstanceState);
+
     }
 }

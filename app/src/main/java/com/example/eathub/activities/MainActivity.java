@@ -18,14 +18,20 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager vwPager;
     private SearchView search;
     private ProfileModel connectedProfile;
+    private Bundle mState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(savedInstanceState != null )
+            mState = savedInstanceState;
+
         final Intent myIntent = getIntent();
         connectedProfile = myIntent.getParcelableExtra("userprofile");
+        if(savedInstanceState != null)
+            connectedProfile = savedInstanceState.getParcelable("connectedProfile");
         System.out.println("L'user connecté est" + connectedProfile);
 
         fragAdapter = new FragmentAdapter(getSupportFragmentManager());
@@ -57,10 +63,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the state
+        savedInstanceState.putParcelable("connectedProfile", connectedProfile);
+        super.onSaveInstanceState(savedInstanceState);
+
+
+    }
+
     private void setupViewPager(ViewPager viewPager) {
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
 
         FeedFragment feedFragment = new FeedFragment();
+        if(mState != null)
+            connectedProfile = mState.getParcelable("connectedProfile");
         feedFragment.setProfile(connectedProfile);
         adapter.addFragment(feedFragment, "Feed");
 

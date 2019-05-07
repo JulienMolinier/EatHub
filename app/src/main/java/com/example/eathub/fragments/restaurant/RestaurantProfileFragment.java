@@ -31,6 +31,10 @@ public class RestaurantProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.restaurantprofile, container, false);
         ImageView imageRestaurant = view.findViewById(R.id.imageRestaurant);
+        if (savedInstanceState != null){
+            restaurantModel = savedInstanceState.getParcelable("currentRestaurant");
+            profileModel = savedInstanceState.getParcelable("connectedProfile");
+        }
         imageRestaurant.setImageResource(view.getResources()
                 .getIdentifier(this.restaurantModel.getName().replaceAll(" ", "")
                                 .replaceAll("-", "").toLowerCase(), "drawable",
@@ -81,5 +85,15 @@ public class RestaurantProfileFragment extends Fragment {
 
     public void setRestaurantModel(RestaurantModel restaurantModel) {
         this.restaurantModel = restaurantModel;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the state
+        savedInstanceState.putParcelable("currentRestaurant", restaurantModel);
+        savedInstanceState.putParcelable("connectedProfile", profileModel);
+
+        super.onSaveInstanceState(savedInstanceState);
+
     }
 }
