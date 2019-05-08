@@ -57,9 +57,9 @@ public class FriendProfileActivity extends AppCompatActivity {
         setContentView(R.layout.profile);
 
         Intent intent = getIntent();
-        profileModel = intent.getParcelableExtra("profilepicked");
+        profileModel = intent.getParcelableExtra("currentProfile");
         if (savedInstanceState != null)
-            profileModel = savedInstanceState.getParcelable("connectedProfile");
+            profileModel = savedInstanceState.getParcelable("currentProfile");
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -80,7 +80,7 @@ public class FriendProfileActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the state
-        savedInstanceState.putParcelable("connectedProfile", profileModel);
+        savedInstanceState.putParcelable("currentProfile", profileModel);
         super.onSaveInstanceState(savedInstanceState);
 
     }

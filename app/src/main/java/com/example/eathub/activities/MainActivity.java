@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
             mState = savedInstanceState;
 
         final Intent myIntent = getIntent();
-        connectedProfile = myIntent.getParcelableExtra("userprofile");
+        connectedProfile = myIntent.getParcelableExtra("currentProfile");
         if(savedInstanceState != null)
-            connectedProfile = savedInstanceState.getParcelable("connectedProfile");
+            connectedProfile = savedInstanceState.getParcelable("currentProfile");
         System.out.println("L'user connecté est" + connectedProfile);
 
         fragAdapter = new FragmentAdapter(getSupportFragmentManager());
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the state
-        savedInstanceState.putParcelable("connectedProfile", connectedProfile);
+        savedInstanceState.putParcelable("currentProfile", connectedProfile);
         super.onSaveInstanceState(savedInstanceState);
 
 
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         FeedFragment feedFragment = new FeedFragment();
         if(mState != null)
-            connectedProfile = mState.getParcelable("connectedProfile");
+            connectedProfile = mState.getParcelable("currentProfile");
         feedFragment.setProfile(connectedProfile);
         adapter.addFragment(feedFragment, "Feed");
 

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.eathub.models.databases.ProfileDatabase;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
+    private static final String VISIT_TABLE_NAME = "Visits";
     private final static String NAME = "database.db";
 
     private static final String PROFILE_KEY = "id";
@@ -49,8 +51,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String VISIT_PRICE = "price";
     private static final String VISIT_COMMENT = "commentary";
     private static final String VISIT_MARK = "mark";
-
-    private static final String VISIT_TABLE_NAME = "Visits";
+    private static SQLiteDatabase db;
     private static final String VISIT_TABLE_CREATE =
             "CREATE TABLE " + VISIT_TABLE_NAME + " (" +
                     VISIT_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -112,16 +113,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         new VisitDatabase();
     }
 
+    public static boolean addVisitToDB(VisitModel visitModel) {
+        long res = db.insert(DatabaseHandler.VISIT_TABLE_NAME, null, createVisit(visitModel));
+        return res != -1;
+    }
+
+    private static ContentValues createVisit(VisitModel visit) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(VISIT_REST, visit.getRestaurant().getId());
+        contentValues.put(VISIT_PROFILE, visit.getProfileModel().getId());
+        contentValues.put(VISIT_DATE, visit.getDate().toString());
+        contentValues.put(VISIT_CALORIES, visit.getCalories());
+        contentValues.put(VISIT_PRICE, visit.getPrice());
+        contentValues.put(VISIT_COMMENT, visit.getCommentary());
+        contentValues.put(VISIT_MARK, visit.getMark());
+        return contentValues;
+    }
+
     @Override
     public void onOpen(SQLiteDatabase db) {
         super.onOpen(db);
         initiateData(db);
-    }
-
-    public Cursor getAllProfiles() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + PROFILE_TABLE_NAME, null);
-        return res;
     }
 
     private void initiateData(SQLiteDatabase db) {
@@ -183,24 +195,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 commentary, mark);
     }
 
-    private ContentValues createVisit(VisitModel visit) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(VISIT_REST, visit.getRestaurant().getId());
-        contentValues.put(VISIT_PROFILE, visit.getProfileModel().getId());
-        contentValues.put(VISIT_DATE, visit.getDate().toString());
-        contentValues.put(VISIT_CALORIES, visit.getCalories());
-        contentValues.put(VISIT_PRICE, visit.getPrice());
-        contentValues.put(VISIT_COMMENT, visit.getCommentary());
-        contentValues.put(VISIT_MARK, visit.getMark());
-        return contentValues;
-    }
-
-    public void addProfile(ProfileModel profileToAdd) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues value = createProfile(profileToAdd);
-        db.insert(PROFILE_TABLE_NAME, null, value);
-        db.close();
-        ProfileDatabase.addNewProfile(profileToAdd);
+    public void openDB() {
+        try {
+            db = getWritableDatabase();
+        } catch (SQLiteException ex) {
+            db = getReadableDatabase();
+        }
     }
 
     @Override

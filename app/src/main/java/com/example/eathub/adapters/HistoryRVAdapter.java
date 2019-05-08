@@ -15,7 +15,6 @@ import com.example.eathub.models.VisitModel;
 import java.util.List;
 
 public class HistoryRVAdapter extends RecyclerView.Adapter<HistoryHolder> {
-
     private List<VisitModel> visits;
     private Context context;
 
@@ -47,13 +46,11 @@ public class HistoryRVAdapter extends RecyclerView.Adapter<HistoryHolder> {
         historyHolder.getPrice().setText(visit.getPrice() + " €");
         historyHolder.getCalories().setText(visit.getCalories() + " calories");
 
-        historyHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(context, RestaurantActivity.class);
-                myIntent.putExtra("visitpicked", visits.get(i));
-                context.startActivity(myIntent);
-            }
+        historyHolder.itemView.setOnClickListener((View v) -> {
+            Intent myIntent = new Intent(context, RestaurantActivity.class);
+            myIntent.putExtra("currentRestaurant", visits.get(i).getRestaurant());
+            myIntent.putExtra("currentProfile", visits.get(i).getProfileModel());
+            context.startActivity(myIntent);
         });
     }
 
