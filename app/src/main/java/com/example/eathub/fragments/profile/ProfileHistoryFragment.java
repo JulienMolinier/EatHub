@@ -36,7 +36,7 @@ public class ProfileHistoryFragment extends Fragment {
         spinner = view.findViewById(R.id.spinner);
 
         if (savedInstanceState != null)
-            profileModel = savedInstanceState.getParcelable("connectedProfile");
+            profileModel = savedInstanceState.getParcelable("currentProfile");
 
         adapter = ArrayAdapter.createFromResource(this.getContext(),
                 R.array.choice_array, android.R.layout.simple_spinner_item);
@@ -85,7 +85,7 @@ public class ProfileHistoryFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the state
-        savedInstanceState.putParcelable("connectedProfile", profileModel);
+        savedInstanceState.putParcelable("currentProfile", profileModel);
         super.onSaveInstanceState(savedInstanceState);
 
 

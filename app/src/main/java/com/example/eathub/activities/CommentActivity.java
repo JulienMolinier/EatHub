@@ -9,10 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.eathub.R;
-import com.example.eathub.models.DatabaseHandler;
 import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
 import com.example.eathub.models.VisitModel;
+import com.example.eathub.models.databases.DatabaseHandler;
 import com.example.eathub.models.databases.VisitDatabase;
 
 import java.time.LocalDate;

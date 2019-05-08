@@ -136,6 +136,10 @@ public class ProfileModel implements Parcelable {
         }
     };
 
+    public void shareARestaurant(RestaurantModel restaurantModel) {
+        this.sharedRestaurants.add(restaurantModel);
+    }
+
     public String getSurname() {
         return surname;
     }
@@ -256,10 +260,6 @@ public class ProfileModel implements Parcelable {
         return email;
     }
 
-    public boolean isFriendWith(ProfileModel person) {
-        return friendList.contains(person);
-    }
-
     public int getVisitNumber() {
         return visitNumber;
     }
@@ -287,10 +287,6 @@ public class ProfileModel implements Parcelable {
 
     public List<ProfileModel> getFriendList() {
         return friendList;
-    }
-
-    public void setFriendList(ArrayList<ProfileModel> friendList) {
-        this.friendList = friendList;
     }
 
     @Override

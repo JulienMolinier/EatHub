@@ -1,4 +1,4 @@
-package com.example.eathub.models;
+package com.example.eathub.models.databases;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,15 +7,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.eathub.models.databases.ProfileDatabase;
-import com.example.eathub.models.databases.RestaurantDatabase;
-import com.example.eathub.models.databases.VisitDatabase;
+import com.example.eathub.models.CulinaryFence;
+import com.example.eathub.models.Diet;
+import com.example.eathub.models.ProfileModel;
+import com.example.eathub.models.RestaurantModel;
+import com.example.eathub.models.VisitModel;
 
 import java.time.LocalDate;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    private static final String VISIT_TABLE_NAME = "Visits";
+    private static final String SHARED_KEY = "id";
     private final static String NAME = "database.db";
 
     private static final String PROFILE_KEY = "id";
@@ -51,7 +53,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String VISIT_PRICE = "price";
     private static final String VISIT_COMMENT = "commentary";
     private static final String VISIT_MARK = "mark";
-    private static SQLiteDatabase db;
+    private static final String SHARED_PROFILE = "sharedRestaurant";
+    private static final String SHARED_RESTAURANT = "sharedProfile";
+    private static final String VISIT_TABLE_NAME = "Visits";
+    private static final String SHARED_TABLE_NAME = "Shared";
+
     private static final String VISIT_TABLE_CREATE =
             "CREATE TABLE " + VISIT_TABLE_NAME + " (" +
                     VISIT_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -104,6 +110,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     RESTAURANT_LONG + " DOUBLE " + ");";
 
     private static final String RESTAURANT_TABLE_DROP = "DROP TABLE IF EXISTS " + RESTAURANT_TABLE_NAME + ";";
+    private static final String SHARED_TABLE_CREATE =
+            "CREATE TABLE " + SHARED_TABLE_NAME + " (" +
+                    SHARED_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    SHARED_PROFILE + " INTEGER, " +
+                    SHARED_RESTAURANT + " INTEGER " + ");";
+    private static final String SHARED_TABLE_DROP = "DROP TABLE IF EXISTS " + SHARED_TABLE_NAME + ";";
+    private static SQLiteDatabase db;
 
 
     public DatabaseHandler(Context context) {
@@ -141,6 +154,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor2 = db.rawQuery("SELECT * FROM " + RESTAURANT_TABLE_NAME, null);
         Cursor cursor3 = db.rawQuery("SELECT * FROM " + FRIEND_TABLE_NAME, null);
         Cursor cursor4 = db.rawQuery("SELECT * FROM " + VISIT_TABLE_NAME, null);
+        Cursor cursor5 = db.rawQuery("SELECT * FROM " + SHARED_TABLE_NAME, null);
 
         while (cursor.moveToNext()) {
             ProfileModel profileModel = createProfileFromRaw(cursor);
@@ -164,6 +178,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             VisitDatabase.getVisits().add(visitModel);
         }
         cursor4.close();
+        while (cursor5.moveToNext()) {
+            int profile = cursor5.getInt(1);
+            int restaurant = cursor5.getInt(2);
+            ProfileDatabase.getAllProfiles().get(profile)
+                    .shareARestaurant(RestaurantDatabase.getRestaurants().get(restaurant));
+        }
 
     }
 
@@ -209,6 +229,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(FRIEND_TABLE_CREATE);
         db.execSQL(RESTAURANT_TABLE_CREATE);
         db.execSQL(VISIT_TABLE_CREATE);
+        db.execSQL(SHARED_TABLE_CREATE);
 
         ProfileModel mmdurand = new ProfileModel(0, "mm.durand@gmail.com", "0",
                 "Marie-Madeleine", "Durand", "1947-08-08", 1.6,
@@ -243,7 +264,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 7.05796, 43.6184);
         ContentValues contentValues7 = createRestaurant(lebelagio);
 
-
         RestaurantModel lebarbusse = new RestaurantModel(2, "Le Barbusse", 18.0,
                 CulinaryFence.vegan, "18 rue des arbres", "0102030405",
                 7.06452, 43.6166);
@@ -263,13 +283,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         mmdurand.addFriend(jpot);
         mmdurand.addFriend(fleca);
 
-        ProfileDatabase.addNewProfile(mmdurand);
-        ProfileDatabase.addNewProfile(jpot);
-        ProfileDatabase.addNewProfile(fleca);
-
         RestaurantDatabase.getRestaurants().add(pizzaCorsica);
         RestaurantDatabase.getRestaurants().add(lebelagio);
         RestaurantDatabase.getRestaurants().add(lebarbusse);
+
+        ContentValues contentValues11 = new ContentValues();
+        contentValues4.put(SHARED_PROFILE, 1);
+        contentValues4.put(SHARED_RESTAURANT, 0);
+
+        ContentValues contentValues12 = new ContentValues();
+        contentValues5.put(SHARED_PROFILE, 2);
+        contentValues5.put(SHARED_RESTAURANT, 1);
+
+        db.insert(SHARED_TABLE_NAME, null, contentValues11);
+        db.insert(SHARED_TABLE_NAME, null, contentValues12);
+
+        jpot.shareARestaurant(pizzaCorsica);
+        fleca.shareARestaurant(lebelagio);
+
+        ProfileDatabase.addNewProfile(mmdurand);
+        ProfileDatabase.addNewProfile(jpot);
+        ProfileDatabase.addNewProfile(fleca);
 
         VisitModel visit0 = new VisitModel(mmdurand, pizzaCorsica,
                 LocalDate.of(2019, 5, 2), 800, 16,
@@ -286,7 +320,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         VisitDatabase.getVisits().add(visit0);
         VisitDatabase.getVisits().add(visit1);
-
     }
 
     private ProfileModel createProfileFromRaw(Cursor cursor) {
@@ -339,6 +372,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(FRIEND_TABLE_DROP);
         db.execSQL(RESTAURANT_TABLE_DROP);
         db.execSQL(VISIT_TABLE_DROP);
+        db.execSQL(SHARED_TABLE_DROP);
         onCreate(db);
     }
 }

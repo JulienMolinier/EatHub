@@ -9,9 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.eathub.R;
-import com.example.eathub.models.DatabaseHandler;
 import com.example.eathub.models.LogInModel;
 import com.example.eathub.models.ProfileModel;
+import com.example.eathub.models.databases.DatabaseHandler;
 import com.example.eathub.models.databases.ProfileDatabase;
 
 
