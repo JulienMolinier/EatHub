@@ -1,5 +1,6 @@
 package com.example.eathub.activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -54,9 +55,22 @@ public class CommentActivity extends AppCompatActivity {
                         Double.valueOf(rateInput.getText().toString()));
 
                 if (!DatabaseHandler.addVisitToDB(visitToAdd)) {
-                    //ERROR
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setMessage(R.string.error);
+                    builder.setNeutralButton(R.string.ok, (dialog, which) -> {
+                        finish();
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 } else {
                     VisitDatabase.getVisits().add(visitToAdd);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setMessage(R.string.done);
+                    builder.setNeutralButton(R.string.ok, (dialog, which) -> {
+                        finish();
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             }
         });
