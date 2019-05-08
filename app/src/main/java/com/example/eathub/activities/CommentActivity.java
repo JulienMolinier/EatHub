@@ -52,12 +52,13 @@ public class CommentActivity extends AppCompatActivity {
                         Double.valueOf(priceInput.getText().toString()),
                         commentInput.getText().toString(),
                         Double.valueOf(rateInput.getText().toString()));
-                System.out.println(profileModel);
-                System.out.println(restaurantModel);
-                VisitDatabase.getVisits().add(visitToAdd);
-                DatabaseHandler.addVisitToDB(visitToAdd);
-            }
 
+                if (!DatabaseHandler.addVisitToDB(visitToAdd)) {
+                    //ERROR
+                } else {
+                    VisitDatabase.getVisits().add(visitToAdd);
+                }
+            }
         });
 
     }

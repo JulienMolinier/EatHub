@@ -51,6 +51,7 @@ public class RestaurantActivity extends AppCompatActivity {
                 case R.id.navigationRestaurant_profile:
                     RestaurantProfileFragment restaurantProfile = new RestaurantProfileFragment();
                     restaurantProfile.setRestaurantModel(theRestaurant);
+                    restaurantProfile.setProfileModel(profileModel);
                     showFragment(restaurantProfile);
                     return true;
             }
@@ -83,6 +84,7 @@ public class RestaurantActivity extends AppCompatActivity {
 
         RestaurantProfileFragment restaurantProfile = new RestaurantProfileFragment();
         restaurantProfile.setRestaurantModel(theRestaurant);
+        restaurantProfile.setProfileModel(profileModel);
         showFragment(restaurantProfile);
 
     }

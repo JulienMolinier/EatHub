@@ -1,6 +1,7 @@
 package com.example.eathub.fragments.restaurant;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -20,26 +21,28 @@ import android.widget.TextView;
 import com.example.eathub.R;
 import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
+import com.example.eathub.models.databases.DatabaseHandler;
 
 public class RestaurantProfileFragment extends Fragment {
     private View view;
     private ProfileModel profileModel;
     private RestaurantModel restaurantModel;
+    private Button sharedButton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.restaurantprofile, container, false);
         ImageView imageRestaurant = view.findViewById(R.id.imageRestaurant);
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             restaurantModel = savedInstanceState.getParcelable("currentRestaurant");
-            profileModel = savedInstanceState.getParcelable("connectedProfile");
+            profileModel = savedInstanceState.getParcelable("currentProfile");
         }
         imageRestaurant.setImageResource(view.getResources()
                 .getIdentifier(this.restaurantModel.getName().replaceAll(" ", "")
                                 .replaceAll("-", "").toLowerCase(), "drawable",
                         view.getContext().getPackageName()));
-        Button sharedButton = view.findViewById(R.id.sharedButton);
+        sharedButton = view.findViewById(R.id.sharedButton);
         TextView restaurantName = view.findViewById(R.id.restaurantName);
         restaurantName.setText(this.restaurantModel.getName());
         TextView restaurantTel = view.findViewById(R.id.restaurantTel);
@@ -64,15 +67,34 @@ public class RestaurantProfileFragment extends Fragment {
         RatingBar restaurantRate = view.findViewById(R.id.restaurantRate);
         restaurantRate.setRating((int) this.restaurantModel.getRating());
 
-        restaurantTel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg) {
-                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:" + restaurantModel.getPhoneNumber()));
-                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    //no permission
-                } else {
-                    startActivity(callIntent);
-                }
+        restaurantTel.setOnClickListener((View v) -> {
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:" + restaurantModel.getPhoneNumber()));
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                //no permission
+            } else {
+                startActivity(callIntent);
+            }
+        });
+
+        sharedButton.setOnClickListener((View v) -> {
+            if (!DatabaseHandler.addSharingToDB(profileModel.getId(), restaurantModel.getId())) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage(R.string.error);
+                builder.setNeutralButton(R.string.ok, (dialog, which) -> {
+                    // User clicked OK button
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            } else {
+                profileModel.shareARestaurant(restaurantModel);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage(R.string.done);
+                builder.setNeutralButton(R.string.ok, (dialog, which) -> {
+                    // User clicked OK button
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
@@ -91,8 +113,7 @@ public class RestaurantProfileFragment extends Fragment {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the state
         savedInstanceState.putParcelable("currentRestaurant", restaurantModel);
-        savedInstanceState.putParcelable("connectedProfile", profileModel);
-
+        savedInstanceState.putParcelable("currentProfile", profileModel);
         super.onSaveInstanceState(savedInstanceState);
 
     }

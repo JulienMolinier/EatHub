@@ -131,6 +131,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return res != -1;
     }
 
+    public static boolean addSharingToDB(int profileId, int restaurantId) {
+        long res = db.insert(DatabaseHandler.SHARED_TABLE_NAME, null, createSharing(profileId, restaurantId));
+        return res != -1;
+    }
+
+    private static ContentValues createSharing(int profileId, int restaurantId) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(SHARED_PROFILE, profileId);
+        contentValues.put(SHARED_RESTAURANT, restaurantId);
+        return contentValues;
+    }
+
     private static ContentValues createVisit(VisitModel visit) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(VISIT_REST, visit.getRestaurant().getId());
@@ -288,12 +300,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         RestaurantDatabase.getRestaurants().add(lebarbusse);
 
         ContentValues contentValues11 = new ContentValues();
-        contentValues4.put(SHARED_PROFILE, 1);
-        contentValues4.put(SHARED_RESTAURANT, 0);
+        contentValues11.put(SHARED_PROFILE, 1);
+        contentValues11.put(SHARED_RESTAURANT, 0);
 
         ContentValues contentValues12 = new ContentValues();
-        contentValues5.put(SHARED_PROFILE, 2);
-        contentValues5.put(SHARED_RESTAURANT, 1);
+        contentValues12.put(SHARED_PROFILE, 2);
+        contentValues12.put(SHARED_RESTAURANT, 1);
 
         db.insert(SHARED_TABLE_NAME, null, contentValues11);
         db.insert(SHARED_TABLE_NAME, null, contentValues12);

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
@@ -48,6 +47,7 @@ public class SearchPageActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         search = intent.getStringExtra("data");
+        profile = intent.getParcelableExtra("currentProfile");
         if (savedInstanceState != null)
             search = savedInstanceState.getString("currentSearch");
         Bundle bundle = new Bundle();
@@ -55,21 +55,17 @@ public class SearchPageActivity extends AppCompatActivity {
 
         searchView = findViewById(R.id.search);
 
-        profile = intent.getParcelableExtra("currentProfile");
         if (savedInstanceState != null)
             profile = savedInstanceState.getParcelable("currentProfile");
 
         getRestaurantList(savedInstanceState);
 
-
         final Intent intentRestaurant = new Intent(getApplicationContext(), RestaurantActivity.class);
-        listRestaurant.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                intentRestaurant.putExtra("currentRestaurant", filterRestaurants.get(position));
-                intent.putExtra("currentProfile", profile);
-                startActivity(intentRestaurant);
-            }
+        listRestaurant.setOnItemClickListener((parent, view, position, id) -> {
+            intentRestaurant.putExtra("currentRestaurant", filterRestaurants.get(position));
+            intentRestaurant.putExtra("currentProfile", profile);
+            startActivity(intentRestaurant);
+
         });
 
 
@@ -94,7 +90,6 @@ public class SearchPageActivity extends AppCompatActivity {
     }
 
     public void getRestaurantList(Bundle savedInstanceState) {
-        // recuperation liste des restaurants
         listRestaurant = findViewById(R.id.listRestaurant);
         if (search != null) {
             restaurantsListBySearch = RestaurantDatabase.getRestaurantsBySearch(search);
@@ -107,16 +102,8 @@ public class SearchPageActivity extends AppCompatActivity {
     }
 
     public void goBack() {
-        // initialisation bouton retour
         Button button = findViewById(R.id.buttonBackSearch);
-
-        // retour en arriere avec le bouton back
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        button.setOnClickListener((View v) -> finish());
 
     }
 
