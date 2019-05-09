@@ -1,4 +1,5 @@
 package com.example.eathub.models;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -96,7 +97,7 @@ public class VisitModel implements Parcelable {
 
     @Override
     public String toString() {
-        return "Visited " + restaurant +
+        return profileModel.getName() + " visited " + restaurant +
                 " the " + date;
     }
 }

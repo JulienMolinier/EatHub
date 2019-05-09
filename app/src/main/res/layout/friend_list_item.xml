@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="100dp"
-    android:layout_height="100dp">
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="#FAFAFA"
+    app:cardPreventCornerOverlap="false">
 
-    <ImageView
-        android:id="@+id/avatarFriend"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_centerHorizontal="true"
-        tools:srcCompat="@tools:sample/avatars" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/nameFriend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/avatarFriend"
-        android:layout_centerHorizontal="true"
-        android:text="TextView" />
-</RelativeLayout>
+        <com.github.abdularis.civ.CircleImageView
+            android:id="@+id/avatarFriend"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/nameFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/avatarFriend"
+            android:layout_centerHorizontal="true"
+            android:text="TextView" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

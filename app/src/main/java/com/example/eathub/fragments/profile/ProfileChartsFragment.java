@@ -1,5 +1,6 @@
 package com.example.eathub.fragments.profile;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import com.example.eathub.R;
 import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.VisitModel;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -47,6 +49,9 @@ public class ProfileChartsFragment extends Fragment {
 
         text.setText(R.string.caloriesEvolution);
         text2.setText(R.string.budgetEvolution);
+
+        if (savedInstanceState != null)
+            profileModel = savedInstanceState.getParcelable("currentProfile");
 
         spinner = view.findViewById(R.id.spinner);
         adapter = ArrayAdapter.createFromResource(this.getContext(),
@@ -134,11 +139,20 @@ public class ProfileChartsFragment extends Fragment {
             }
 
             BarDataSet data = new BarDataSet(entries, "Calories");
+            data.setColor(Color.parseColor("#ffaa04"));
             BarData barData = new BarData(data);
             chart1.setData(barData);
+            chart1.getXAxis().setDrawLabels(true);
+            chart1.getAxisRight().setEnabled(false);
+            chart1.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+
             BarDataSet data2 = new BarDataSet(entries2, "Budget");
+            data2.setColor(Color.parseColor("#ffaa04"));
             BarData barData2 = new BarData(data2);
             chart2.setData(barData2);
+            chart2.getXAxis().setDrawLabels(true);
+            chart2.getAxisRight().setEnabled(false);
+            chart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         }
 
         chart1.getDescription().setText("");
@@ -151,5 +165,14 @@ public class ProfileChartsFragment extends Fragment {
 
     public void setProfile(ProfileModel profile) {
         this.profileModel = profile;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the state
+        savedInstanceState.putParcelable("currentProfile", profileModel);
+        super.onSaveInstanceState(savedInstanceState);
+
+
     }
 }

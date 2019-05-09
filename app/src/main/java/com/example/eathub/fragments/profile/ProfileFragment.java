@@ -56,6 +56,9 @@ public class ProfileFragment extends Fragment {
         view = inflater.inflate(R.layout.profile, container, false);
 
         BottomNavigationView navigation = view.findViewById(R.id.navigation);
+
+        if (savedInstanceState != null)
+            profileModel = savedInstanceState.getParcelable("connectedProfile");
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         ProfileDetailsFragment defaultFragment = new ProfileDetailsFragment();
@@ -74,5 +77,13 @@ public class ProfileFragment extends Fragment {
 
     public void setProfile(ProfileModel profile) {
         this.profileModel = profile;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the state
+        savedInstanceState.putParcelable("connectedProfile", profileModel);
+        super.onSaveInstanceState(savedInstanceState);
+
     }
 }

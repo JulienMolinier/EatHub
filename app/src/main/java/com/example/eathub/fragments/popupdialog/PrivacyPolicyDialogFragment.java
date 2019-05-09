@@ -38,7 +38,7 @@ public class PrivacyPolicyDialogFragment extends DialogFragment {
                 .setTitle(R.string.privacyPolicyTitle)
                 .setPositiveButton(R.string.accept, (dialog, id) ->
                         listener.onPrivacyPolicyDialogPositiveClick(PrivacyPolicyDialogFragment.this))
-                .setNegativeButton(R.string.cancel, (dialog, id) ->
+                .setNegativeButton(android.R.string.cancel, (dialog, id) ->
                         listener.onPrivacyPolicyDialogNegativeClick(PrivacyPolicyDialogFragment.this));
         return builder.create();
     }

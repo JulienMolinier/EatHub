@@ -16,11 +16,13 @@ import com.example.eathub.R;
 import com.example.eathub.fragments.restaurant.RestaurantCommentsFragment;
 import com.example.eathub.fragments.restaurant.RestaurantMapFragment;
 import com.example.eathub.fragments.restaurant.RestaurantProfileFragment;
+import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
 
 public class RestaurantActivity extends AppCompatActivity {
 
     private RestaurantModel theRestaurant;
+    private ProfileModel profileModel;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -31,6 +33,7 @@ public class RestaurantActivity extends AppCompatActivity {
                 case R.id.navigationRestaurant_comments:
                     RestaurantCommentsFragment restaurantComments = new RestaurantCommentsFragment();
                     restaurantComments.setRestaurantModel(theRestaurant);
+                    restaurantComments.setProfileModel(profileModel);
                     showFragment(restaurantComments);
                     return true;
                 case R.id.navigationRestaurant_map:
@@ -48,6 +51,7 @@ public class RestaurantActivity extends AppCompatActivity {
                 case R.id.navigationRestaurant_profile:
                     RestaurantProfileFragment restaurantProfile = new RestaurantProfileFragment();
                     restaurantProfile.setRestaurantModel(theRestaurant);
+                    restaurantProfile.setProfileModel(profileModel);
                     showFragment(restaurantProfile);
                     return true;
             }
@@ -62,12 +66,17 @@ public class RestaurantActivity extends AppCompatActivity {
         setContentView(R.layout.restaurant);
 
         ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_NETWORK_STATE,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_NETWORK_STATE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET}, 1);
 
 
         Intent intent = getIntent();
-        theRestaurant = intent.getParcelableExtra("restaurantpicked");
+        theRestaurant = intent.getParcelableExtra("currentRestaurant");
+        profileModel = intent.getParcelableExtra("currentProfile");
+        if (savedInstanceState != null) {
+            theRestaurant = savedInstanceState.getParcelable("currentRestaurant");
+            profileModel = savedInstanceState.getParcelable("currentProfile");
+        }
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -75,6 +84,7 @@ public class RestaurantActivity extends AppCompatActivity {
 
         RestaurantProfileFragment restaurantProfile = new RestaurantProfileFragment();
         restaurantProfile.setRestaurantModel(theRestaurant);
+        restaurantProfile.setProfileModel(profileModel);
         showFragment(restaurantProfile);
 
     }
@@ -84,5 +94,14 @@ public class RestaurantActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.contain, fragment)
                 .commit();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the state
+        savedInstanceState.putParcelable("currentRestaurant", theRestaurant);
+        savedInstanceState.putParcelable("currentProfile", profileModel);
+        super.onSaveInstanceState(savedInstanceState);
+
     }
 }

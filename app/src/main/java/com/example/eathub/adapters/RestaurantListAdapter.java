@@ -55,7 +55,7 @@ public class RestaurantListAdapter extends BaseAdapter {
         int avatar = (view.getResources().getIdentifier(theRestaurant.getName().replaceAll(" ", "").toLowerCase(),"drawable", context.getPackageName()));
         avatarRestaurant.setImageResource(avatar);
 
-        RelativeLayout indicator = view.findViewById(R.id.indicator);
+        RelativeLayout indicator = view.findViewById(R.id.CVindicator);
 
         TextView descriptionRestaurant = view.findViewById(R.id.descriptionRestaurant);
         descriptionRestaurant.setText(theRestaurant.getAddress() + " " + theRestaurant.getPhoneNumber());

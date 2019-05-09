@@ -1,65 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout0"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/rl1rc"
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="false"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="500dp"
-        android:gravity="center">
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center|center_horizontal"
+        android:layout_marginEnd="0dp"
+        android:text="Last Comments"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-
-        <TextView
-            android:id="@+id/tv1rc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_marginEnd="0dp"
-            android:text="Last Comments"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/rl2rc"
+    <Button
+        android:id="@+id/addACommentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="false"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="150dp"
-        android:gravity="center">
+        android:layout_below="@id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center|center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Add a comment" />
 
-        <ListView
-            android:id="@+id/listComments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_marginEnd="0dp" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/rl3rc"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listComments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="false"
-        android:layout_marginTop="650dp"
-        android:layout_marginBottom="150dp"
-        android:gravity="center">
+        android:layout_below="@id/addACommentButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
-
-        <Button
-            android:id="@+id/addACommentButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add a comment"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center|center_horizontal"/>
-    </RelativeLayout>
 </RelativeLayout>

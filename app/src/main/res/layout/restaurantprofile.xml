@@ -1,174 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relativeLayout0"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/rl1rp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="false"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="500dp"
-        android:gravity="top">
+        android:id="@+id/relativeLayout0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imageRestaurant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="top"
-            android:layout_marginBottom="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:paddingTop="0dp"
             android:paddingBottom="0dp"
             app:layout_constrainedHeight="false"
             tools:layout_editor_absoluteX="0dp" />
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl2rp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="280dp"
-        android:layout_marginBottom="90dp"
-        android:gravity="center">
-
-
         <TextView
             android:id="@+id/restaurantName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/imageRestaurant"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center|center_horizontal"
-            android:text="Le Barbusse"
-            android:textStyle="bold"
-            android:textSize="24dp"/>
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/restaurantName"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="60dp"
+            android:gravity="start">
+
+            <TextView
+                android:id="@+id/restaurantTelLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginTop="10dp"
+                android:labelFor="@id/restaurantTel"
+                android:text="Tel:"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/restaurantTel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/restaurantTelLabel"
+                android:textSize="20sp" />
+
+
+            <TextView
+                android:id="@+id/restaurantAdressLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/restaurantTel"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginTop="20dp"
+                android:labelFor="@id/restaurantAdress"
+                android:text="Adress:"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/restaurantAdress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/restaurantTel"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@id/restaurantAdressLabel"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/restaurantFoodTypeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/restaurantAdress"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginTop="20dp"
+                android:labelFor="@id/restaurantFoodType"
+                android:text="Food Type:"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/restaurantFoodType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/restaurantAdress"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@id/restaurantFoodTypeLabel"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/restaurantCostLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/restaurantFoodType"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginTop="20dp"
+                android:labelFor="@id/restaurantCost"
+                android:text="Cost:"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/restaurantCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/restaurantFoodType"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/restaurantCostLabel"
+                android:textSize="20dp" />
+
+            <RatingBar
+                android:id="@+id/restaurantRate"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@id/restaurantCost"
+                android:layout_marginTop="20dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="630dp"
+            android:layout_marginBottom="60dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/sharedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Shared it !" />
+        </RelativeLayout>
+
     </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl3rp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="360dp"
-        android:layout_marginBottom="60dp"
-        android:gravity="start">
-
-        <TextView
-            android:id="@+id/restaurantTelLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_marginTop="10dp"
-            android:labelFor="@id/restaurantTel"
-            android:text="Tel:"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/restaurantTel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/restaurantTelLabel"
-            android:textSize="20dp" />
-
-
-        <Button
-            android:id="@+id/buttonTel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp"
-            android:text="Call" />
-
-        <TextView
-            android:id="@+id/restaurantAdressLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/restaurantTel"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_marginTop="20dp"
-            android:labelFor="@id/restaurantAdress"
-            android:text="Adress:"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/restaurantAdress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/restaurantTel"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/restaurantAdressLabel"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/restaurantFoodTypeLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/restaurantAdress"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_marginTop="20dp"
-            android:labelFor="@id/restaurantFoodType"
-            android:text="Food Type:"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/restaurantFoodType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/restaurantAdress"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/restaurantFoodTypeLabel"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/restaurantCostLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/restaurantFoodType"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_marginTop="20dp"
-            android:labelFor="@id/restaurantCost"
-            android:text="Cost:"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/restaurantCost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/restaurantFoodType"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/restaurantCostLabel"
-            android:textSize="20dp" />
-
-        <RatingBar
-            android:id="@+id/restaurantRate"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_below="@id/restaurantCost"
-            android:layout_marginTop="20dp" />
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/rl4rp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="630dp"
-        android:layout_marginBottom="60dp"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/sharedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Shared it !" />
-    </RelativeLayout>
-
-</RelativeLayout>
+</ScrollView>

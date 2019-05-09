@@ -29,6 +29,9 @@ public class RestaurantMapFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = (RelativeLayout) inflater.inflate(R.layout.restaurantmap, container, false);
+        if (savedInstanceState != null){
+            theRestaurant = savedInstanceState.getParcelable("currentRestaurant");
+        }
         initMap();
         return view;
     }
@@ -45,7 +48,7 @@ public class RestaurantMapFragment extends Fragment {
         map.setClickable(true);
         map.setMultiTouchControls(true);
         map.getController().setZoom(17.0);
-        GeoPoint startPoint = new GeoPoint(43.6167, 7.0747800000000325);
+        GeoPoint startPoint = new GeoPoint(theRestaurant.getLatitude(), theRestaurant.getLongitude());
         map.getController().setCenter(startPoint);
 
         Marker tec = new Marker(map);
@@ -55,5 +58,13 @@ public class RestaurantMapFragment extends Fragment {
         map.getOverlays().add(tec);
 
         map.invalidate();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the state
+        savedInstanceState.putParcelable("currentRestaurant", theRestaurant);
+        super.onSaveInstanceState(savedInstanceState);
+
     }
 }

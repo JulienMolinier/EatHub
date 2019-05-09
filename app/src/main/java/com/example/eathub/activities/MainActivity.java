@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager vwPager;
     private SearchView search;
     private ProfileModel connectedProfile;
+    private Bundle mState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +29,13 @@ public class MainActivity extends AppCompatActivity {
         startService(new Intent(this, NotifyService.class));
         sendNotification(NotifyService.SURPASSED_BUDGET_LIMIT);
 
+        if (savedInstanceState != null)
+            mState = savedInstanceState;
+
         final Intent myIntent = getIntent();
-        connectedProfile = myIntent.getParcelableExtra("userprofile");
+        connectedProfile = myIntent.getParcelableExtra("currentProfile");
+        if (savedInstanceState != null)
+            connectedProfile = savedInstanceState.getParcelable("currentProfile");
         System.out.println("L'user connecté est" + connectedProfile);
 
         fragAdapter = new FragmentAdapter(getSupportFragmentManager());
@@ -46,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 Intent intent = new Intent(getApplicationContext(), SearchPageActivity.class);
                 intent.putExtra("data", query);
+                intent.putExtra("currentProfile", connectedProfile);
                 startActivity(intent);
                 return true;
             }
@@ -61,10 +68,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the state
+        savedInstanceState.putParcelable("currentProfile", connectedProfile);
+        super.onSaveInstanceState(savedInstanceState);
+
+
+    }
+
     private void setupViewPager(ViewPager viewPager) {
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
 
         FeedFragment feedFragment = new FeedFragment();
+        if (mState != null)
+            connectedProfile = mState.getParcelable("currentProfile");
         feedFragment.setProfile(connectedProfile);
         adapter.addFragment(feedFragment, "Feed");
 

@@ -35,7 +35,7 @@ public class SignUpSuccessfulDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.signUpSuccessfulMessage)
                 .setTitle(R.string.signUpSuccessfulTitle)
-                .setPositiveButton(R.string.ok, (dialog, id) ->
+                .setPositiveButton(android.R.string.ok, (dialog, id) ->
                         listener.onSignUpSuccessfulDialogPositiveClick(SignUpSuccessfulDialogFragment.this));
         return builder.create();
     }

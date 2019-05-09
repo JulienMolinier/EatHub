@@ -35,7 +35,7 @@ public class PasswordRestoredDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage(R.string.passwordRestoredMessage)
                 .setTitle(R.string.passwordRestoredTitle)
-                .setPositiveButton(R.string.ok, (dialog, id) ->
+                .setPositiveButton(android.R.string.ok, (dialog, id) ->
                         listener.onPasswordRestoredDialogPositiveClick(PasswordRestoredDialogFragment.this));
         return builder.create();
     }

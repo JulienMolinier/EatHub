@@ -1,27 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:id="@+id/friendLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal">
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/addFriend"
+            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/ic_add_circle_outline_black_24dp"
+            android:text="Add" />
 
-            <LinearLayout
-                android:id="@+id/friendLL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/friendRV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/addFriend"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -33,28 +43,40 @@
         <RelativeLayout
             android:id="@+id/filterLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+            android:layout_height="wrap_content">
 
-            <CheckBox
-                android:id="@+id/shared"
+            <TextView
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Shared" />
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:text="Feed"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-            <CheckBox
-                android:id="@+id/visited"
+            <Button
+                android:id="@+id/filterFeed"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/shared"
-                android:text="Visited" />
+                android:layout_alignParentRight="true"
+                android:drawableRight="@drawable/ic_expand_more_black_24dp"
+                android:keepScreenOn="false"
+                android:text="All"
+                android:textColor="#FF9800"
+                android:textSize="20sp" />
+
         </RelativeLayout>
 
-        <ListView
-            android:id="@+id/feedLV"
-            android:layout_width="match_parent"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/feedRV"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_below="@+id/filterLayout" />
+            android:layout_below="@id/filterLayout"
+            android:layout_centerHorizontal="true"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            android:orientation="vertical" />
+
     </RelativeLayout>
 </RelativeLayout>
