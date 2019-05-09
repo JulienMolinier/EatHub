@@ -30,7 +30,6 @@ public class RestaurantProfileFragment extends Fragment {
                 .getIdentifier(this.restaurantModel.getName().replaceAll(" ", "")
                                 .replaceAll("-", "").toLowerCase(), "drawable",
                         view.getContext().getPackageName()));
-        Button sharedButton = view.findViewById(R.id.sharedButton);
         TextView restaurantName = view.findViewById(R.id.restaurantName);
         restaurantName.setText(this.restaurantModel.getName());
         TextView restaurantTel = view.findViewById(R.id.restaurantTel);
@@ -40,22 +39,32 @@ public class RestaurantProfileFragment extends Fragment {
         TextView restaurantCost = view.findViewById(R.id.restaurantCost);
         switch ((int) this.restaurantModel.getPrice()) {
             case 1:
-                restaurantCost.setText("$");
+                restaurantCost.setText(" $");
                 break;
             case 2:
-                restaurantCost.setText("$$");
+                restaurantCost.setText(" $$");
                 break;
             case 3:
-                restaurantCost.setText("$$$");
+                restaurantCost.setText(" $$$");
                 break;
             default:
                 restaurantCost.setText("$");
                 break;
         }
+        TextView restaurantFoodType = view.findViewById(R.id.restaurantFoodType);
+        restaurantFoodType.setText(this.restaurantModel.getCulinaryFence().toString());
         RatingBar restaurantRate = view.findViewById(R.id.restaurantRate);
         restaurantRate.setRating((int) this.restaurantModel.getRating());
+        Button sharedButton = view.findViewById(R.id.sharedButton);
+        if(profileModel.getSharedRestaurants().contains(restaurantModel)){
+            sharedButton.setVisibility(View.INVISIBLE);
+        }
+        else {
+            sharedButton.setOnClickListener(view -> this.profileModel.addRestaurantShared(this.restaurantModel));
+        }
         return view;
     }
+
 
     public void setProfileModel(ProfileModel profileModel) {
         this.profileModel = profileModel;

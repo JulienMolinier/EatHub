@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.example.eathub.models.databases.VisitDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantModel implements Parcelable {
@@ -116,4 +117,5 @@ public class RestaurantModel implements Parcelable {
     public int hashCode() {
         return super.hashCode();
     }
+
 }
