@@ -92,6 +92,7 @@
                     android:layout_alignParentBottom="true"
                     android:text="CALL"
                     android:textSize="18sp"
+                    android:drawableLeft="@drawable/ic_phone_black_24dp"
                     android:textStyle="bold" />
 
                 <TextView

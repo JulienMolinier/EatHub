@@ -92,6 +92,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
                     android:text="CALL"
+                    android:drawableLeft="@drawable/ic_phone_black_24dp"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
