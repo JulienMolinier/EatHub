@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.CheckBox;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -16,7 +16,6 @@ import com.example.eathub.models.RestaurantModel;
 import com.example.eathub.models.databases.RestaurantDatabase;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class SearchPageActivity extends AppCompatActivity {
@@ -24,8 +23,8 @@ public class SearchPageActivity extends AppCompatActivity {
     public String search;
     public TextView text;
     public RecyclerView listRestaurant;
+    public Button buttonPrice;
 
-    public boolean rate;
     public boolean isPrice10;
     public boolean isPrice20;
     public boolean isPrice30;
@@ -75,6 +74,9 @@ public class SearchPageActivity extends AppCompatActivity {
         };
         searchView.setOnQueryTextListener(queryTextListener);
 
+        filterList();
+
+
     }
 
     public void getRestaurantList(Bundle savedInstanceState) {
@@ -88,50 +90,39 @@ public class SearchPageActivity extends AppCompatActivity {
         }
     }
 
-    public void addListenerOnCheckBox(View v) {
-
-        boolean checked = ((CheckBox) v).isChecked();
-
-        switch (v.getId()) {
-            case R.id.checkBox10:
-                if (checked) {
+    public void filterList() {
+        buttonPrice = findViewById(R.id.filterPrice);
+        buttonPrice.setOnClickListener((View v) -> {
+            switch (buttonPrice.getText().toString()) {
+                case "All":
                     isPrice10 = true;
-                } else {
+                    buttonPrice.setText("0-10€");
+                    break;
+                case "0-10€":
                     isPrice10 = false;
-                }
-                break;
-
-            case R.id.checkBox20:
-                if (checked) {
                     isPrice20 = true;
-                } else {
+                    buttonPrice.setText("10-20€");
+                    break;
+                case "10-20€":
                     isPrice20 = false;
-                }
-                break;
-
-            case R.id.checkBox30:
-                if (checked) {
                     isPrice30 = true;
-                } else {
+                    buttonPrice.setText("20€ et plus");
+                    break;
+                case "20€ et plus":
+                    isPrice10 = false;
+                    isPrice20 = false;
                     isPrice30 = false;
-                }
-                break;
+                    buttonPrice.setText("All");
+                    break;
+            }
+            buildRestaurantList(search, isPrice10, isPrice20, isPrice30);
+            restaurantAdapter.notifyDataSetChanged();
 
-            case R.id.checkBoxRate:
-                if (checked) {
-                    rate = true;
-                } else {
-                    rate = false;
-                }
-                break;
-        }
-        buildRestaurantList(search, isPrice10, isPrice20, isPrice30, rate);
-        restaurantAdapter.notifyDataSetChanged();
+        });
 
     }
 
-    public void buildRestaurantList(String searchQuery, boolean button10, boolean button10To20, boolean button20,
-                                    boolean buttonHighestRate) {
+    public void buildRestaurantList(String searchQuery, boolean button10, boolean button10To20, boolean button20) {
 
         filterRestaurants.clear();
         if (button10) {
@@ -162,11 +153,7 @@ public class SearchPageActivity extends AppCompatActivity {
             }
         }
 
-        if (buttonHighestRate) {
-            filterRestaurants.sort(Comparator.comparing(RestaurantModel::getRating).reversed());
-        }
-
-        if (!button10 && !button10To20 && !button20 && !buttonHighestRate) {
+        if (!button10 && !button10To20 && !button20) {
             for (RestaurantModel restaurant : RestaurantDatabase.getRestaurantsBySearch(searchQuery)) {
                 filterRestaurants.add(restaurant);
             }
