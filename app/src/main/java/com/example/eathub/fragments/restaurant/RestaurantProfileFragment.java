@@ -65,7 +65,8 @@ public class RestaurantProfileFragment extends Fragment {
                 break;
         }
         RatingBar restaurantRate = view.findViewById(R.id.restaurantRate);
-        restaurantRate.setRating((int) this.restaurantModel.getRating());
+        restaurantRate.setRating((float) this.restaurantModel.getRating());
+        restaurantRate.setIsIndicator(true);
 
         restaurantTel.setOnClickListener((View v) -> {
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
