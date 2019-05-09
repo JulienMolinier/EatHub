@@ -52,18 +52,20 @@ public class RestaurantProfileFragment extends Fragment {
         TextView restaurantCost = view.findViewById(R.id.restaurantCost);
         switch ((int) this.restaurantModel.getPrice()) {
             case 1:
-                restaurantCost.setText("$");
+                restaurantCost.setText(" $");
                 break;
             case 2:
-                restaurantCost.setText("$$");
+                restaurantCost.setText(" $$");
                 break;
             case 3:
-                restaurantCost.setText("$$$");
+                restaurantCost.setText(" $$$");
                 break;
             default:
                 restaurantCost.setText("$");
                 break;
         }
+        TextView restaurantFoodType = view.findViewById(R.id.restaurantFoodType);
+        restaurantFoodType.setText(this.restaurantModel.getCulinaryFence().toString());
         RatingBar restaurantRate = view.findViewById(R.id.restaurantRate);
         restaurantRate.setRating((float) this.restaurantModel.getRating());
         restaurantRate.setIsIndicator(true);
