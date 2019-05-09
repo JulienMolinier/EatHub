@@ -5,17 +5,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RatingBar;
 
 import com.example.eathub.R;
-import com.example.eathub.adapters.CommentListAdapter;
+import com.example.eathub.adapters.CommentRVAdapter;
 import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
 import com.example.eathub.models.VisitModel;
@@ -27,11 +27,11 @@ import java.util.ArrayList;
 
 public class RestaurantCommentsFragment extends Fragment {
     private View view;
-    private ListView listComments;
+    private RecyclerView listComments;
     private ProfileModel profileModel;
     private RestaurantModel restaurantModel;
     private Button addACommentButton;
-    private CommentListAdapter myCommentListAdapter;
+    private CommentRVAdapter commentRVAdapter;
     private ArrayList<VisitModel> commentList = new ArrayList<>();
 
     @Nullable
@@ -78,13 +78,10 @@ public class RestaurantCommentsFragment extends Fragment {
             });
             popup.show();
         });
-        ListView listComments = view.findViewById(R.id.listComments);
 
         getCommentList();
-        if (!commentList.isEmpty()) {
-            myCommentListAdapter = new CommentListAdapter(this.getContext(), commentList);
-            listComments.setAdapter(myCommentListAdapter);
-        }
+        commentRVAdapter = new CommentRVAdapter(this.getContext(), commentList);
+        listComments.setAdapter(commentRVAdapter);
 
         return view;
     }
