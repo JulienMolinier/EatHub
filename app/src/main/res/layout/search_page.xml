@@ -48,7 +48,7 @@
         android:layout_below="@id/check"
         android:layout_alignParentStart="true"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="20dp">
 
@@ -67,7 +67,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/appbar"
         android:layout_centerInParent="true"
-        android:layout_marginTop="25dp"
         android:visibility="visible">
 
         <Button
