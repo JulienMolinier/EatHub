@@ -3,30 +3,28 @@ package com.example.eathub.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.eathub.R;
-import com.example.eathub.adapters.RestaurantListAdapter;
+import com.example.eathub.adapters.RestaurantRVAdapter;
 import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
 import com.example.eathub.models.databases.RestaurantDatabase;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class SearchPageActivity extends AppCompatActivity {
 
     public String search;
     public TextView text;
-    public ListView listRestaurant;
+    public RecyclerView listRestaurant;
+    public Button buttonPrice;
 
-    public boolean rate;
     public boolean isPrice10;
     public boolean isPrice20;
     public boolean isPrice30;
@@ -34,9 +32,8 @@ public class SearchPageActivity extends AppCompatActivity {
     SearchView searchView;
 
     public List<RestaurantModel> filterRestaurants;
-    public List<RestaurantModel> restaurantsListBySearch;
 
-    public RestaurantListAdapter restaurantAdapter;
+    public RestaurantRVAdapter restaurantAdapter;
 
     private ProfileModel profile;
 
@@ -60,15 +57,6 @@ public class SearchPageActivity extends AppCompatActivity {
 
         getRestaurantList(savedInstanceState);
 
-        final Intent intentRestaurant = new Intent(getApplicationContext(), RestaurantActivity.class);
-        listRestaurant.setOnItemClickListener((parent, view, position, id) -> {
-            intentRestaurant.putExtra("currentRestaurant", filterRestaurants.get(position));
-            intentRestaurant.putExtra("currentProfile", profile);
-            startActivity(intentRestaurant);
-
-        });
-
-
         final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -86,71 +74,55 @@ public class SearchPageActivity extends AppCompatActivity {
         };
         searchView.setOnQueryTextListener(queryTextListener);
 
-        goBack();
+        filterList();
+
+
     }
 
     public void getRestaurantList(Bundle savedInstanceState) {
         listRestaurant = findViewById(R.id.listRestaurant);
         if (search != null) {
-            restaurantsListBySearch = RestaurantDatabase.getRestaurantsBySearch(search);
             filterRestaurants = RestaurantDatabase.getRestaurantsBySearch(search);
             if (savedInstanceState != null)
                 filterRestaurants = savedInstanceState.getParcelableArrayList("filterRestaurants");
-            restaurantAdapter = new RestaurantListAdapter(getApplicationContext(), filterRestaurants, profile);
+            restaurantAdapter = new RestaurantRVAdapter(this, filterRestaurants, profile);
             listRestaurant.setAdapter(restaurantAdapter);
         }
     }
 
-    public void goBack() {
-        Button button = findViewById(R.id.buttonBackSearch);
-        button.setOnClickListener((View v) -> finish());
-
-    }
-
-    public void addListenerOnCheckBox(View v) {
-
-        boolean checked = ((CheckBox) v).isChecked();
-
-        switch (v.getId()) {
-            case R.id.checkBox10:
-                if (checked) {
+    public void filterList() {
+        buttonPrice = findViewById(R.id.filterPrice);
+        buttonPrice.setOnClickListener((View v) -> {
+            switch (buttonPrice.getText().toString()) {
+                case "All":
                     isPrice10 = true;
-                } else {
+                    buttonPrice.setText("0-10€");
+                    break;
+                case "0-10€":
                     isPrice10 = false;
-                }
-                break;
-
-            case R.id.checkBox20:
-                if (checked) {
                     isPrice20 = true;
-                } else {
+                    buttonPrice.setText("10-20€");
+                    break;
+                case "10-20€":
                     isPrice20 = false;
-                }
-                break;
-
-            case R.id.checkBox30:
-                if (checked) {
                     isPrice30 = true;
-                } else {
+                    buttonPrice.setText("20€ et plus");
+                    break;
+                case "20€ et plus":
+                    isPrice10 = false;
+                    isPrice20 = false;
                     isPrice30 = false;
-                }
-                break;
+                    buttonPrice.setText("All");
+                    break;
+            }
+            buildRestaurantList(search, isPrice10, isPrice20, isPrice30);
+            restaurantAdapter.notifyDataSetChanged();
 
-            case R.id.checkBoxRate:
-                if (checked) {
-                    rate = true;
-                } else {
-                    rate = false;
-                }
-                break;
-        }
-        buildRestaurantList(search, isPrice10, isPrice20, isPrice30, rate);
-        restaurantAdapter.notifyDataSetChanged();
+        });
 
     }
 
-    public void buildRestaurantList(String searchQuery, boolean button10, boolean button10To20, boolean button20,
-                                    boolean buttonHighestRate) {
+    public void buildRestaurantList(String searchQuery, boolean button10, boolean button10To20, boolean button20) {
 
         filterRestaurants.clear();
         if (button10) {
@@ -181,11 +153,7 @@ public class SearchPageActivity extends AppCompatActivity {
             }
         }
 
-        if (buttonHighestRate) {
-            filterRestaurants.sort(Comparator.comparing(RestaurantModel::getRating).reversed());
-        }
-
-        if (!button10 && !button10To20 && !button20 && !buttonHighestRate) {
+        if (!button10 && !button10To20 && !button20) {
             for (RestaurantModel restaurant : RestaurantDatabase.getRestaurantsBySearch(searchQuery)) {
                 filterRestaurants.add(restaurant);
             }
