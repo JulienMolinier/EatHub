@@ -28,6 +28,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/divider"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
         android:layout_marginTop="10dp"
         android:orientation="vertical"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
