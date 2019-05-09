@@ -3,16 +3,14 @@ package com.example.eathub.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.eathub.R;
-import com.example.eathub.adapters.RestaurantListAdapter;
+import com.example.eathub.adapters.RestaurantRVAdapter;
 import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
 import com.example.eathub.models.databases.RestaurantDatabase;
@@ -25,7 +23,7 @@ public class SearchPageActivity extends AppCompatActivity {
 
     public String search;
     public TextView text;
-    public ListView listRestaurant;
+    public RecyclerView listRestaurant;
 
     public boolean rate;
     public boolean isPrice10;
@@ -35,9 +33,8 @@ public class SearchPageActivity extends AppCompatActivity {
     SearchView searchView;
 
     public List<RestaurantModel> filterRestaurants;
-    public List<RestaurantModel> restaurantsListBySearch;
 
-    public RestaurantListAdapter restaurantAdapter;
+    public RestaurantRVAdapter restaurantAdapter;
 
     private ProfileModel profile;
 
@@ -61,17 +58,6 @@ public class SearchPageActivity extends AppCompatActivity {
 
         getRestaurantList(savedInstanceState);
 
-
-        final Intent intentRestaurant = new Intent(getApplicationContext(), RestaurantActivity.class);
-        listRestaurant.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                intentRestaurant.putExtra("restaurantpicked", filterRestaurants.get(position));
-                startActivity(intentRestaurant);
-            }
-        });
-
-
         final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -89,34 +75,18 @@ public class SearchPageActivity extends AppCompatActivity {
         };
         searchView.setOnQueryTextListener(queryTextListener);
 
-        goBack();
     }
 
     public void getRestaurantList(Bundle savedInstanceState) {
         // recuperation liste des restaurants
         listRestaurant = findViewById(R.id.listRestaurant);
         if (search != null) {
-            restaurantsListBySearch = RestaurantDatabase.getRestaurantsBySearch(search);
             filterRestaurants = RestaurantDatabase.getRestaurantsBySearch(search);
             if (savedInstanceState != null)
                 filterRestaurants = savedInstanceState.getParcelableArrayList("filterRestaurants");
-            restaurantAdapter = new RestaurantListAdapter(getApplicationContext(), filterRestaurants, profile);
+            restaurantAdapter = new RestaurantRVAdapter(this, filterRestaurants, profile);
             listRestaurant.setAdapter(restaurantAdapter);
         }
-    }
-
-    public void goBack() {
-        // initialisation bouton retour
-        Button button = findViewById(R.id.buttonBackSearch);
-
-        // retour en arriere avec le bouton back
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
     }
 
     public void addListenerOnCheckBox(View v) {
