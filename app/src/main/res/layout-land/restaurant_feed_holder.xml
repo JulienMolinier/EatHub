@@ -109,10 +109,9 @@
                     android:id="@+id/ratingBar2"
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_below="@id/CVRestaurantPrice"
-                    android:layout_alignParentRight="false"
-                    android:layout_marginTop="10dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp" />
             </RelativeLayout>
         </RelativeLayout>
 
