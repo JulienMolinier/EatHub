@@ -106,6 +106,7 @@ public class FeedFragment extends Fragment {
                     public void onClick(View v) {
                         profile.addFriend((ProfileModel)addFriendSpinner.getSelectedItem());
                         friendRVAdapter.notifyDataSetChanged();
+                        buildFeedList();
                         feedadapter.notifyDataSetChanged();
                         popup.dismiss();
                     }
