@@ -181,8 +181,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         while (cursor3.moveToNext()) {
             int friend1 = cursor3.getInt(1);
             int friend2 = cursor3.getInt(2);
-            ProfileDatabase.getAllProfiles().get(friend1)
-                    .addFriend(ProfileDatabase.getAllProfiles().get(friend2));
+            ProfileDatabase.getAllProfiles().get(friend1 - 1)
+                    .addFriend(ProfileDatabase.getAllProfiles().get(friend2 - 1));
         }
         cursor3.close();
         while (cursor4.moveToNext()) {
@@ -193,8 +193,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         while (cursor5.moveToNext()) {
             int profile = cursor5.getInt(1);
             int restaurant = cursor5.getInt(2);
-            ProfileDatabase.getAllProfiles().get(profile)
-                    .shareARestaurant(RestaurantDatabase.getRestaurants().get(restaurant));
+            ProfileDatabase.getAllProfiles().get(profile - 1)
+                    .shareARestaurant(RestaurantDatabase.getRestaurants().get(restaurant - 1));
         }
 
     }
@@ -222,8 +222,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String commentary = cursor.getString(6);
         double mark = cursor.getDouble(7);
 
-        return new VisitModel(ProfileDatabase.getAllProfiles().get(profileId),
-                RestaurantDatabase.getRestaurants().get(restaurantId), date, calories, price,
+        return new VisitModel(ProfileDatabase.getAllProfiles().get(profileId - 1),
+                RestaurantDatabase.getRestaurants().get(restaurantId - 1), date, calories, price,
                 commentary, mark);
     }
 
@@ -243,40 +243,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(VISIT_TABLE_CREATE);
         db.execSQL(SHARED_TABLE_CREATE);
 
-        ProfileModel mmdurand = new ProfileModel(0, "mm.durand@gmail.com", "0",
+        ProfileModel mmdurand = new ProfileModel(1, "mm.durand@gmail.com", "0",
                 "Marie-Madeleine", "Durand", "1947-08-08", 1.6,
                 55, 18.0, Diet.vegan, CulinaryFence.vegan);
         ContentValues contentValues = createProfile(mmdurand);
 
-        ProfileModel jpot = new ProfileModel(1, "jordan.pot@gmail.com", "0",
+        ProfileModel jpot = new ProfileModel(2, "jordan.pot@gmail.com", "0",
                 "Jordan", "Pot", "1996-04-08", 1.7,
                 65, 8.0, Diet.none, CulinaryFence.italian);
         ContentValues contentValues2 = createProfile(jpot);
 
-        ProfileModel fleca = new ProfileModel(2, "fabrice.leca@gmail.com", "0",
+        ProfileModel fleca = new ProfileModel(3, "fabrice.leca@gmail.com", "0",
                 "Fabrice", "Leca", "1972-06-05", 1.8,
                 90, 30.0, Diet.none, CulinaryFence.asian);
         ContentValues contentValues3 = createProfile(fleca);
 
         ContentValues contentValues4 = new ContentValues();
-        contentValues4.put(FRIENDONE, 0);
-        contentValues4.put(FRIENDTWO, 1);
+        contentValues4.put(FRIENDONE, 1);
+        contentValues4.put(FRIENDTWO, 2);
 
         ContentValues contentValues5 = new ContentValues();
-        contentValues5.put(FRIENDONE, 0);
-        contentValues5.put(FRIENDTWO, 2);
+        contentValues5.put(FRIENDONE, 1);
+        contentValues5.put(FRIENDTWO, 3);
 
-        RestaurantModel pizzaCorsica = new RestaurantModel(0, "Pizza Corsica", 15.0,
+        RestaurantModel pizzaCorsica = new RestaurantModel(1, "Pizza Corsica", 15.0,
                 CulinaryFence.italian, "5895 rue des arbres", "0102030405",
                 7.07197, 43.6295);
         ContentValues contentValues6 = createRestaurant(pizzaCorsica);
 
-        RestaurantModel lebelagio = new RestaurantModel(1, "Le Belagio", 25.0,
+        RestaurantModel lebelagio = new RestaurantModel(2, "Le Belagio", 25.0,
                 CulinaryFence.italian, "20 rue des arbres", "0102030405",
                 7.05796, 43.6184);
         ContentValues contentValues7 = createRestaurant(lebelagio);
 
-        RestaurantModel lebarbusse = new RestaurantModel(2, "Le Barbusse", 18.0,
+        RestaurantModel lebarbusse = new RestaurantModel(3, "Le Barbusse", 18.0,
                 CulinaryFence.vegan, "18 rue des arbres", "0102030405",
                 7.06452, 43.6166);
         ContentValues contentValues8 = createRestaurant(lebarbusse);
@@ -300,12 +300,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         RestaurantDatabase.getRestaurants().add(lebarbusse);
 
         ContentValues contentValues11 = new ContentValues();
-        contentValues11.put(SHARED_PROFILE, 1);
-        contentValues11.put(SHARED_RESTAURANT, 0);
+        contentValues11.put(SHARED_PROFILE, 2);
+        contentValues11.put(SHARED_RESTAURANT, 1);
 
         ContentValues contentValues12 = new ContentValues();
-        contentValues12.put(SHARED_PROFILE, 2);
-        contentValues12.put(SHARED_RESTAURANT, 1);
+        contentValues12.put(SHARED_PROFILE, 3);
+        contentValues12.put(SHARED_RESTAURANT, 2);
 
         db.insert(SHARED_TABLE_NAME, null, contentValues11);
         db.insert(SHARED_TABLE_NAME, null, contentValues12);

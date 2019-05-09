@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/avatarConnected"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/lebarbusse" />
+
+    <TextView
+        android:id="@+id/rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:layout_marginLeft="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_toRightOf="@id/avatarConnected"
+        android:text="Textview"
+        android:textSize="16dp"/>
+
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rate"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="0dp"
+        android:layout_toRightOf="@id/avatarConnected"
+        android:text="TextView" />
+</RelativeLayout>

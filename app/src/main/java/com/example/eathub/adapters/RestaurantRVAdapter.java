@@ -51,6 +51,7 @@ public class RestaurantRVAdapter extends RecyclerView.Adapter<RestaurantFeedHold
         restaurantFeedHolder.getCVRestaurantDescription().setText(restaurant.getAddress());
         restaurantFeedHolder.getCVRestaurantPrice().setText("~" + restaurant.getPrice() + "€");
         restaurantFeedHolder.getCVTypeRestaurant().setText(restaurant.getCulinaryFence().toString());
+        restaurantFeedHolder.getRatingBar().setRating((float) restaurant.getRating());
 
         restaurantFeedHolder.itemView.setOnClickListener((View v) -> {
             Intent myIntent = new Intent(context, RestaurantActivity.class);

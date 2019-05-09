@@ -5,10 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
 import com.example.eathub.R;
 
-public class RestaurantFeedHolder extends RecyclerView.ViewHolder {
+class RestaurantFeedHolder extends RecyclerView.ViewHolder {
     private ImageView CVImgRestaurant;
     private View CVindicator;
     private TextView CVRestaurantName;
@@ -16,10 +18,10 @@ public class RestaurantFeedHolder extends RecyclerView.ViewHolder {
     private TextView CVTypeRestaurant;
     private TextView CVRestaurantPrice;
     private Button CVCall;
+    private RatingBar ratingBar;
 
 
-
-    public RestaurantFeedHolder(@NonNull View itemView) {
+    RestaurantFeedHolder(@NonNull View itemView) {
         super(itemView);
         CVImgRestaurant = itemView.findViewById(R.id.CVimgRestaurant);
         CVindicator = itemView.findViewById(R.id.CVindicator);
@@ -28,33 +30,38 @@ public class RestaurantFeedHolder extends RecyclerView.ViewHolder {
         CVTypeRestaurant = itemView.findViewById(R.id.CVTypeRestaurant);
         CVRestaurantPrice = itemView.findViewById(R.id.CVRestaurantPrice);
         CVCall = itemView.findViewById(R.id.CVCall);
+        ratingBar = itemView.findViewById(R.id.ratingBar2);
     }
 
-    public ImageView getCVImgRestaurant() {
+    RatingBar getRatingBar() {
+        return ratingBar;
+    }
+
+    ImageView getCVImgRestaurant() {
         return CVImgRestaurant;
     }
 
-    public View getCVindicator() {
+    View getCVindicator() {
         return CVindicator;
     }
 
-    public TextView getCVRestaurantName() {
+    TextView getCVRestaurantName() {
         return CVRestaurantName;
     }
 
-    public TextView getCVRestaurantDescription() {
+    TextView getCVRestaurantDescription() {
         return CVRestaurantDescription;
     }
 
-    public TextView getCVTypeRestaurant() {
+    TextView getCVTypeRestaurant() {
         return CVTypeRestaurant;
     }
 
-    public TextView getCVRestaurantPrice() {
+    TextView getCVRestaurantPrice() {
         return CVRestaurantPrice;
     }
 
-    public Button getCVCall() {
+    Button getCVCall() {
         return CVCall;
     }
 }
