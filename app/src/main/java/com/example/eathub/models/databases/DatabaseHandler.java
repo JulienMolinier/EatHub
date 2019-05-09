@@ -210,7 +210,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         double longitude = cursor.getDouble(7);
 
         return new RestaurantModel(id, name, price, culinaryFence,
-                address, phone, lat, longitude);
+                address, phone, longitude, lat);
     }
 
     private VisitModel createVisitFromRaw(Cursor cursor) {
