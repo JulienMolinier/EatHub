@@ -1,5 +1,6 @@
 package com.example.eathub.fragments;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,16 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.eathub.R;
 import com.example.eathub.adapters.FriendRVAdapter;
+import com.example.eathub.adapters.FriendSpinnerAdapter;
 import com.example.eathub.adapters.RestaurantRVAdapter;
 import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
 import com.example.eathub.models.VisitModel;
+import com.example.eathub.models.databases.ProfileDatabase;
 import com.example.eathub.models.databases.VisitDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FeedFragment extends Fragment {
     private View view;
@@ -29,12 +35,14 @@ public class FeedFragment extends Fragment {
     private boolean shared;
     private boolean visited;
     private Button filterFeed;
+    private Button addFriend;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.feed, container, false);
         filterFeed = view.findViewById(R.id.filterFeed);
+        addFriend = view.findViewById(R.id.addFriend);
         friendRV = view.findViewById(R.id.friendRV);
         feedRV = view.findViewById(R.id.feedRV);
 
@@ -46,7 +54,8 @@ public class FeedFragment extends Fragment {
         restaurantList = new ArrayList<>();
         buildFeedList();
 
-        friendRV.setAdapter(new FriendRVAdapter(this.getContext(), profile.getFriendList()));
+        FriendRVAdapter friendRVAdapter = new FriendRVAdapter(this.getContext(), profile.getFriendList());
+        friendRV.setAdapter(friendRVAdapter);
         RestaurantRVAdapter feedadapter = new RestaurantRVAdapter(this.getContext(), restaurantList, profile);
         feedRV.setAdapter(feedadapter);
 
@@ -77,6 +86,33 @@ public class FeedFragment extends Fragment {
             feedadapter.notifyDataSetChanged();
 
         });
+        Dialog popup = new Dialog(getContext());
+        addFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup.setContentView(R.layout.add_friend_popup);
+                Spinner addFriendSpinner = popup.findViewById(R.id.addFriendSpinner);
+                Button addFriendButton = popup.findViewById(R.id.addFriendButton);
+                Button cancelButton = popup.findViewById(R.id.cancelButton);
+                addFriendSpinner.setAdapter(new FriendSpinnerAdapter(getContext(), R.layout.add_friend_spinner, buildUserList()));
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popup.dismiss();
+                    }
+                });
+                addFriendButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        profile.addFriend((ProfileModel)addFriendSpinner.getSelectedItem());
+                        friendRVAdapter.notifyDataSetChanged();
+                        feedadapter.notifyDataSetChanged();
+                        popup.dismiss();
+                    }
+                });
+                popup.show();
+            }
+        });
         return view;
     }
 
@@ -101,6 +137,16 @@ public class FeedFragment extends Fragment {
                     restaurantList.add(visit.getRestaurant());
             }
         }
+    }
+
+    private List<ProfileModel> buildUserList() {
+        List<ProfileModel> otherUsers = new ArrayList<>();
+        ProfileDatabase.getAllProfiles().forEach(pM -> {
+            if (!profile.equals(pM) && !profile.getFriendList().contains(pM)) {
+                otherUsers.add(pM);
+            }
+        });
+        return otherUsers;
     }
 
 
