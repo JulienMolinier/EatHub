@@ -259,6 +259,13 @@ public class ProfileModel implements Parcelable {
         return minimalRequired * 1.5;
     }
 
+    public List<ProfileModel> getFriendsProfiles() {
+        ArrayList<ProfileModel> friends = new ArrayList<>();
+        this.friendList.forEach(integer ->
+                friends.add(ProfileDatabase.getAllProfiles().get(integer)));
+        return friends;
+    }
+
     public String getEmail() {
         return email;
     }

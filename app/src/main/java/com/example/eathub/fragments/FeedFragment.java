@@ -31,7 +31,8 @@ public class FeedFragment extends Fragment {
     private RecyclerView friendRV;
     private RecyclerView feedRV;
     private ProfileModel profile;
-    private ArrayList<RestaurantModel> restaurantList;
+    private List<RestaurantModel> restaurantList;
+    private List<ProfileModel> friends;
     private boolean shared;
     private boolean visited;
     private Button filterFeed;
@@ -52,10 +53,9 @@ public class FeedFragment extends Fragment {
         shared = true;
         visited = true;
         restaurantList = new ArrayList<>();
+        friends = new ArrayList<>();
+        buildFriendsList();
         buildFeedList();
-        List<ProfileModel> friends = new ArrayList<>();
-        profile.getFriendList().forEach(integer ->
-                friends.add(ProfileDatabase.getAllProfiles().get(integer)));
         FriendRVAdapter friendRVAdapter = new FriendRVAdapter(this.getContext(), friends);
         friendRV.setAdapter(friendRVAdapter);
         RestaurantRVAdapter feedadapter = new RestaurantRVAdapter(this.getContext(), restaurantList, profile);
@@ -101,14 +101,20 @@ public class FeedFragment extends Fragment {
                 profile.addFriend(((ProfileModel) addFriendSpinner.getSelectedItem()).getId());
                 DatabaseHandler.addFriendToDB(profile.getId(),
                         ((ProfileModel) addFriendSpinner.getSelectedItem()).getId());
-                friendRVAdapter.notifyDataSetChanged();
+                buildFriendsList();
                 buildFeedList();
+                friendRVAdapter.notifyDataSetChanged();
                 feedadapter.notifyDataSetChanged();
                 popup.dismiss();
             });
             popup.show();
         });
         return view;
+    }
+
+    private void buildFriendsList() {
+        friends.clear();
+        this.friends.addAll(profile.getFriendsProfiles());
     }
 
     @Override
