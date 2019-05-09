@@ -19,6 +19,7 @@ import com.example.eathub.adapters.RestaurantRVAdapter;
 import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
 import com.example.eathub.models.VisitModel;
+import com.example.eathub.models.databases.DatabaseHandler;
 import com.example.eathub.models.databases.ProfileDatabase;
 import com.example.eathub.models.databases.VisitDatabase;
 
@@ -52,8 +53,10 @@ public class FeedFragment extends Fragment {
         visited = true;
         restaurantList = new ArrayList<>();
         buildFeedList();
-
-        FriendRVAdapter friendRVAdapter = new FriendRVAdapter(this.getContext(), profile.getFriendList());
+        List<ProfileModel> friends = new ArrayList<>();
+        profile.getFriendList().forEach(integer ->
+                friends.add(ProfileDatabase.getAllProfiles().get(integer)));
+        FriendRVAdapter friendRVAdapter = new FriendRVAdapter(this.getContext(), friends);
         friendRV.setAdapter(friendRVAdapter);
         RestaurantRVAdapter feedadapter = new RestaurantRVAdapter(this.getContext(), restaurantList, profile);
         feedRV.setAdapter(feedadapter);
@@ -95,9 +98,9 @@ public class FeedFragment extends Fragment {
                     R.layout.add_friend_spinner, buildUserList()));
             cancelButton.setOnClickListener((View v1) -> popup.dismiss());
             addFriendButton.setOnClickListener((View v2) -> {
-                profile.addFriend((ProfileModel) addFriendSpinner.getSelectedItem());
-//                DatabaseHandler.addFriendToDB(profile.getId(),
-//                        ((ProfileModel) addFriendSpinner.getSelectedItem()).getId());
+                profile.addFriend(((ProfileModel) addFriendSpinner.getSelectedItem()).getId());
+                DatabaseHandler.addFriendToDB(profile.getId(),
+                        ((ProfileModel) addFriendSpinner.getSelectedItem()).getId());
                 friendRVAdapter.notifyDataSetChanged();
                 buildFeedList();
                 feedadapter.notifyDataSetChanged();
@@ -134,7 +137,7 @@ public class FeedFragment extends Fragment {
     private List<ProfileModel> buildUserList() {
         List<ProfileModel> otherUsers = new ArrayList<>();
         ProfileDatabase.getAllProfiles().forEach(pM -> {
-            if (!profile.equals(pM) && !profile.getFriendList().contains(pM)) {
+            if (profile.getId() != pM.getId() && !profile.getFriendList().contains(pM.getId() - 1)) {
                 otherUsers.add(pM);
             }
         });

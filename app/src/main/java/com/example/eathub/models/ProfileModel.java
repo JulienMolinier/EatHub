@@ -3,6 +3,7 @@ package com.example.eathub.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.eathub.models.databases.ProfileDatabase;
 import com.example.eathub.models.databases.VisitDatabase;
 
 import java.time.LocalDate;
@@ -25,7 +26,7 @@ public class ProfileModel implements Parcelable {
     private double budget;
     private Diet diet;
     private CulinaryFence culinaryFence;
-    private List<ProfileModel> friendList;
+    private List<Integer> friendList;
     private List<RestaurantModel> sharedRestaurants;
 
     private ArrayList<String> profileDetailsList;
@@ -92,7 +93,8 @@ public class ProfileModel implements Parcelable {
         weight = in.readDouble();
         budget = in.readDouble();
         diet = Diet.values()[in.readInt()];
-        friendList = in.createTypedArrayList(ProfileModel.CREATOR);
+        friendList = new ArrayList<>();
+        in.readList(friendList, Integer.class.getClassLoader());
         profileDetailsList = in.createStringArrayList();
         visitNumber = in.readInt();
         sharedRestaurants = in.createTypedArrayList(RestaurantModel.CREATOR);
@@ -112,7 +114,7 @@ public class ProfileModel implements Parcelable {
         dest.writeDouble(weight);
         dest.writeDouble(budget);
         dest.writeInt(diet.ordinal());
-        dest.writeTypedList(friendList);
+        dest.writeList(friendList);
         dest.writeStringList(profileDetailsList);
         dest.writeInt(visitNumber);
         dest.writeTypedList(sharedRestaurants);
@@ -240,13 +242,10 @@ public class ProfileModel implements Parcelable {
         return sharedRestaurants;
     }
 
-    public void setSharedRestaurants(List<RestaurantModel> sharedRestaurants) {
-        this.sharedRestaurants = sharedRestaurants;
-    }
-
     public List<RestaurantModel> getRestaurantsSharedByFriends() {
         List<RestaurantModel> restaurantsShared = new ArrayList<>();
-        for (ProfileModel friend : friendList) {
+        for (int friendId : friendList) {
+            ProfileModel friend = ProfileDatabase.getAllProfiles().get(friendId);
             for (RestaurantModel restaurant : friend.getSharedRestaurants()) {
                 if (!restaurantsShared.contains(restaurant))
                     restaurantsShared.add(restaurant);
@@ -255,7 +254,7 @@ public class ProfileModel implements Parcelable {
         return restaurantsShared;
     }
 
-    double computeRequired() {
+    private double computeRequired() {
         double minimalRequired = this.weight * 24;
         return minimalRequired * 1.5;
     }
@@ -280,16 +279,16 @@ public class ProfileModel implements Parcelable {
         return caloriesConsumed;
     }
 
-    public void addFriend(ProfileModel person) {
-        if (!friendList.contains(person) && !person.equals(this))
-            friendList.add(person);
+    public void addFriend(int friendId) {
+        if (!friendList.contains(friendId - 1))
+            friendList.add(friendId - 1);
     }
 
     public ArrayList<String> getProfileDetailsList() {
         return profileDetailsList;
     }
 
-    public List<ProfileModel> getFriendList() {
+    public List<Integer> getFriendList() {
         return friendList;
     }
 

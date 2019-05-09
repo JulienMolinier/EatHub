@@ -194,7 +194,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int friend1 = cursor3.getInt(1);
             int friend2 = cursor3.getInt(2);
             ProfileDatabase.getAllProfiles().get(friend1 - 1)
-                    .addFriend(ProfileDatabase.getAllProfiles().get(friend2 - 1));
+                    .addFriend(friend2);
         }
         cursor3.close();
         while (cursor4.moveToNext()) {
@@ -208,7 +208,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ProfileDatabase.getAllProfiles().get(profile - 1)
                     .shareARestaurant(RestaurantDatabase.getRestaurants().get(restaurant - 1));
         }
-        cursor.close();
+        cursor5.close();
     }
 
     private RestaurantModel createRestaurantFromRaw(Cursor cursor) {
@@ -304,8 +304,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(RESTAURANT_TABLE_NAME, null, contentValues7);
         db.insert(RESTAURANT_TABLE_NAME, null, contentValues8);
 
-        mmdurand.addFriend(jpot);
-        mmdurand.addFriend(fleca);
+        mmdurand.addFriend(jpot.getId());
+        mmdurand.addFriend(fleca.getId());
 
         RestaurantDatabase.getRestaurants().add(pizzaCorsica);
         RestaurantDatabase.getRestaurants().add(lebelagio);
