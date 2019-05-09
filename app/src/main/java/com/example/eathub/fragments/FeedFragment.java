@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.eathub.R;
 import com.example.eathub.adapters.FriendRVAdapter;
@@ -87,32 +86,24 @@ public class FeedFragment extends Fragment {
 
         });
         Dialog popup = new Dialog(getContext());
-        addFriend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popup.setContentView(R.layout.add_friend_popup);
-                Spinner addFriendSpinner = popup.findViewById(R.id.addFriendSpinner);
-                Button addFriendButton = popup.findViewById(R.id.addFriendButton);
-                Button cancelButton = popup.findViewById(R.id.cancelButton);
-                addFriendSpinner.setAdapter(new FriendSpinnerAdapter(getContext(), R.layout.add_friend_spinner, buildUserList()));
-                cancelButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        popup.dismiss();
-                    }
-                });
-                addFriendButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        profile.addFriend((ProfileModel)addFriendSpinner.getSelectedItem());
-                        friendRVAdapter.notifyDataSetChanged();
-                        buildFeedList();
-                        feedadapter.notifyDataSetChanged();
-                        popup.dismiss();
-                    }
-                });
-                popup.show();
-            }
+        addFriend.setOnClickListener((View v) -> {
+            popup.setContentView(R.layout.add_friend_popup);
+            Spinner addFriendSpinner = popup.findViewById(R.id.addFriendSpinner);
+            Button addFriendButton = popup.findViewById(R.id.addFriendButton);
+            Button cancelButton = popup.findViewById(R.id.cancelButton);
+            addFriendSpinner.setAdapter(new FriendSpinnerAdapter(getContext(),
+                    R.layout.add_friend_spinner, buildUserList()));
+            cancelButton.setOnClickListener((View v1) -> popup.dismiss());
+            addFriendButton.setOnClickListener((View v2) -> {
+                profile.addFriend((ProfileModel) addFriendSpinner.getSelectedItem());
+//                DatabaseHandler.addFriendToDB(profile.getId(),
+//                        ((ProfileModel) addFriendSpinner.getSelectedItem()).getId());
+                friendRVAdapter.notifyDataSetChanged();
+                buildFeedList();
+                feedadapter.notifyDataSetChanged();
+                popup.dismiss();
+            });
+            popup.show();
         });
         return view;
     }

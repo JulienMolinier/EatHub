@@ -136,6 +136,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return res != -1;
     }
 
+    public static boolean addFriendToDB(int profileId, int friendId) {
+        long res = db.insert(DatabaseHandler.FRIEND_TABLE_NAME, null, createFriendship(profileId, friendId));
+        return res != -1;
+    }
+
+    private static ContentValues createFriendship(int profileId, int friendId) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(FRIENDONE, profileId);
+        contentValues.put(FRIENDTWO, friendId);
+        return contentValues;
+    }
+
     private static ContentValues createSharing(int profileId, int restaurantId) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(SHARED_PROFILE, profileId);
@@ -196,7 +208,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ProfileDatabase.getAllProfiles().get(profile - 1)
                     .shareARestaurant(RestaurantDatabase.getRestaurants().get(restaurant - 1));
         }
-
+        cursor.close();
     }
 
     private RestaurantModel createRestaurantFromRaw(Cursor cursor) {

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:padding="20dp">
 
     <TextView
         android:id="@+id/textView4"
@@ -11,20 +12,21 @@
         android:layout_centerHorizontal="true"
         android:text="@string/rate" />
 
-    <EditText
-        android:id="@+id/rateInput"
+    <RatingBar
+        android:id="@+id/ratingBar3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView4"
         android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="numberDecimal" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:isIndicator="false" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rateInput"
+        android:layout_below="@id/ratingBar3"
         android:layout_centerHorizontal="true"
         android:text="@string/calories" />
 
@@ -34,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textView5"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
         android:ems="10"
         android:inputType="numberDecimal" />
 
@@ -51,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textView6"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
         android:ems="10"
         android:inputType="numberDecimal" />
 
@@ -68,6 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textView7"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine" />
@@ -80,21 +85,31 @@
         android:layout_centerHorizontal="true"
         android:text="@string/date" />
 
-    <EditText
-        android:id="@+id/dateInput"
+    <DatePicker
+        android:id="@+id/datePicker"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_below="@id/textView8"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="date" />
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner" />
 
-    <Button
-        android:id="@+id/commentButton"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dateInput"
-        android:layout_centerHorizontal="true"
-        android:text="Button"
-        tools:text="@string/addcomment" />
+        android:layout_below="@id/datePicker"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/commentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/commentButton"
+            android:text="@string/cancel" />
+    </RelativeLayout>
 </RelativeLayout>

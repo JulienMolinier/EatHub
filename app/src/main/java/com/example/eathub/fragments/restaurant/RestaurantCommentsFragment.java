@@ -1,6 +1,6 @@
 package com.example.eathub.fragments.restaurant;
 
-import android.content.Intent;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,16 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RatingBar;
 
 import com.example.eathub.R;
-import com.example.eathub.activities.CommentActivity;
 import com.example.eathub.adapters.CommentListAdapter;
 import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
 import com.example.eathub.models.VisitModel;
+import com.example.eathub.models.databases.DatabaseHandler;
 import com.example.eathub.models.databases.VisitDatabase;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class RestaurantCommentsFragment extends Fragment {
@@ -41,20 +45,46 @@ public class RestaurantCommentsFragment extends Fragment {
             profileModel = savedInstanceState.getParcelable("currentProfile");
         }
 
+        Dialog popup = new Dialog(getContext());
         addACommentButton.setOnClickListener((View v) -> {
-            Intent intent = new Intent(getContext(), CommentActivity.class);
-            intent.putExtra("currentProfile", profileModel);
-            intent.putExtra("currentRestaurant", restaurantModel);
-            startActivity(intent);
+            popup.setContentView(R.layout.addcomment);
 
+            Button addFriendButton = popup.findViewById(R.id.commentButton);
+            Button cancelButton = popup.findViewById(R.id.cancelButton);
+            RatingBar rateInput = popup.findViewById(R.id.ratingBar3);
+            EditText commentInput = popup.findViewById(R.id.commentInput);
+            DatePicker dateInput = popup.findViewById(R.id.datePicker);
+            EditText priceInput = popup.findViewById(R.id.priceInput);
+            EditText caloriesInput = popup.findViewById(R.id.caloriesInput);
+
+            cancelButton.setOnClickListener((View v1) -> popup.dismiss());
+
+            addFriendButton.setOnClickListener((View v2) -> {
+                if (rateInput.getRating() != 0.0 && commentInput.getText() != null
+                        && caloriesInput.getText() != null) {
+                    int day = dateInput.getDayOfMonth();
+                    int month = dateInput.getMonth() + 1;
+                    int year = dateInput.getYear();
+                    VisitModel visitToAdd = new VisitModel(profileModel, restaurantModel,
+                            LocalDate.of(year, month, day),
+                            Double.valueOf(caloriesInput.getText().toString()),
+                            Double.valueOf(priceInput.getText().toString()),
+                            commentInput.getText().toString(),
+                            (double) rateInput.getRating());
+                    DatabaseHandler.addVisitToDB(visitToAdd);
+                    VisitDatabase.getVisits().add(visitToAdd);
+                }
+                popup.dismiss();
+            });
+            popup.show();
         });
         ListView listComments = view.findViewById(R.id.listComments);
+
         getCommentList();
-        if(!commentList.isEmpty()) {
+        if (!commentList.isEmpty()) {
             myCommentListAdapter = new CommentListAdapter(this.getContext(), commentList);
             listComments.setAdapter(myCommentListAdapter);
         }
-        Button addACommentButton = view.findViewById(R.id.addACommentButton);
 
         return view;
     }
@@ -67,9 +97,9 @@ public class RestaurantCommentsFragment extends Fragment {
         this.restaurantModel = restaurantModel;
     }
 
-    private void getCommentList(){
-        for(VisitModel visit : VisitDatabase.getVisits()){
-            if (visit.getRestaurant().equals(this.restaurantModel)){
+    private void getCommentList() {
+        for (VisitModel visit : VisitDatabase.getVisits()) {
+            if (visit.getRestaurant().equals(this.restaurantModel)) {
                 commentList.add(visit);
             }
         }
