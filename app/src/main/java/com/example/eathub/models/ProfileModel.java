@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProfileModel implements Parcelable {
-
+    private int id;
     private String email;
     private String password;
     private String firstName;
@@ -34,6 +34,29 @@ public class ProfileModel implements Parcelable {
     private double required;
     private double spend;
     private double caloriesConsumed;
+
+    public ProfileModel(int id, String email, String password, String firstName, String surname,
+                        String birthdate, double height, double weight, double budget, Diet diet,
+                        CulinaryFence culinaryFence) {
+        this.id = id;
+        this.firstName = firstName;
+        this.surname = surname;
+        this.birthdate = birthdate;
+        this.age = computeAge();
+        this.height = height;
+        this.weight = weight;
+        this.budget = budget;
+        this.diet = diet;
+        this.culinaryFence = culinaryFence;
+        this.email = email;
+        this.password = password;
+        this.friendList = new ArrayList<>();
+        this.sharedRestaurants = new ArrayList<>();
+        this.history = new ArrayList<>();
+        this.profileDetailsList = new ArrayList<>();
+        updateProfileList();
+
+    }
 
     public ProfileModel(String email, String password, String firstName, String surname,
                         String birthdate, double height, double weight, double budget, Diet diet,
@@ -58,6 +81,7 @@ public class ProfileModel implements Parcelable {
     }
 
     protected ProfileModel(Parcel in) {
+        id = in.readInt();
         email = in.readString();
         password = in.readString();
         firstName = in.readString();
@@ -77,6 +101,7 @@ public class ProfileModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(email);
         dest.writeString(password);
         dest.writeString(firstName);
@@ -110,6 +135,34 @@ public class ProfileModel implements Parcelable {
             return new ProfileModel[size];
         }
     };
+
+    public void shareARestaurant(RestaurantModel restaurantModel) {
+        this.sharedRestaurants.add(restaurantModel);
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public Diet getDiet() {
+        return diet;
+    }
 
     public void updateProfileList() {
         profileDetailsList.clear();
@@ -207,10 +260,6 @@ public class ProfileModel implements Parcelable {
         return email;
     }
 
-    public boolean isFriendWith(ProfileModel person) {
-        return friendList.contains(person);
-    }
-
     public int getVisitNumber() {
         return visitNumber;
     }
@@ -240,10 +289,6 @@ public class ProfileModel implements Parcelable {
         return friendList;
     }
 
-    public void setFriendList(ArrayList<ProfileModel> friendList) {
-        this.friendList = friendList;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj != null) {
@@ -252,6 +297,10 @@ public class ProfileModel implements Parcelable {
                     && this.surname.equals(person.surname);
         }
         return false;
+    }
+
+    public String getFirstName() {
+        return this.firstName;
     }
 
     private int computeAge() {

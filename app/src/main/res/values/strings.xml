@@ -52,6 +52,16 @@
     <string name="filter">Filter by :</string>
     <string name="buttonBack">Back</string>
 
+    <string name="addcomment">Add a comment</string>
+    <string name="rate">Rate :</string>
+    <string name="calories">Calories :</string>
+    <string name="comment">Comment :</string>
+    <string name="date">Date: (ex: 1996-05-08)</string>
+
+    <string name="ok">Okay !</string>
+    <string name="error">An error as occurred</string>
+    <string name="done">Done !</string>
+
     <string name="caloriesEvolution">Calories Evolution</string>
     <string name="budgetEvolution">Budget Evolution</string>
 

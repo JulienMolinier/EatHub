@@ -1,21 +1,22 @@
-package com.example.eathub.fragments.profile;
+package com.example.eathub.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.eathub.R;
+import com.example.eathub.fragments.profile.ProfileChartsFragment;
+import com.example.eathub.fragments.profile.ProfileDetailsFragment;
+import com.example.eathub.fragments.profile.ProfileHistoryFragment;
+import com.example.eathub.fragments.profile.ProfileStatsFragment;
 import com.example.eathub.models.ProfileModel;
 
-public class ProfileFragment extends Fragment {
-    private View view;
+public class FriendProfileActivity extends AppCompatActivity {
     private ProfileModel profileModel;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -50,39 +51,36 @@ public class ProfileFragment extends Fragment {
 
     };
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.profile, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.profile);
 
-        BottomNavigationView navigation = view.findViewById(R.id.navigation);
-
+        Intent intent = getIntent();
+        profileModel = intent.getParcelableExtra("currentProfile");
         if (savedInstanceState != null)
-            profileModel = savedInstanceState.getParcelable("connectedProfile");
+            profileModel = savedInstanceState.getParcelable("currentProfile");
+
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         ProfileDetailsFragment defaultFragment = new ProfileDetailsFragment();
         defaultFragment.setProfile(profileModel);
         showFragment(defaultFragment);
 
-        return view;
     }
 
     private void showFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.contain, fragment)
                 .commit();
     }
 
-    public void setProfile(ProfileModel profile) {
-        this.profileModel = profile;
-    }
-
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the state
-        savedInstanceState.putParcelable("connectedProfile", profileModel);
+        savedInstanceState.putParcelable("currentProfile", profileModel);
         super.onSaveInstanceState(savedInstanceState);
 
     }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.eathub.R;
@@ -15,6 +16,7 @@ import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
 import com.example.eathub.models.databases.RestaurantDatabase;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -24,15 +26,12 @@ public class SearchPageActivity extends AppCompatActivity {
     public TextView text;
     public ListView listRestaurant;
 
-    public CheckBox hightestRate;
-    public CheckBox price0to10;
-    public CheckBox price10to20;
-    public CheckBox price20;
-
     public boolean rate;
     public boolean isPrice10;
     public boolean isPrice20;
     public boolean isPrice30;
+
+    SearchView searchView;
 
     public List<RestaurantModel> filterRestaurants;
     public List<RestaurantModel> restaurantsListBySearch;
@@ -44,39 +43,68 @@ public class SearchPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_page_layout);
+        setContentView(R.layout.search_page);
 
         Intent intent = getIntent();
         search = intent.getStringExtra("data");
+        profile = intent.getParcelableExtra("currentProfile");
+        if (savedInstanceState != null)
+            search = savedInstanceState.getString("currentSearch");
         Bundle bundle = new Bundle();
         bundle.putString("params", search);
 
-        profile = (ProfileModel) intent.getParcelableExtra("userprofile");
+        searchView = findViewById(R.id.search);
 
-        // initialisation bouton retour
-        Button button = findViewById(R.id.buttonBackSearch);
-        // initialisation checkbox
-        hightestRate = findViewById(R.id.checkBoxRate);
-        price0to10 = findViewById(R.id.checkBox10);
-        price10to20 = findViewById(R.id.checkBox20);
-        price20 = findViewById(R.id.checkBox30);
+        if (savedInstanceState != null)
+            profile = savedInstanceState.getParcelable("currentProfile");
 
-        // recuperation liste des restaurants
+        getRestaurantList(savedInstanceState);
+
+        final Intent intentRestaurant = new Intent(getApplicationContext(), RestaurantActivity.class);
+        listRestaurant.setOnItemClickListener((parent, view, position, id) -> {
+            intentRestaurant.putExtra("currentRestaurant", filterRestaurants.get(position));
+            intentRestaurant.putExtra("currentProfile", profile);
+            startActivity(intentRestaurant);
+
+        });
+
+
+        final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                search = query;
+                getRestaurantList(savedInstanceState);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                search = newText;
+                getRestaurantList(savedInstanceState);
+                return true;
+            }
+        };
+        searchView.setOnQueryTextListener(queryTextListener);
+
+        goBack();
+    }
+
+    public void getRestaurantList(Bundle savedInstanceState) {
         listRestaurant = findViewById(R.id.listRestaurant);
         if (search != null) {
             restaurantsListBySearch = RestaurantDatabase.getRestaurantsBySearch(search);
             filterRestaurants = RestaurantDatabase.getRestaurantsBySearch(search);
+            if (savedInstanceState != null)
+                filterRestaurants = savedInstanceState.getParcelableArrayList("filterRestaurants");
             restaurantAdapter = new RestaurantListAdapter(getApplicationContext(), filterRestaurants, profile);
             listRestaurant.setAdapter(restaurantAdapter);
         }
+    }
 
-        // retour en arriere avec le bouton back
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+    public void goBack() {
+        Button button = findViewById(R.id.buttonBackSearch);
+        button.setOnClickListener((View v) -> finish());
+
     }
 
     public void addListenerOnCheckBox(View v) {
@@ -85,46 +113,39 @@ public class SearchPageActivity extends AppCompatActivity {
 
         switch (v.getId()) {
             case R.id.checkBox10:
-                if (checked){
+                if (checked) {
                     isPrice10 = true;
-                }
-                else {
+                } else {
                     isPrice10 = false;
                 }
                 break;
 
             case R.id.checkBox20:
-                if(checked){
+                if (checked) {
                     isPrice20 = true;
-                }
-                else {
+                } else {
                     isPrice20 = false;
                 }
                 break;
 
             case R.id.checkBox30:
-                if(checked){
+                if (checked) {
                     isPrice30 = true;
-                }
-                else {
+                } else {
                     isPrice30 = false;
                 }
                 break;
 
             case R.id.checkBoxRate:
-                if(checked){
+                if (checked) {
                     rate = true;
-                }
-                else {
+                } else {
                     rate = false;
                 }
                 break;
         }
-
         buildRestaurantList(search, isPrice10, isPrice20, isPrice30, rate);
         restaurantAdapter.notifyDataSetChanged();
-
-
 
     }
 
@@ -164,10 +185,21 @@ public class SearchPageActivity extends AppCompatActivity {
             filterRestaurants.sort(Comparator.comparing(RestaurantModel::getRating).reversed());
         }
 
-        if(!button10 && !button10To20 && !button20 && !buttonHighestRate){
-            for(RestaurantModel restaurant : RestaurantDatabase.getRestaurantsBySearch(searchQuery)){
+        if (!button10 && !button10To20 && !button20 && !buttonHighestRate) {
+            for (RestaurantModel restaurant : RestaurantDatabase.getRestaurantsBySearch(searchQuery)) {
                 filterRestaurants.add(restaurant);
             }
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the state
+        savedInstanceState.putString("currentSearch", search);
+        savedInstanceState.putParcelable("currentProfile", profile);
+        savedInstanceState.putParcelableArrayList("filterRestaurants", (ArrayList) filterRestaurants);
+
+        super.onSaveInstanceState(savedInstanceState);
+
     }
 }
