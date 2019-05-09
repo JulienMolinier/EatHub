@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import com.example.eathub.R;
 import com.example.eathub.activities.FriendProfileActivity;
 import com.example.eathub.models.ProfileModel;
-import com.example.eathub.models.RestaurantModel;
 
 import java.util.List;
 
@@ -20,10 +19,11 @@ public class FriendRVAdapter extends RecyclerView.Adapter<FriendHolder> {
     private List<ProfileModel> friendList;
     private Context context;
 
-    public FriendRVAdapter(Context context, List<ProfileModel> friendList){
+    public FriendRVAdapter(Context context, List<ProfileModel> friendList) {
         this.context = context;
         this.friendList = friendList;
     }
+
     @NonNull
     @Override
     public FriendHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -33,12 +33,10 @@ public class FriendRVAdapter extends RecyclerView.Adapter<FriendHolder> {
 
         final Intent myIntent = new Intent();
         ProfileModel myFriend = friendList.get(i);
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myIntent.putExtra("profilepicked", myFriend);
-                context.startActivity(myIntent);
-            }
+        itemView.setOnClickListener((View v) -> {
+            myIntent.putExtra("currentProfile", myFriend);
+            context.startActivity(myIntent);
+
         });
         return new FriendHolder(itemView);
     }
@@ -46,17 +44,15 @@ public class FriendRVAdapter extends RecyclerView.Adapter<FriendHolder> {
     @Override
     public void onBindViewHolder(FriendHolder viewHolder, int i) {
         ProfileModel myFriend = friendList.get(i);
-        viewHolder.getAvatarFriend().setImageResource( context.getResources().getIdentifier(myFriend.getName()
+        viewHolder.getAvatarFriend().setImageResource(context.getResources().getIdentifier(myFriend.getName()
                 .replaceAll(" ", "").replaceAll("-", "").toLowerCase(), "drawable", context.getPackageName()));
         viewHolder.getNameFriend().setText(myFriend.getFirstName());
 
         Intent myIntent = new Intent(context.getApplicationContext(), FriendProfileActivity.class);
-        viewHolder.getAvatarFriend().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myIntent.putExtra("profilepicked", myFriend);
-                context.startActivity(myIntent);
-            }
+        viewHolder.getAvatarFriend().setOnClickListener((View v) -> {
+            myIntent.putExtra("currentProfile", myFriend);
+            context.startActivity(myIntent);
+
         });
     }
 

@@ -9,9 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.eathub.R;
-import com.example.eathub.models.DatabaseHandler;
 import com.example.eathub.models.LogInModel;
 import com.example.eathub.models.ProfileModel;
+import com.example.eathub.models.databases.DatabaseHandler;
 import com.example.eathub.models.databases.ProfileDatabase;
 
 
@@ -20,14 +20,14 @@ import com.example.eathub.models.databases.ProfileDatabase;
  */
 public class LogInActivity extends AppCompatActivity {
 
-    private DatabaseHandler db;
+    private DatabaseHandler dbHand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        db = new DatabaseHandler(this);
-        System.out.println(db.getAllProfiles());
+        dbHand = new DatabaseHandler(this);
+        dbHand.openDB();
 
         setContentView(R.layout.login);
 
@@ -60,8 +60,8 @@ public class LogInActivity extends AppCompatActivity {
                     errorMessage.setVisibility(View.INVISIBLE);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     ProfileModel profile = ProfileDatabase.getProfile(email);
-                    System.out.println("Le profil renvoyé est" + profile.getName());
-                    intent.putExtra("userprofile", profile);
+                    System.out.println("Le profil renvoyé est " + profile.getName());
+                    intent.putExtra("currentProfile", profile);
                     startActivity(intent);
                 } else {
                     errorMessage.setText(getString(R.string.logInErrorBadPassword));

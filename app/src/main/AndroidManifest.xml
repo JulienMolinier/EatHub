@@ -31,6 +31,7 @@
 
         </activity>
         <activity android:name=".activities.SearchPageActivity" />
+        <activity android:name=".activities.CommentActivity" />
         <activity android:name=".activities.FriendProfileActivity" />
         <activity android:name=".activities.RestaurantActivity" />
     </application>

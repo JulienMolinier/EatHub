@@ -45,6 +45,7 @@ public class SearchPageActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         search = intent.getStringExtra("data");
+        profile = intent.getParcelableExtra("currentProfile");
         if (savedInstanceState != null)
             search = savedInstanceState.getString("currentSearch");
         Bundle bundle = new Bundle();
@@ -52,9 +53,8 @@ public class SearchPageActivity extends AppCompatActivity {
 
         searchView = findViewById(R.id.search);
 
-        profile = (ProfileModel) intent.getParcelableExtra("userprofile");
         if (savedInstanceState != null)
-            profile = savedInstanceState.getParcelable("connectedProfile");
+            profile = savedInstanceState.getParcelable("currentProfile");
 
         getRestaurantList(savedInstanceState);
 
@@ -78,7 +78,6 @@ public class SearchPageActivity extends AppCompatActivity {
     }
 
     public void getRestaurantList(Bundle savedInstanceState) {
-        // recuperation liste des restaurants
         listRestaurant = findViewById(R.id.listRestaurant);
         if (search != null) {
             filterRestaurants = RestaurantDatabase.getRestaurantsBySearch(search);
@@ -95,37 +94,33 @@ public class SearchPageActivity extends AppCompatActivity {
 
         switch (v.getId()) {
             case R.id.checkBox10:
-                if (checked){
+                if (checked) {
                     isPrice10 = true;
-                }
-                else {
+                } else {
                     isPrice10 = false;
                 }
                 break;
 
             case R.id.checkBox20:
-                if(checked){
+                if (checked) {
                     isPrice20 = true;
-                }
-                else {
+                } else {
                     isPrice20 = false;
                 }
                 break;
 
             case R.id.checkBox30:
-                if(checked){
+                if (checked) {
                     isPrice30 = true;
-                }
-                else {
+                } else {
                     isPrice30 = false;
                 }
                 break;
 
             case R.id.checkBoxRate:
-                if(checked){
+                if (checked) {
                     rate = true;
-                }
-                else {
+                } else {
                     rate = false;
                 }
                 break;
@@ -171,8 +166,8 @@ public class SearchPageActivity extends AppCompatActivity {
             filterRestaurants.sort(Comparator.comparing(RestaurantModel::getRating).reversed());
         }
 
-        if(!button10 && !button10To20 && !button20 && !buttonHighestRate){
-            for(RestaurantModel restaurant : RestaurantDatabase.getRestaurantsBySearch(searchQuery)){
+        if (!button10 && !button10To20 && !button20 && !buttonHighestRate) {
+            for (RestaurantModel restaurant : RestaurantDatabase.getRestaurantsBySearch(searchQuery)) {
                 filterRestaurants.add(restaurant);
             }
         }
@@ -182,8 +177,8 @@ public class SearchPageActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the state
         savedInstanceState.putString("currentSearch", search);
-        savedInstanceState.putParcelable("connectedProfile", profile);
-        savedInstanceState.putParcelableArrayList("filterRestaurants", (ArrayList)filterRestaurants);
+        savedInstanceState.putParcelable("currentProfile", profile);
+        savedInstanceState.putParcelableArrayList("filterRestaurants", (ArrayList) filterRestaurants);
 
         super.onSaveInstanceState(savedInstanceState);
 

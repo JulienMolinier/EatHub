@@ -16,11 +16,13 @@ import com.example.eathub.R;
 import com.example.eathub.fragments.restaurant.RestaurantCommentsFragment;
 import com.example.eathub.fragments.restaurant.RestaurantMapFragment;
 import com.example.eathub.fragments.restaurant.RestaurantProfileFragment;
+import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.RestaurantModel;
 
 public class RestaurantActivity extends AppCompatActivity {
 
     private RestaurantModel theRestaurant;
+    private ProfileModel profileModel;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -31,6 +33,7 @@ public class RestaurantActivity extends AppCompatActivity {
                 case R.id.navigationRestaurant_comments:
                     RestaurantCommentsFragment restaurantComments = new RestaurantCommentsFragment();
                     restaurantComments.setRestaurantModel(theRestaurant);
+                    restaurantComments.setProfileModel(profileModel);
                     showFragment(restaurantComments);
                     return true;
                 case R.id.navigationRestaurant_map:
@@ -48,6 +51,7 @@ public class RestaurantActivity extends AppCompatActivity {
                 case R.id.navigationRestaurant_profile:
                     RestaurantProfileFragment restaurantProfile = new RestaurantProfileFragment();
                     restaurantProfile.setRestaurantModel(theRestaurant);
+                    restaurantProfile.setProfileModel(profileModel);
                     showFragment(restaurantProfile);
                     return true;
             }
@@ -67,9 +71,12 @@ public class RestaurantActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        theRestaurant = intent.getParcelableExtra("restaurantpicked");
-        if (savedInstanceState != null)
+        theRestaurant = intent.getParcelableExtra("currentRestaurant");
+        profileModel = intent.getParcelableExtra("currentProfile");
+        if (savedInstanceState != null) {
             theRestaurant = savedInstanceState.getParcelable("currentRestaurant");
+            profileModel = savedInstanceState.getParcelable("currentProfile");
+        }
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -77,6 +84,7 @@ public class RestaurantActivity extends AppCompatActivity {
 
         RestaurantProfileFragment restaurantProfile = new RestaurantProfileFragment();
         restaurantProfile.setRestaurantModel(theRestaurant);
+        restaurantProfile.setProfileModel(profileModel);
         showFragment(restaurantProfile);
 
     }
@@ -92,6 +100,7 @@ public class RestaurantActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the state
         savedInstanceState.putParcelable("currentRestaurant", theRestaurant);
+        savedInstanceState.putParcelable("currentProfile", profileModel);
         super.onSaveInstanceState(savedInstanceState);
 
     }

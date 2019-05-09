@@ -51,7 +51,7 @@ public class ProfileChartsFragment extends Fragment {
         text2.setText(R.string.budgetEvolution);
 
         if (savedInstanceState != null)
-            profileModel = savedInstanceState.getParcelable("connectedProfile");
+            profileModel = savedInstanceState.getParcelable("currentProfile");
 
         spinner = view.findViewById(R.id.spinner);
         adapter = ArrayAdapter.createFromResource(this.getContext(),
@@ -170,7 +170,7 @@ public class ProfileChartsFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the state
-        savedInstanceState.putParcelable("connectedProfile", profileModel);
+        savedInstanceState.putParcelable("currentProfile", profileModel);
         super.onSaveInstanceState(savedInstanceState);
 
 

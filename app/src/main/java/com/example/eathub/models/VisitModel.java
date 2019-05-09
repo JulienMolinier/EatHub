@@ -97,7 +97,7 @@ public class VisitModel implements Parcelable {
 
     @Override
     public String toString() {
-        return "Visited " + restaurant +
+        return profileModel.getName() + " visited " + restaurant +
                 " the " + date;
     }
 }

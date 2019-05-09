@@ -1,21 +1,19 @@
 package com.example.eathub.fragments.profile;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.example.eathub.R;
-import com.example.eathub.activities.RestaurantActivity;
-import com.example.eathub.adapters.HistoryAdapter;
+import com.example.eathub.adapters.HistoryRVAdapter;
 import com.example.eathub.models.ProfileModel;
 
 
@@ -23,8 +21,8 @@ public class ProfileHistoryFragment extends Fragment {
 
     private ProfileModel profileModel;
     private View view;
-    private ListView historyView;
-    private HistoryAdapter historyAdapter;
+    private RecyclerView historyView;
+    private HistoryRVAdapter historyAdapter;
     private Spinner spinner;
     private ArrayAdapter<CharSequence> adapter;
     private int spinnerChoice;
@@ -38,7 +36,7 @@ public class ProfileHistoryFragment extends Fragment {
         spinner = view.findViewById(R.id.spinner);
 
         if (savedInstanceState != null)
-            profileModel = savedInstanceState.getParcelable("connectedProfile");
+            profileModel = savedInstanceState.getParcelable("currentProfile");
 
         adapter = ArrayAdapter.createFromResource(this.getContext(),
                 R.array.choice_array, android.R.layout.simple_spinner_item);
@@ -74,17 +72,9 @@ public class ProfileHistoryFragment extends Fragment {
             }
         });
 
-        historyAdapter = new HistoryAdapter(this.getContext(), this.profileModel.getHistory());
+        historyAdapter = new HistoryRVAdapter(this.getContext(), this.profileModel.getHistory());
         historyView.setAdapter(historyAdapter);
 
-        final Intent myIntent = new Intent(view.getContext(), RestaurantActivity.class);
-        historyView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                myIntent.putExtra("restaurantpicked", profileModel.getHistory().get(position).getRestaurant());
-                startActivity(myIntent);
-            }
-        });
         return view;
     }
 
@@ -95,7 +85,7 @@ public class ProfileHistoryFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the state
-        savedInstanceState.putParcelable("connectedProfile", profileModel);
+        savedInstanceState.putParcelable("currentProfile", profileModel);
         super.onSaveInstanceState(savedInstanceState);
 
 
