@@ -45,6 +45,7 @@ public class HistoryRVAdapter extends RecyclerView.Adapter<HistoryHolder> {
         historyHolder.getDate().setText(visit.getDate().toString());
         historyHolder.getPrice().setText(visit.getPrice() + " €");
         historyHolder.getCalories().setText(visit.getCalories() + " calories");
+        historyHolder.getRatingBar().setRating((float) visit.getMark());
 
         historyHolder.itemView.setOnClickListener((View v) -> {
             Intent myIntent = new Intent(context, RestaurantActivity.class);
