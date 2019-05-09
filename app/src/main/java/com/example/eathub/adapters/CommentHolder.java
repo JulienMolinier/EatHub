@@ -13,14 +13,12 @@ import com.github.abdularis.civ.CircleImageView;
 class CommentHolder extends RecyclerView.ViewHolder {
     private RatingBar rate;
     private CircleImageView img;
-    private TextView restName;
     private TextView comment;
 
     CommentHolder(@NonNull View itemView) {
         super(itemView);
         rate = itemView.findViewById(R.id.ratingBar4);
         img = itemView.findViewById(R.id.ImgRestaurant);
-        restName = itemView.findViewById(R.id.RestaurantName);
         comment = itemView.findViewById(R.id.comment);
     }
 
@@ -30,10 +28,6 @@ class CommentHolder extends RecyclerView.ViewHolder {
 
     ImageView getImg() {
         return img;
-    }
-
-    TextView getRestName() {
-        return restName;
     }
 
     TextView getComment() {

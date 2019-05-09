@@ -41,7 +41,6 @@ public class CommentRVAdapter extends RecyclerView.Adapter<CommentHolder> {
                 visit.getProfileModel().getName().replaceAll(" ", "")
                         .replaceAll("-", "").toLowerCase(), "drawable",
                 context.getPackageName()));
-        commentHolder.getRestName().setText(visit.getRestaurant().getName());
         commentHolder.getComment().setText(visit.getCommentary());
         commentHolder.getRate().setRating((float) visit.getMark());
 
