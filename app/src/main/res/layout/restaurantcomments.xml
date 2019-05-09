@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout1"
+        android:id="@+id/rl1rc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="false"
@@ -17,7 +17,7 @@
 
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tv1rc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -28,7 +28,7 @@
             android:textStyle="bold" />
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/relativeLayout2"
+        android:id="@+id/rl2rc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="false"
@@ -45,7 +45,7 @@
             android:layout_marginEnd="0dp" />
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/relativeLayout3"
+        android:id="@+id/rl3rc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="false"

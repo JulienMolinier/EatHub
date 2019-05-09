@@ -1,122 +1,293 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:id="@+id/rl1su"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-
-    <ImageView
-        android:id="@+id/goBack"
-        android:layout_width="@android:dimen/app_icon_size"
-        android:layout_height="@android:dimen/app_icon_size"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        app:srcCompat="@drawable/go_back" />
-
-    <TextView
-        android:id="@+id/signUpTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/goBack"
-        android:layout_centerInParent="true"
-        android:text="Welcome to EatHub!"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="30sp" />
-
-    <TextView
-        android:id="@+id/signUpSubtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/signUpTitle"
-        android:layout_centerInParent="true"
-        android:text="Fill in the form to sign up."
-        android:textSize="24sp" />
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/signUpSubtitle">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:id="@+id/rl2su"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_centerInParent="false"
+            android:layout_centerHorizontal="false">
+
+            <ImageView
+                android:id="@+id/goBackArrowOnSignUpPage"
+                android:layout_width="@android:dimen/app_icon_size"
+                android:layout_height="@android:dimen/app_icon_size"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/go_back" />
+
+            <ImageView
+                android:id="@+id/logoOnSignUpPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="15dp"
+                app:srcCompat="@drawable/icon" />
+
+            <TextView
+                android:id="@+id/signUpTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/logoOnSignUpPage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:text="@string/signUpTitle"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/signUpMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/signUpTitle"
+                android:layout_centerHorizontal="true"
+                android:text="@string/signUpMessage"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/infoOnSignUpPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/signUpMessage"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/signUpInfo"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="18sp" />
 
             <RelativeLayout
-                android:id="@+id/relativeLayout1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:id="@+id/line1su"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/infoOnSignUpPage"
+                android:layout_centerHorizontal="true">
 
                 <EditText
-                    android:id="@+id/firstName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
+                    android:id="@+id/firstNameFieldOnSignUpPage"
+                    android:layout_width="@dimen/signUpFieldWidth2"
+                    android:layout_height="@dimen/signUpFieldHeight"
                     android:hint="@string/firstNamePrompt"
-                    android:inputType="textPersonName"
-                    android:maxWidth="@dimen/signUpFieldWidth2"
-                    android:maxHeight="@dimen/signUpFieldHeight"
-                    android:minWidth="@dimen/signUpFieldWidth2"
-                    android:minHeight="@dimen/signUpFieldHeight" />
+                    android:inputType="textPersonName" />
 
                 <EditText
-                    android:id="@+id/lastName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/firstName"
-                    android:ems="10"
+                    android:id="@+id/lastNameFieldOnSignUpPage"
+                    android:layout_width="@dimen/signUpFieldWidth2"
+                    android:layout_height="@dimen/signUpFieldHeight"
+                    android:layout_toEndOf="@id/firstNameFieldOnSignUpPage"
                     android:hint="@string/lastNamePrompt"
-                    android:inputType="textPersonName"
-                    android:maxWidth="@dimen/signUpFieldWidth2"
-                    android:maxHeight="@dimen/signUpFieldHeight"
-                    android:minWidth="@dimen/signUpFieldWidth2"
-                    android:minHeight="@dimen/signUpFieldHeight" />
-
-                <RelativeLayout
-                    android:id="@+id/genderChoiceBoxLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/firstName">
-
-                    <Spinner
-                        android:id="@+id/genderChoiceBox"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:animateLayoutChanges="true"
-                        android:autofillHints="@string/genderPrompt"
-                        android:clipChildren="false"
-                        android:minWidth="@dimen/signUpFieldWidth2"
-                        android:minHeight="@dimen/signUpFieldHeight" />
-                </RelativeLayout>
-
-                <EditText
-                    android:id="@+id/datePicker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/firstName"
-                    android:layout_toRightOf="@+id/genderChoiceBoxLayout"
-                    android:ems="10"
-                    android:hint="@string/birthDatePrompt"
-                    android:inputType="date"
-                    android:maxHeight="@dimen/signUpFieldHeight"
-                    android:minHeight="@dimen/signUpFieldHeight" />
+                    android:inputType="textPersonName" />
 
             </RelativeLayout>
 
-        </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/line2su"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1su"
+                android:layout_centerHorizontal="true">
+
+                <EditText
+                    android:id="@+id/birthDateFieldOnSignUpPage"
+                    android:layout_width="@dimen/signUpFieldWidth2"
+                    android:layout_height="@dimen/signUpFieldHeight"
+                    android:ems="10"
+                    android:hint="@string/birthDatePrompt"
+                    android:inputType="date" />
+
+                <Spinner
+                    android:id="@+id/genderChoiceBoxOnSignUpPage"
+                    android:layout_width="@dimen/signUpFieldWidth2"
+                    android:layout_height="@dimen/signUpFieldHeight"
+                    android:layout_toEndOf="@id/birthDateFieldOnSignUpPage"
+                    android:animateLayoutChanges="true"
+                    android:autofillHints="@string/genderPrompt"
+                    android:clipChildren="false" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/line3su"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line2su"
+                android:layout_centerHorizontal="true">
+
+                <EditText
+                    android:id="@+id/weightFieldOnSignUpPage"
+                    android:layout_width="@dimen/signUpFieldWidth2"
+                    android:layout_height="@dimen/signUpFieldHeight"
+                    android:ems="10"
+                    android:hint="@string/weightPrompt"
+                    android:inputType="numberDecimal" />
+
+                <EditText
+                    android:id="@+id/heightFieldOnSignUpPage"
+                    android:layout_width="@dimen/signUpFieldWidth2"
+                    android:layout_height="@dimen/signUpFieldHeight"
+                    android:layout_toEndOf="@id/weightFieldOnSignUpPage"
+                    android:ems="10"
+                    android:hint="@string/heightPrompt"
+                    android:inputType="numberDecimal" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/line4su"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line3su"
+                android:layout_centerHorizontal="true">
+
+                <EditText
+                    android:id="@+id/budgetFieldOnSignUpPage"
+                    android:layout_width="@dimen/signUpFieldWidth2"
+                    android:layout_height="@dimen/signUpFieldHeight"
+                    android:ems="10"
+                    android:hint="@string/budgetPrompt"
+                    android:inputType="numberDecimal" />
+
+                <Spinner
+                    android:id="@+id/specialDietChoiceBoxOnSignUpPage"
+                    android:layout_width="@dimen/signUpFieldWidth2"
+                    android:layout_height="@dimen/signUpFieldHeight"
+                    android:layout_toEndOf="@id/budgetFieldOnSignUpPage" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/line5su"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line4su"
+                android:layout_centerHorizontal="true">
+
+                <Spinner
+                    android:id="@+id/favoriteCuisineChoiceBoxOnSignUpPage"
+                    android:layout_width="@dimen/signUpFieldWidth2"
+                    android:layout_height="@dimen/signUpFieldHeight" />
+
+                <Spinner
+                    android:id="@+id/objectiveChoiceBoxOnSignUpPage"
+                    android:layout_width="@dimen/signUpFieldWidth2"
+                    android:layout_height="@dimen/signUpFieldHeight"
+                    android:layout_toEndOf="@id/favoriteCuisineChoiceBoxOnSignUpPage" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/line6su"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line5su"
+                android:layout_centerHorizontal="true">
+
+                <EditText
+                    android:id="@+id/emailFieldOnSignUpPage"
+                    android:layout_width="@dimen/signUpFieldWidth1"
+                    android:layout_height="@dimen/signUpFieldHeight"
+                    android:ems="10"
+                    android:hint="@string/emailPrompt2"
+                    android:inputType="textEmailAddress" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/line7su"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line6su"
+                android:layout_centerHorizontal="true">
+
+                <EditText
+                    android:id="@+id/passwordFieldOnSignUpPage"
+                    android:layout_width="@dimen/signUpFieldWidth2"
+                    android:layout_height="@dimen/signUpFieldHeight"
+                    android:ems="10"
+                    android:hint="@string/passwordPrompt2"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/repeatPasswordFieldOnSignUpPage"
+                    android:layout_width="@dimen/signUpFieldWidth2"
+                    android:layout_height="@dimen/signUpFieldHeight"
+                    android:layout_toEndOf="@id/passwordFieldOnSignUpPage"
+                    android:ems="10"
+                    android:hint="@string/passwordAgainPrompt"
+                    android:inputType="textPassword" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/line8su"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/line7su"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp">
+
+                <CheckBox
+                    android:id="@+id/privacyPolicyCheckBoxOnSignUpPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/iAcceptThe"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/privacyPolicyLinkOnSignUpPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@id/privacyPolicyCheckBoxOnSignUpPage"
+                    android:text="@string/privacyPolicy"
+                    android:textColor="@color/design_default_color_primary"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+            <CheckBox
+                android:id="@+id/notificationsCheckBoxOnSignUpPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line8su"
+                android:layout_marginLeft="30dp"
+                android:text="@string/iWantNotifications"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/errorMessageOnSignupPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/notificationsCheckBoxOnSignUpPage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="90dp"
+                android:text=""
+                android:textColor="@color/indicatorRed"
+                android:textSize="18sp"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
     </ScrollView>
 
     <Button
-        android:id="@+id/signup"
+        android:id="@+id/signUpButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_row="6"
-        android:layout_column="0"
         android:layout_alignParentBottom="true"
         android:background="@android:color/holo_orange_light"
-        android:text="SIGN UP"
+        android:text="@string/signUp"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
 
 </RelativeLayout>

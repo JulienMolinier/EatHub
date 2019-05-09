@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout1"
+        android:id="@+id/rl1rp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="false"
@@ -30,7 +30,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relativeLayout2"
+        android:id="@+id/rl2rp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="280dp"
@@ -49,7 +49,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relativeLayout3"
+        android:id="@+id/rl3rp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -157,7 +157,7 @@
 
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/relativeLayout4"
+        android:id="@+id/rl4rp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="630dp"

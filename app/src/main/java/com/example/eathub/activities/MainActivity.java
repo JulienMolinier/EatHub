@@ -12,6 +12,7 @@ import com.example.eathub.adapters.FragmentAdapter;
 import com.example.eathub.fragments.FeedFragment;
 import com.example.eathub.fragments.profile.ProfileFragment;
 import com.example.eathub.models.ProfileModel;
+import com.example.eathub.services.NotifyService;
 
 public class MainActivity extends AppCompatActivity {
     private FragmentAdapter fragAdapter;
@@ -23,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        startService(new Intent(this, NotifyService.class));
+        sendNotification(NotifyService.SURPASSED_BUDGET_LIMIT);
 
         final Intent myIntent = getIntent();
         connectedProfile = myIntent.getParcelableExtra("userprofile");
@@ -69,5 +73,24 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(profileFragment, "Profile");
 
         viewPager.setAdapter(adapter);
+    }
+
+    private void stopNotificationService() {
+        Intent intent = new Intent(this, NotifyService.NotifyServiceReceiver.class);
+        intent.setAction(NotifyService.STOP_SERVICE);
+        intent.putExtra(NotifyService.SERVICE_BROADCAST_KEY, NotifyService.RQS_STOP_SERVICE);
+        sendBroadcast(intent);
+    }
+    private void sendNotification(String action) {
+        Intent intent = new Intent(this, NotifyService.NotifyServiceReceiver.class);
+        intent.setAction(action);
+        intent.putExtra(NotifyService.SERVICE_BROADCAST_KEY, NotifyService.RQS_SEND_SERVICE);
+        sendBroadcast(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopNotificationService();
     }
 }

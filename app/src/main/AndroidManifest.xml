@@ -29,6 +29,9 @@
         </activity>
         <activity android:name=".activities.SearchPageActivity"/>
         <activity android:name=".activities.RestaurantActivity" />
+        <activity android:name=".activities.SignUpActivity" />
+        <activity android:name=".activities.ForgotPasswordActivity" />
+        <service android:name=".services.NotifyService" />
     </application>
 
 </manifest>

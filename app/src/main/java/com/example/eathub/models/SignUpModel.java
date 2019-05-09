@@ -54,32 +54,9 @@ public class SignUpModel {
 
     public void addUserToDatabase() {
 
-        double averageHeight;
-        if (height.contains("<") || height.contains(">")) {
-            averageHeight = Double.parseDouble(height.split("[<>]")[1]);
-        } else {
-            String[] heightRange = height.split("-");
-            averageHeight = (Double.parseDouble(heightRange[0]) + Double.parseDouble(heightRange[1])) / 2;
-        }
-
-        double averageWeight;
-        if (weight.contains("<") || weight.contains(">")) {
-            averageWeight = Double.parseDouble(weight.split("[<>]")[1]);
-        } else {
-            String[] weightRange = weight.split("-");
-            averageWeight = (Double.parseDouble(weightRange[0]) + Double.parseDouble(weightRange[1])) / 2;
-        }
-
-        double averageBudget;
-        if (budget.contains("<") || budget.contains(">")) {
-            averageBudget = Double.parseDouble(budget.split("[<>]")[1]);
-        } else {
-            String[] budgetRange = budget.split("-");
-            averageBudget = (Double.parseDouble(budgetRange[0]) + Double.parseDouble(budgetRange[1])) / 2;
-        }
-
         ProfileModel newProfile = new ProfileModel(email, password, firstName, lastName, birthdate,
-                averageHeight,averageWeight,averageBudget,specialDiet,favoriteCuisine);
+                Double.parseDouble(height), Double.parseDouble(weight), Double.parseDouble(budget),
+                specialDiet, favoriteCuisine);
 
         ProfileDatabase.addNewProfile(newProfile);
     }
