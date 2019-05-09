@@ -164,6 +164,10 @@ public class ProfileModel implements Parcelable {
         return diet;
     }
 
+    public int getAge() {
+        return age;
+    }
+
     public void updateProfileList() {
         profileDetailsList.clear();
         profileDetailsList.addAll(Arrays.asList("Firstname: " + this.firstName,
