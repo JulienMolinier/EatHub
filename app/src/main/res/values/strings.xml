@@ -3,7 +3,6 @@
     <string name="app_name">EatHub</string>
 
 
-
     <!-- for log in page -->
     <string name="emailPrompt">e-mail</string>
     <string name="passwordPrompt">password</string>
@@ -13,10 +12,9 @@
     <string name="logIn">LOG IN</string>
 
 
-
     <!-- for sign up page -->
     <string name="signUpTitle">Welcome to EatHub!</string>
-    <string name="signUpMessage">Fill in the form to sign up.</string>
+    <string name="signUpMessage">Fill in the form to sign up</string>
     <string name="signUpInfo">* obligatory fields.</string>
     <string name="firstNamePrompt">first name *</string>
     <string name="lastNamePrompt">last name *</string>
@@ -25,21 +23,25 @@
         <item>male</item>
         <item>female</item>
     </string-array>
-    <string name="birthDatePrompt">birth date *</string>
-    <string name="weightPrompt">weight (kg)</string>
-    <string name="heightPrompt">height (cm)</string>
+    <string name="birthDatePrompt">birthdate (1996-05-20)*</string>
+    <string name="weightPrompt">weight (kg)*</string>
+    <string name="heightPrompt">height (cm)*</string>
     <string name="budgetPrompt">budget/meal (€) *</string>
     <string name="dietPrompt">special diet</string>
     <string-array name="dietArray">
         <item>vegan</item>
-        <item>gluten free</item>
+        <item>gluten_free</item>
+        <item>none</item>
     </string-array>
     <string name="cuisinePrompt">favorite cuisine</string>
     <string-array name="cuisineArray">
+        <item>none</item>
         <item>american</item>
         <item>asian</item>
+        <item>vegan</item>
         <item>italian</item>
-        <item>french</item>
+        <item>indian</item>
+        <item>mexican</item>
     </string-array>
     <string name="objectivePrompt">objective</string>
     <string-array name="objectiveArray">
@@ -79,7 +81,6 @@
     <string name="signUpSuccessfulMessage">You signed up successfully! You will now be redirected to the log in page.</string>
 
 
-
     <!-- for forgot password page -->
     <string name="forgotPasswordTitle">Forgot your password?</string>
     <string name="forgotPasswordMessage">Please enter the e-mail associated to your EatHub account to restore your password.</string>
@@ -89,11 +90,9 @@
     <string name="forgotPasswordError">This e-mail is not contained in our databases.</string>
 
 
-
     <!-- for notifications -->
     <string name="surpassedBudgetNotification">You have surpassed your budget limit!</string>
     <string name="surpassedCaloriesNotification">You have surpassed your calories limit!</string>
-
 
 
     <string name="bottom_navigation_profile_details">Details</string>

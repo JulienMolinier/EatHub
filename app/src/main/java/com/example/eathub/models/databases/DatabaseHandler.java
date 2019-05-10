@@ -131,6 +131,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return res != -1;
     }
 
+    public static boolean addProfileToDB(ProfileModel profileModel) {
+        long res = db.insert(DatabaseHandler.PROFILE_TABLE_NAME, null, createProfile(profileModel));
+        return res != -1;
+    }
+
     public static boolean addSharingToDB(int profileId, int restaurantId) {
         long res = db.insert(DatabaseHandler.SHARED_TABLE_NAME, null, createSharing(profileId, restaurantId));
         return res != -1;
@@ -363,7 +368,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 surname, birthdate, height, weight, budget, diet, culinaryFence);
     }
 
-    private ContentValues createProfile(ProfileModel profileModel) {
+    private static ContentValues createProfile(ProfileModel profileModel) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(PROFILE_EMAIL, profileModel.getEmail());
         contentValues.put(PROFILE_PASSWORD, profileModel.getPassword());

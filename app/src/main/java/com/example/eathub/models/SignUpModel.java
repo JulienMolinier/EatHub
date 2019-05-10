@@ -1,4 +1,6 @@
 package com.example.eathub.models;
+
+import com.example.eathub.models.databases.DatabaseHandler;
 import com.example.eathub.models.databases.ProfileDatabase;
 
 /**
@@ -29,7 +31,7 @@ public class SignUpModel {
         this.objective = objective;
         this.birthdate = birthdate;
         this.privacyPolicy = privacyPolicy;
-        this.notifications =notifications;
+        this.notifications = notifications;
     }
 
     public boolean obligatoryFieldsFilled() {
@@ -57,7 +59,7 @@ public class SignUpModel {
         ProfileModel newProfile = new ProfileModel(email, password, firstName, lastName, birthdate,
                 Double.parseDouble(height), Double.parseDouble(weight), Double.parseDouble(budget),
                 specialDiet, favoriteCuisine);
-
+        DatabaseHandler.addProfileToDB(newProfile);
         ProfileDatabase.addNewProfile(newProfile);
     }
 }
