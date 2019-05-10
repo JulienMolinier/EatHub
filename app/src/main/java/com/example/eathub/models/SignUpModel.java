@@ -25,7 +25,9 @@ public class SignUpModel {
         this.gender = gender;
         this.weight = weight;
         this.height = height;
+        if (specialDiet.equals("special diet")) specialDiet = "none";
         this.specialDiet = Diet.fromName(specialDiet);
+        if (favoriteCuisine.equals("favorite cuisine")) favoriteCuisine = "none";
         this.favoriteCuisine = CulinaryFence.fromName(favoriteCuisine);
         this.budget = budget;
         this.objective = objective;

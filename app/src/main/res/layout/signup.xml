@@ -15,9 +15,7 @@
         <RelativeLayout
             android:id="@+id/rl2su"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="false"
-            android:layout_centerHorizontal="false">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/goBackArrowOnSignUpPage"
@@ -100,19 +98,20 @@
                 android:layout_below="@id/line1su"
                 android:layout_centerHorizontal="true">
 
-                <EditText
-                    android:id="@+id/birthDateFieldOnSignUpPage"
+                <TextView
+                    android:id="@+id/birthDatePickerOnSignUpPage"
                     android:layout_width="@dimen/signUpFieldWidth2"
                     android:layout_height="@dimen/signUpFieldHeight"
-                    android:ems="10"
-                    android:hint="@string/birthDatePrompt"
-                    android:inputType="date" />
+                    android:paddingTop="15dp"
+                    android:text="@string/birthDatePrompt"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
 
                 <Spinner
                     android:id="@+id/genderChoiceBoxOnSignUpPage"
                     android:layout_width="@dimen/signUpFieldWidth2"
                     android:layout_height="@dimen/signUpFieldHeight"
-                    android:layout_toEndOf="@id/birthDateFieldOnSignUpPage"
+                    android:layout_toEndOf="@id/birthDatePickerOnSignUpPage"
                     android:animateLayoutChanges="true"
                     android:autofillHints="@string/genderPrompt"
                     android:clipChildren="false" />
@@ -231,7 +230,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/line7su"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp">
 
                 <CheckBox
@@ -246,10 +245,10 @@
                     android:id="@+id/privacyPolicyLinkOnSignUpPage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="7dp"
+                    android:layout_marginStart="7dp"
                     android:layout_marginTop="2dp"
                     android:layout_toEndOf="@id/privacyPolicyCheckBoxOnSignUpPage"
-                    android:text="@string/privacyPolicy"
+                    android:text="@string/privacyPolicyLink"
                     android:textColor="@color/design_default_color_primary"
                     android:textSize="18sp" />
 
@@ -260,7 +259,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/line8su"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
                 android:text="@string/iWantNotifications"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp" />
@@ -285,7 +284,7 @@
         android:id="@+id/signUpButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@id/scrollView"
         android:background="@android:color/holo_orange_light"
         android:text="@string/signUp"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />

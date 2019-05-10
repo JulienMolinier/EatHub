@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.eathub.R;
@@ -29,7 +30,13 @@ public class ForgotPasswordActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.forgotpassword);
 
+        ImageView goBackIcon = findViewById(R.id.goBackArrowOnForgotPasswordPage);
         Button enterEmailButton = findViewById(R.id.enterButtonOnForgotPasswordPage);
+
+        goBackIcon.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
+            startActivity(intent);
+        });
 
         enterEmailButton.setOnClickListener(view -> {
 

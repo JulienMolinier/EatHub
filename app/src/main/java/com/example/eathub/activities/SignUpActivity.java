@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.eathub.R;
+import com.example.eathub.fragments.popupdialog.DatePickerDialogFragment;
 import com.example.eathub.fragments.popupdialog.PrivacyPolicyDialogFragment;
 import com.example.eathub.fragments.popupdialog.SignUpSuccessfulDialogFragment;
 import com.example.eathub.models.SignUpModel;
@@ -22,7 +23,14 @@ import com.example.eathub.models.SignUpModel;
  * @author Lydia BARAUKOVA
  */
 public class SignUpActivity extends AppCompatActivity implements PrivacyPolicyDialogFragment.PrivacyPolicyDialogListener,
-        SignUpSuccessfulDialogFragment.SignUpSuccessfulDialogListener {
+        SignUpSuccessfulDialogFragment.SignUpSuccessfulDialogListener, DatePickerDialogFragment.DatePickerDialogListener {
+
+    @Override
+    public void onDatePicked(DatePickerDialogFragment dialog) {
+        TextView birthDateField = findViewById(R.id.birthDatePickerOnSignUpPage);
+        birthDateField.setText(dialog.getDate());
+        dialog.dismiss();
+    }
 
     @Override
     public void onPrivacyPolicyDialogPositiveClick(DialogFragment dialog) {
@@ -79,6 +87,12 @@ public class SignUpActivity extends AppCompatActivity implements PrivacyPolicyDi
         ImageView goBackIcon = findViewById(R.id.goBackArrowOnSignUpPage);
         TextView privacyPolicyLink = findViewById(R.id.privacyPolicyLinkOnSignUpPage);
         Button signUpButton = findViewById(R.id.signUpButton);
+        TextView birthDateField = findViewById(R.id.birthDatePickerOnSignUpPage);
+
+        birthDateField.setOnClickListener(view -> {
+            DialogFragment newFragment = new DatePickerDialogFragment();
+            newFragment.show(getSupportFragmentManager(), "datePicker");
+        });
 
         goBackIcon.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
@@ -101,7 +115,6 @@ public class SignUpActivity extends AppCompatActivity implements PrivacyPolicyDi
             EditText weightField = findViewById(R.id.weightFieldOnSignUpPage);
             EditText heightField = findViewById(R.id.heightFieldOnSignUpPage);
             EditText budgetField = findViewById(R.id.budgetFieldOnSignUpPage);
-            EditText birthDateField = findViewById(R.id.birthDateFieldOnSignUpPage);
             CheckBox privacyPolicyCheckBox = findViewById(R.id.privacyPolicyCheckBoxOnSignUpPage);
             CheckBox notificationsCheckBox = findViewById(R.id.notificationsCheckBoxOnSignUpPage);
 
@@ -114,13 +127,13 @@ public class SignUpActivity extends AppCompatActivity implements PrivacyPolicyDi
             String weight = weightField.getText().toString();
             String height = heightField.getText().toString();
             String budget = budgetField.getText().toString();
-            String birthDate = birthDateField.getText().toString();
             boolean privacyPolicy = privacyPolicyCheckBox.isChecked();
             boolean notifications = notificationsCheckBox.isChecked();
             String gender = genderChoiceBox.getSelectedItem().toString();
             String specialDiet = dietChoiceBox.getSelectedItem().toString();
             String favoriteCuisine = cuisineChoiceBox.getSelectedItem().toString();
             String objective = objectiveChoiceBox.getSelectedItem().toString();
+            String birthDate = birthDateField.getText().toString();
 
             // checking if the values correspond to the model
             TextView errorMessage = findViewById(R.id.errorMessageOnSignupPage);

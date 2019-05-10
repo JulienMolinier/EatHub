@@ -20,22 +20,23 @@
     <string name="lastNamePrompt">last name *</string>
     <string name="genderPrompt">gender *</string>
     <string-array name="genderArray">
+        <item>gender</item>
         <item>male</item>
         <item>female</item>
     </string-array>
-    <string name="birthDatePrompt">birthdate (1996-05-20)*</string>
+    <string name="birthDatePrompt">birth date *</string>
     <string name="weightPrompt">weight (kg)*</string>
     <string name="heightPrompt">height (cm)*</string>
     <string name="budgetPrompt">budget/meal (€) *</string>
     <string name="dietPrompt">special diet</string>
     <string-array name="dietArray">
+        <item>special diet</item>
         <item>vegan</item>
-        <item>gluten_free</item>
-        <item>none</item>
+        <item>gluten free</item>
     </string-array>
     <string name="cuisinePrompt">favorite cuisine</string>
     <string-array name="cuisineArray">
-        <item>none</item>
+        <item>favorite cuisine</item>
         <item>american</item>
         <item>asian</item>
         <item>vegan</item>
@@ -45,6 +46,7 @@
     </string-array>
     <string name="objectivePrompt">objective</string>
     <string-array name="objectiveArray">
+        <item>objective</item>
         <item>make economies</item>
         <item>find new places</item>
         <item>lose weight</item>
@@ -54,10 +56,10 @@
     <string name="passwordPrompt2">password *</string>
     <string name="passwordAgainPrompt">repeat password *</string>
     <string name="iAcceptThe">I accept the </string>
-    <string name="privacyPolicy">privacy policy *</string>
+    <string name="privacyPolicyLink">privacy policy *</string>
     <string name="privacyPolicyTitle">Privacy policy</string>
     <string name="privacyPolicyText">
-        I. USE OF YOUR DATA
+        I. USE OF YOUR DATA\n
         Your data will be used to provide You with the best restaurant recommendations and detailed
         statistics on the places visited, money spent and calories consumed. *
 
