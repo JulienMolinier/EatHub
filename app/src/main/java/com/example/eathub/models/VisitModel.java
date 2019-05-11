@@ -1,5 +1,6 @@
 package com.example.eathub.models;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -15,6 +16,7 @@ public class VisitModel implements Parcelable {
     private double price;
     private String commentary;
     private double mark;
+    private Bitmap image;
 
     public VisitModel(ProfileModel profileModel, RestaurantModel restaurant, LocalDate date, double calories,
                       double price, String commentary, double mark) {
@@ -99,5 +101,9 @@ public class VisitModel implements Parcelable {
     public String toString() {
         return profileModel.getName() + " visited " + restaurant +
                 " the " + date;
+    }
+
+    public void setImageBitmap(Bitmap image) {
+        this.image = image;
     }
 }
