@@ -87,7 +87,7 @@ public class RestaurantCommentsFragment extends Fragment {
                             Double.valueOf(priceInput.getText().toString()),
                             commentInput.getText().toString(),
                             (double) rateInput.getRating());
-                    visitToAdd.setImageBitmap(imageBitmap);
+                    //visitToAdd.setImageBitmap(imageBitmap);
                     DatabaseHandler.addVisitToDB(visitToAdd);
                     VisitDatabase.getVisits().add(visitToAdd);
                 }

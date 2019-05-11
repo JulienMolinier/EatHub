@@ -1,148 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerInParent="true"
-    android:padding="15dp">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="@string/rate" />
 
-    <RatingBar
-        android:id="@+id/ratingBar3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView4"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:isIndicator="false" />
 
-    <TextView
-        android:id="@+id/textView5"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ratingBar3"
-        android:layout_centerHorizontal="true"
-        android:text="@string/calories" />
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/caloriesInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView5"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:inputType="numberDecimal" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/caloriesInput"
-        android:layout_centerHorizontal="true"
-        android:text="@string/price" />
-
-    <EditText
-        android:id="@+id/priceInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView6"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:inputType="numberDecimal" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/priceInput"
-        android:layout_centerHorizontal="true"
-        android:text="@string/comment" />
-
-    <EditText
-        android:id="@+id/commentInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView7"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine" />
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/commentInput"
-        android:layout_centerHorizontal="true"
-        android:text="@string/picture" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_below="@id/textView9"
-        android:layout_width="40dp"
-        android:layout_height="30dp"
-        android:layout_centerHorizontal="true"
-        />
-
-    <ImageButton
-        android:id="@+id/button_image"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_below="@id/textView9"
-        android:layout_alignLeft="@id/imageView"
-        android:layout_centerHorizontal="false"
-        android:layout_marginTop="0dp"
-        android:src="@drawable/baseline_photo_camera_black_18dp" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/button_image"
-        android:layout_centerHorizontal="true"
-        android:text="@string/date" />
-
-    <DatePicker
-        android:id="@+id/datePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_below="@id/textView8"
-        android:calendarViewShown="false"
-        android:datePickerMode="spinner" />
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/datePicker"
-        android:layout_centerHorizontal="true">
-
-    <Button
-        android:id="@+id/commentButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="false"
-        android:text="@string/addcomment" />
-    <TextView
-        android:layout_below="@id/commentButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/labeInfo"/>
-
-        <Button
-            android:id="@+id/cancelButton"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/commentButton"
-            android:text="@string/cancel" />
-    </RelativeLayout>
+            android:layout_centerInParent="true"
+            android:padding="15dp">
 
-</RelativeLayout>
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/rate" />
+
+            <RatingBar
+                android:id="@+id/ratingBar3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView4"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:isIndicator="false" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ratingBar3"
+                android:layout_centerHorizontal="true"
+                android:text="@string/calories" />
+
+            <EditText
+                android:id="@+id/caloriesInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView5"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:ems="10"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/caloriesInput"
+                android:layout_centerHorizontal="true"
+                android:text="@string/price" />
+
+            <EditText
+                android:id="@+id/priceInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView6"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:ems="10"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/priceInput"
+                android:layout_centerHorizontal="true"
+                android:text="@string/comment" />
+
+            <EditText
+                android:id="@+id/commentInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView7"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/datePicker"
+                android:layout_centerHorizontal="false"
+                android:layout_toRightOf="@id/button_image"
+                android:text="URLImg" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_below="@id/textView9"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                />
+
+            <ImageButton
+                android:id="@+id/button_image"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_below="@id/datePicker"
+                android:layout_alignLeft="@id/imageView"
+                android:layout_centerHorizontal="false"
+                android:src="@drawable/baseline_photo_camera_black_18dp" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/commentInput"
+                android:layout_centerHorizontal="true"
+                android:text="@string/date" />
+
+            <DatePicker
+                android:id="@+id/datePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_below="@id/textView8"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/button_image"
+                android:layout_centerHorizontal="true">
+
+                <Button
+                    android:id="@+id/commentButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="false"
+                    android:text="@string/addcomment" />
+
+                <TextView
+                    android:id="@+id/labeInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/commentButton"
+                    android:layout_centerHorizontal="true" />
+
+                <Button
+                    android:id="@+id/cancelButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/commentButton"
+                    android:text="@string/cancel" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
