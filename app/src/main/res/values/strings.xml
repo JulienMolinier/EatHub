@@ -93,9 +93,9 @@
 
 
     <!-- for notifications -->
-    <string name="surpassedBudgetNotification">You have surpassed your budget limit!</string>
-    <string name="surpassedCaloriesNotification">You have surpassed your calories limit!</string>
-
+    <string name="surpassedDailyBudgetNotification">You have surpassed your daily budget limit!</string>
+    <string name="surpassedMonthlyBudgetNotification">You have surpassed your monthly budget limit!</string>
+    <string name="surpassedYearlyBudgetNotification">You have surpassed your yearly budget limit!</string>
 
     <string name="bottom_navigation_profile_details">Details</string>
     <string name="bottom_navigation_profile_charts">Charts</string>

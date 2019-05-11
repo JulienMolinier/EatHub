@@ -19,13 +19,12 @@ import com.example.eathub.models.databases.ProfileDatabase;
  */
 public class LogInActivity extends AppCompatActivity {
 
-    private DatabaseHandler dbHand;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
+        DatabaseHandler dbHand;
         dbHand = new DatabaseHandler(this);
         dbHand.openDB();
 
