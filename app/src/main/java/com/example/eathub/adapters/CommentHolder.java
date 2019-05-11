@@ -14,12 +14,14 @@ class CommentHolder extends RecyclerView.ViewHolder {
     private RatingBar rate;
     private CircleImageView img;
     private TextView comment;
+    private ImageView imageView;
 
     CommentHolder(@NonNull View itemView) {
         super(itemView);
         rate = itemView.findViewById(R.id.ratingBar4);
         img = itemView.findViewById(R.id.ImgRestaurant);
         comment = itemView.findViewById(R.id.comment);
+        imageView=itemView.findViewById(R.id.imageView);
     }
 
     RatingBar getRate() {
@@ -33,4 +35,6 @@ class CommentHolder extends RecyclerView.ViewHolder {
     TextView getComment() {
         return comment;
     }
+
+    ImageView getImageView(){return imageView;}
 }
