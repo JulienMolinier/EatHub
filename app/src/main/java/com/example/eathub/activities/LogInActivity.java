@@ -14,7 +14,6 @@ import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.databases.DatabaseHandler;
 import com.example.eathub.models.databases.ProfileDatabase;
 
-
 /**
  * @author Lydia BARAUKOVA
  */
@@ -25,17 +24,16 @@ public class LogInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.login);
 
         dbHand = new DatabaseHandler(this);
         dbHand.openDB();
 
-        setContentView(R.layout.login);
+        Button logInButton = findViewById(R.id.logInButton);
+        TextView signUpLink = findViewById(R.id.signUpLink);
+        TextView forgotPasswordLink = findViewById(R.id.forgotPasswordLink);
 
-        Button loginButton = findViewById(R.id.login);
-        TextView signupLink = findViewById(R.id.signup);
-        TextView forgotPasswordLink = findViewById(R.id.forgotPassword);
-
-        signupLink.setOnClickListener(view -> {
+        signUpLink.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
             startActivity(intent);
         });
@@ -45,14 +43,14 @@ public class LogInActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        loginButton.setOnClickListener(view -> {
-            EditText emailField = findViewById(R.id.email);
+        logInButton.setOnClickListener(view -> {
+            EditText emailField = findViewById(R.id.emailFieldOnLogInPage);
             String email = emailField.getText().toString();
 
-            EditText passwordField = findViewById(R.id.password);
+            EditText passwordField = findViewById(R.id.passwordFieldOnLogInPage);
             String password = passwordField.getText().toString();
 
-            TextView errorMessage = findViewById(R.id.errorMessage);
+            TextView errorMessage = findViewById(R.id.errorMessageOnLogInPage);
 
             LogInModel model = new LogInModel(email, password);
             if (model.correctEmail()) {
@@ -60,7 +58,6 @@ public class LogInActivity extends AppCompatActivity {
                     errorMessage.setVisibility(View.INVISIBLE);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     ProfileModel profile = ProfileDatabase.getProfile(email);
-                    System.out.println("Le profil renvoyé est " + profile.getName());
                     intent.putExtra("currentProfile", profile);
                     startActivity(intent);
                 } else {

@@ -1,44 +1,101 @@
 <resources>
     <!-- general -->
     <string name="app_name">EatHub</string>
-    <string name="kilogram">kg</string>
-    <string name="centimeter">cm</string>
-    <string name="euro">€</string>
+
 
     <!-- for log in page -->
-    <string name="logInErrorBadEmail">Incorrect e-mail</string>
-    <string name="logInErrorBadPassword">Incorrect password</string>
-
-    <!-- for sign up page -->
-    <string name="firstNamePrompt">first name</string>
-    <string name="lastNamePrompt">last name</string>
-    <string name="genderPrompt">gender</string>
-    <string name="genderArray">
-        <item>male</item>
-        <item>female</item>
-    </string>
-    <string name="birthDatePrompt">birth date</string>
-    <string name="weightPrompt">weight</string>
-    <string name="heightPrompt">height</string>
-    <string name="budgetPrompt">budget</string>
-    <string name="dietPrompt">special diet</string>
-    <string name="dietArray">
-        <item>vegan</item>
-        <item>gluten free</item>
-    </string>
-    <string name="cuisinePrompt">favorite cuisine</string>
-    <string name="cuisineArray">
-        <item>american</item>
-        <item>asian</item>
-        <item>italian</item>
-        <item>french</item>
-    </string>
-    <string name="objectivePrompt">objective</string>
     <string name="emailPrompt">e-mail</string>
     <string name="passwordPrompt">password</string>
-    <string name="passwordAgainPrompt">password again</string>
-    <string name="iAcceptThePrivacyPolicy">I accept the privacy policy</string>
+    <string name="logInErrorBadEmail">Incorrect e-mail</string>
+    <string name="logInErrorBadPassword">Incorrect password</string>
+    <string name="forgotPasswordLink">Forgot password?</string>
+    <string name="logIn">LOG IN</string>
+
+
+    <!-- for sign up page -->
+    <string name="signUpTitle">Welcome to EatHub!</string>
+    <string name="signUpMessage">Fill in the form to sign up</string>
+    <string name="signUpInfo">* obligatory fields.</string>
+    <string name="firstNamePrompt">first name *</string>
+    <string name="lastNamePrompt">last name *</string>
+    <string name="genderPrompt">gender *</string>
+    <string-array name="genderArray">
+        <item>gender</item>
+        <item>male</item>
+        <item>female</item>
+    </string-array>
+    <string name="birthDatePrompt">birth date *</string>
+    <string name="weightPrompt">weight (kg)*</string>
+    <string name="heightPrompt">height (cm)*</string>
+    <string name="budgetPrompt">budget/meal (€) *</string>
+    <string name="dietPrompt">special diet</string>
+    <string-array name="dietArray">
+        <item>special diet</item>
+        <item>vegan</item>
+        <item>gluten free</item>
+    </string-array>
+    <string name="cuisinePrompt">favorite cuisine</string>
+    <string-array name="cuisineArray">
+        <item>favorite cuisine</item>
+        <item>american</item>
+        <item>asian</item>
+        <item>vegan</item>
+        <item>italian</item>
+        <item>indian</item>
+        <item>mexican</item>
+    </string-array>
+    <string name="objectivePrompt">objective</string>
+    <string-array name="objectiveArray">
+        <item>objective</item>
+        <item>make economies</item>
+        <item>find new places</item>
+        <item>lose weight</item>
+        <item>eat healthier</item>
+    </string-array>
+    <string name="emailPrompt2">e-mail *</string>
+    <string name="passwordPrompt2">password *</string>
+    <string name="passwordAgainPrompt">repeat password *</string>
+    <string name="iAcceptThe">I accept the </string>
+    <string name="privacyPolicyLink">privacy policy *</string>
+    <string name="privacyPolicyTitle">Privacy policy</string>
+    <string name="privacyPolicyText">
+        I. USE OF YOUR DATA\n
+        Your data will be used to provide You with the best restaurant recommendations and detailed
+        statistics on the places visited, money spent and calories consumed. *
+
+        II. WHO HAS ACCESS TO YOUR DATA
+        Your data can be accessed only by You and the EatHub data center in order to get statistics. **
+
+        III. WHAT HAPPENS TO YOUR DATA WHEN YOU DELELTE YOUR ACCOUNT
+        When you delete your EatHub account, your data is deleted from our servers. ***
+
+        * and also to be sold to Google.
+        ** and by Google since we sell them all data.
+        *** but not from the Google servers.
+    </string>
+    <string name="accept">ACCEPT</string>
     <string name="iWantNotifications">I want to receive notifications</string>
+    <string name="signUp">SIGN UP</string>
+    <string name="signUpErrorFillInObligatoryFields">Please fill in all the obligatory fields.</string>
+    <string name="signUpErrorPasswordsNotMatching">Passwords do not match.</string>
+    <string name="signUpErrorAcceptPrivacyPolicy">Please read and accept the privacy policy.</string>
+    <string name="signUpSuccessfulTitle">Sign up</string>
+    <string name="signUpSuccessfulMessage">You signed up successfully! You will now be redirected to the log in page.</string>
+
+
+    <!-- for forgot password page -->
+    <string name="forgotPasswordTitle">Forgot your password?</string>
+    <string name="forgotPasswordMessage">Please enter the e-mail associated to your EatHub account to restore your password.</string>
+    <string name="enter">ENTER</string>
+    <string name="passwordRestoredTitle">Restoring password</string>
+    <string name="passwordRestoredMessage">Check your e-mail address and follow instructions to restore your password. You will now be redirected to the log in page.</string>
+    <string name="forgotPasswordError">This e-mail is not contained in our databases.</string>
+
+
+    <!-- for notifications -->
+    <string name="surpassedBudgetNotification">You have surpassed your budget limit!</string>
+    <string name="surpassedCaloriesNotification">You have surpassed your calories limit!</string>
+
 
     <string name="bottom_navigation_profile_details">Details</string>
     <string name="bottom_navigation_profile_charts">Charts</string>
@@ -53,14 +110,16 @@
     <string name="buttonBack">Back</string>
 
     <string name="addcomment">Add a comment</string>
+    <string name="add">Add</string>
     <string name="rate">Rate :</string>
     <string name="calories">Calories :</string>
     <string name="comment">Comment :</string>
-    <string name="date">Date: (ex: 1996-05-08)</string>
+    <string name="date">Date :</string>
 
     <string name="ok">Okay !</string>
     <string name="error">An error as occurred</string>
     <string name="done">Done !</string>
+    <string name="cancel">Cancel</string>
 
     <string name="caloriesEvolution">Calories Evolution</string>
     <string name="budgetEvolution">Budget Evolution</string>

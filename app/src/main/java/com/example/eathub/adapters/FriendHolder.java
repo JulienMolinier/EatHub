@@ -8,22 +8,21 @@ import android.widget.TextView;
 import com.example.eathub.R;
 import com.github.abdularis.civ.CircleImageView;
 
-public class FriendHolder extends RecyclerView.ViewHolder {
+class FriendHolder extends RecyclerView.ViewHolder {
     private CircleImageView avatarFriend;
     private TextView nameFriend;
 
-    public FriendHolder(@NonNull View itemView) {
+    FriendHolder(@NonNull View itemView) {
         super(itemView);
         avatarFriend = itemView.findViewById(R.id.avatarFriend);
         nameFriend = itemView.findViewById(R.id.nameFriend);
-
     }
 
-    public CircleImageView getAvatarFriend() {
+    CircleImageView getAvatarFriend() {
         return avatarFriend;
     }
 
-    public TextView getNameFriend() {
+    TextView getNameFriend() {
         return nameFriend;
     }
 }

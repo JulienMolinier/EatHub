@@ -1,5 +1,7 @@
 package com.example.eathub.models;
 
+import com.example.eathub.models.databases.ProfileDatabase;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -24,19 +26,10 @@ public class ForgotPasswordModel {
     }
 
     private void getEmails() {
+        List<ProfileModel> profiles = ProfileDatabase.getAllProfiles();
         allEmails = new ArrayList<>();
-        String jsonFile = "src/program/resources/jsons/profiles.json";
-        JSONParser jsonParser = new JSONParser();
-        try {
-            JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(jsonFile));
-            JSONArray profileArray = (JSONArray) jsonObject.get("Profiles");
-            for (Object o: profileArray) {
-                JSONObject jo = (JSONObject) o;
-                String userEmail = (String) jo.get("email");
-                allEmails.add(userEmail);
-            }
-        } catch (IOException | ParseException | NullPointerException e) {
-            e.printStackTrace();
+        for (ProfileModel pm: profiles) {
+            allEmails.add(pm.getEmail());
         }
     }
 

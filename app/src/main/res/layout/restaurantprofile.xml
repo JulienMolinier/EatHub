@@ -30,7 +30,7 @@
             android:layout_below="@id/imageRestaurant"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center|center_horizontal"
-            android:textSize="24dp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <RelativeLayout
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/restaurantName"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="60dp"
             android:gravity="start">
@@ -51,7 +51,7 @@
                 android:layout_marginTop="10dp"
                 android:labelFor="@id/restaurantTel"
                 android:text="Tel:"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/restaurantTel"
@@ -59,8 +59,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
                 android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/restaurantTelLabel"
-                android:textSize="20dp" />
+                android:layout_toEndOf="@id/restaurantTelLabel"
+                android:textSize="20sp" />
 
 
             <TextView
@@ -72,7 +72,7 @@
                 android:layout_marginTop="20dp"
                 android:labelFor="@id/restaurantAdress"
                 android:text="Adress:"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/restaurantAdress"
@@ -81,8 +81,8 @@
                 android:layout_below="@id/restaurantTel"
                 android:layout_gravity="center|center_horizontal"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@id/restaurantAdressLabel"
-                android:textSize="20dp" />
+                android:layout_toEndOf="@id/restaurantAdressLabel"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/restaurantFoodTypeLabel"
@@ -93,7 +93,7 @@
                 android:layout_marginTop="20dp"
                 android:labelFor="@id/restaurantFoodType"
                 android:text="Food Type:"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/restaurantFoodType"
@@ -102,8 +102,8 @@
                 android:layout_below="@id/restaurantAdress"
                 android:layout_gravity="center|center_horizontal"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@id/restaurantFoodTypeLabel"
-                android:textSize="20dp" />
+                android:layout_toEndOf="@id/restaurantFoodTypeLabel"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/restaurantCostLabel"
@@ -114,7 +114,7 @@
                 android:layout_marginTop="20dp"
                 android:labelFor="@id/restaurantCost"
                 android:text="Cost:"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/restaurantCost"
