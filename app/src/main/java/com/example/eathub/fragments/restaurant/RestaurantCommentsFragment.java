@@ -54,8 +54,6 @@ public class RestaurantCommentsFragment extends Fragment {
             myCommentListAdapter = new CommentListAdapter(this.getContext(), commentList);
             listComments.setAdapter(myCommentListAdapter);
         }
-        Button addACommentButton = view.findViewById(R.id.addACommentButton);
-
         return view;
     }
 

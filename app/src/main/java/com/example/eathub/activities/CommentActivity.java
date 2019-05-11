@@ -2,12 +2,14 @@ package com.example.eathub.activities;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.eathub.R;
 import com.example.eathub.models.ProfileModel;
@@ -28,6 +30,7 @@ public class CommentActivity extends AppCompatActivity {
     private EditText priceInput;
     private EditText caloriesInput;
     private Button buttonAdd;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +46,14 @@ public class CommentActivity extends AppCompatActivity {
         caloriesInput = findViewById(R.id.caloriesInput);
         priceInput = findViewById(R.id.priceInput);
         buttonAdd = findViewById(R.id.commentButton);
+
+        imageView=findViewById(R.id.imageView);
+        Button button_image = findViewById(R.id.button_image);
+        button_image.setOnClickListener(view ->{
+            Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, 1);
+        });
+
 
         buttonAdd.setOnClickListener((View v) -> {
             if (rateInput.getText() != null && commentInput.getText() != null
@@ -85,4 +96,15 @@ public class CommentActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageView.setImageBitmap(imageBitmap);
+        }
+    }
+
 }
