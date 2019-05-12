@@ -23,19 +23,22 @@
         <activity android:name=".activities.LogInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainActivity">
-
-        </activity>
+        <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.SearchPageActivity" />
         <activity android:name=".activities.FriendProfileActivity" />
         <activity android:name=".activities.RestaurantActivity" />
         <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.ForgotPasswordActivity" />
         <service android:name=".services.NotifyService" />
+        <receiver android:name=".services.NotifyService$NotifyServiceReceiver">
+            <intent-filter>
+                <action android:name=".services.NotifyService.STOP_NOTIFY_SERVICE" />
+                <action android:name=".services.NotifyService.SEND_NOTIFICATION" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

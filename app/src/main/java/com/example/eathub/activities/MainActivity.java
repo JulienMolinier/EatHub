@@ -15,9 +15,7 @@ import com.example.eathub.models.ProfileModel;
 import com.example.eathub.services.NotifyService;
 
 public class MainActivity extends AppCompatActivity {
-    private FragmentAdapter fragAdapter;
-    private ViewPager vwPager;
-    private SearchView search;
+
     private ProfileModel connectedProfile;
     private Bundle mState;
 
@@ -26,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startService(new Intent(this, NotifyService.class));
-        sendNotification(NotifyService.SURPASSED_BUDGET_LIMIT);
+        ViewPager vwPager;
+        SearchView search;
 
         if (savedInstanceState != null)
             mState = savedInstanceState;
@@ -36,9 +34,10 @@ public class MainActivity extends AppCompatActivity {
         connectedProfile = myIntent.getParcelableExtra("currentProfile");
         if (savedInstanceState != null)
             connectedProfile = savedInstanceState.getParcelable("currentProfile");
-        System.out.println("L'user connecté est" + connectedProfile);
 
-        fragAdapter = new FragmentAdapter(getSupportFragmentManager());
+        // starting the service after getting the current user
+        startNotificationService();
+        sendNotification("random message");
 
         vwPager = findViewById(R.id.container);
         setupViewPager(vwPager);
@@ -59,13 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
                 return true;
-
             }
         };
         search.setOnQueryTextListener(queryTextListener);
-
     }
 
     @Override
@@ -73,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
         // Save the state
         savedInstanceState.putParcelable("currentProfile", connectedProfile);
         super.onSaveInstanceState(savedInstanceState);
-
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -93,16 +87,20 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
+    private void startNotificationService() {
+        Intent intent = new Intent(this, NotifyService.class);
+        intent.putExtra("currentProfile", connectedProfile);
+        startService(intent);
+    }
     private void stopNotificationService() {
         Intent intent = new Intent(this, NotifyService.NotifyServiceReceiver.class);
-        intent.setAction(NotifyService.STOP_SERVICE);
-        intent.putExtra(NotifyService.SERVICE_BROADCAST_KEY, NotifyService.RQS_STOP_SERVICE);
+        intent.setAction(NotifyService.STOP_NOTIFY_SERVICE);
         sendBroadcast(intent);
     }
-    private void sendNotification(String action) {
-        Intent intent = new Intent(this, NotifyService.NotifyServiceReceiver.class);
-        intent.setAction(action);
-        intent.putExtra(NotifyService.SERVICE_BROADCAST_KEY, NotifyService.RQS_SEND_SERVICE);
+    private void sendNotification(String message) {
+        Intent intent = new Intent(new Intent(this, NotifyService.NotifyServiceReceiver.class));
+        intent.putExtra("message", message);
+        intent.setAction(NotifyService.SEND_NOTIFICATION);
         sendBroadcast(intent);
     }
 

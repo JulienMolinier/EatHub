@@ -24,15 +24,6 @@ public class ProfileDatabase {
         return null;
     }
 
-    public static ProfileModel getProfileByName(String personToFind) {
-        for (ProfileModel profile : profiles) {
-            if (profile.getName().equals(personToFind)) {
-                return profile;
-            }
-        }
-        return null;
-    }
-
     public static void addNewProfile(ProfileModel m) {
         profiles.add(m);
     }
