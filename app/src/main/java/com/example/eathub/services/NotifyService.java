@@ -17,6 +17,7 @@ import com.example.eathub.activities.MainActivity;
 import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.VisitModel;
 import com.example.eathub.models.databases.ProfileDatabase;
+import com.example.eathub.models.databases.VisitDatabase;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -148,8 +149,7 @@ public class NotifyService extends Service {
         double dailyBudget = connectedProfile.getBudget();
         double monthlyBudget = dailyBudget * today.lengthOfMonth();
         double yearlyBudget = dailyBudget * today.lengthOfYear();
-        connectedProfile.setHistory(3); // we choose this year's history
-        List<VisitModel> visits = connectedProfile.getHistory();
+        List<VisitModel> visits = VisitDatabase.getVisitsByProfile(connectedProfile);
         double spentThisYear = 0, spentThisMonth = 0, spentToday = 0;
         for (VisitModel visit: visits) {
             LocalDate visitDate = visit.getDate();
@@ -203,12 +203,16 @@ public class NotifyService extends Service {
         // source: https://www.passionsante.be/index.cfm?fuseaction=art&art_id=13657
         */
 
-        connectedProfile.setHistory(0); // we choose today's history
-        connectedProfile.computeValues(0); // we compute values for today
-        double dailyCalorieNeeds = connectedProfile.getRequired();
-        double consumedCalories = connectedProfile.getCaloriesConsumed();
-        System.out.println(dailyCalorieNeeds + " " + consumedCalories);
-        if (consumedCalories > dailyCalorieNeeds && !notifiedThatDailyCaloriesSurpassed) {
+        LocalDate today = LocalDate.now();
+        List<VisitModel> visits = VisitDatabase.getVisitsByProfile(connectedProfile);
+        double dailyNeed = connectedProfile.getWeight() * 24 * 1.5; // same formula as in profile model
+        double consumedToday = 0;
+        for (VisitModel visit: visits) {
+            if (visit.getDate().equals(today)) {
+                consumedToday += visit.getCalories();
+            }
+        }
+        if (consumedToday > dailyNeed && !notifiedThatDailyCaloriesSurpassed) {
             sendNotification(getString(R.string.surpassedDailyCaloriesNotification));
             notifiedThatDailyCaloriesSurpassed = true;
         }
