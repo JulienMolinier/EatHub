@@ -32,9 +32,6 @@ public class NotifyService extends Service {
     // channel data
     public static final String CHANNEL_ID = "Channel EatHub", CHANNEL_TITLE = "Warning";
 
-    // notification data
-    public static final int NOTIFY_ID = 888888;
-
     // possible actions for the receiver declared in the manifest
     public static final String SEND_NOTIFICATION = "send notification",
             STOP_NOTIFY_SERVICE = "stop notify service";
@@ -48,6 +45,7 @@ public class NotifyService extends Service {
             notifiedThatDailyCaloriesSurpassed;
 
     public static class NotifyServiceReceiver extends BroadcastReceiver {
+        private int NOTIFY_ID = 1;
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
@@ -65,16 +63,6 @@ public class NotifyService extends Service {
 
         public void createNotification(String message, Context context) {
             NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                int importance = NotificationManager.IMPORTANCE_HIGH;
-                NotificationChannel channel = nm.getNotificationChannel(CHANNEL_ID);
-                if (channel == null) {
-                    channel = new NotificationChannel(CHANNEL_ID, CHANNEL_TITLE, importance);
-                    channel.enableVibration(true);
-                    channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                    nm.createNotificationChannel(channel);
-                }
-            }
             Intent intent;
             PendingIntent pendingIntent;
             NotificationCompat.Builder builder;
@@ -93,6 +81,7 @@ public class NotifyService extends Service {
                     .setPriority(Notification.PRIORITY_HIGH);           // for older versions
             Notification notification = builder.build();
             nm.notify(NOTIFY_ID, notification);
+            NOTIFY_ID++;
         }
     }
 
@@ -107,6 +96,7 @@ public class NotifyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) { // called with every pending intent
+        createNotificationChannel();
         connectedProfile = intent.getParcelableExtra("currentProfile");
         // boolean variables to avoid notifying several times about the same thing
         notifiedThatYearlyBudgetSurpassed = false;
@@ -135,6 +125,20 @@ public class NotifyService extends Service {
     public void onDestroy() {
         super.onDestroy();
         if (timer != null) timer.cancel();
+    }
+
+    public void createNotificationChannel() {
+        NotificationManager nm = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = nm.getNotificationChannel(CHANNEL_ID);
+            if (channel == null) {
+                channel = new NotificationChannel(CHANNEL_ID, CHANNEL_TITLE, importance);
+                channel.enableVibration(true);
+                channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                nm.createNotificationChannel(channel);
+            }
+        }
     }
 
     private void sendNotification(String message) {
@@ -167,14 +171,20 @@ public class NotifyService extends Service {
         if (spentThisYear > yearlyBudget && !notifiedThatYearlyBudgetSurpassed) {
             sendNotification(getString(R.string.surpassedYearlyBudgetNotification));
             notifiedThatYearlyBudgetSurpassed = true;
+            try { Thread.sleep(7 * 1000); }
+            catch (InterruptedException e) { e.printStackTrace(); }
         }
         if (spentThisMonth > monthlyBudget && !notifiedThatMonthlyBudgetSurpassed) {
             sendNotification(getString(R.string.surpassedMonthlyBudgetNotification));
             notifiedThatMonthlyBudgetSurpassed = true;
+            try { Thread.sleep(7 * 1000); }
+            catch (InterruptedException e) { e.printStackTrace(); }
         }
         if (spentToday > dailyBudget && !notifiedThatDailyBudgetSurpassed) {
             sendNotification(getString(R.string.surpassedDailyBudgetNotification));
             notifiedThatDailyBudgetSurpassed = true;
+            try { Thread.sleep(7 * 1000); }
+            catch (InterruptedException e) { e.printStackTrace(); }
         }
     }
 
@@ -215,6 +225,8 @@ public class NotifyService extends Service {
         if (consumedToday > dailyNeed && !notifiedThatDailyCaloriesSurpassed) {
             sendNotification(getString(R.string.surpassedDailyCaloriesNotification));
             notifiedThatDailyCaloriesSurpassed = true;
+            try { Thread.sleep(7 * 1000); }
+            catch (InterruptedException e) { e.printStackTrace(); }
         }
     }
 }
