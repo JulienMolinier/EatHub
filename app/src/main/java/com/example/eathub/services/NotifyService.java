@@ -92,17 +92,17 @@ public class NotifyService extends Service {
         if (notificationManager == null) {
             notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         }
+        // boolean variables to avoid notifying several times about the same thing
+        notifiedThatYearlyBudgetSurpassed = false;
+        notifiedThatMonthlyBudgetSurpassed = false;
+        notifiedThatDailyBudgetSurpassed = false;
+        notifiedThatDailyCaloriesSurpassed = false;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) { // called with every pending intent
         createNotificationChannel();
         connectedProfile = intent.getParcelableExtra("currentProfile");
-        // boolean variables to avoid notifying several times about the same thing
-        notifiedThatYearlyBudgetSurpassed = false;
-        notifiedThatMonthlyBudgetSurpassed = false;
-        notifiedThatDailyBudgetSurpassed = false;
-        notifiedThatDailyCaloriesSurpassed = false;
         final int UPDATE_INTERVAL = 10 * 1000; // check for updates every 10 seconds
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -168,9 +168,9 @@ public class NotifyService extends Service {
                 }
             }
         }
-        if (spentThisYear > yearlyBudget && !notifiedThatYearlyBudgetSurpassed) {
-            sendNotification(getString(R.string.surpassedYearlyBudgetNotification));
-            notifiedThatYearlyBudgetSurpassed = true;
+        if (spentToday > dailyBudget && !notifiedThatDailyBudgetSurpassed) {
+            sendNotification(getString(R.string.surpassedDailyBudgetNotification));
+            notifiedThatDailyBudgetSurpassed = true;
             try { Thread.sleep(7 * 1000); }
             catch (InterruptedException e) { e.printStackTrace(); }
         }
@@ -180,9 +180,9 @@ public class NotifyService extends Service {
             try { Thread.sleep(7 * 1000); }
             catch (InterruptedException e) { e.printStackTrace(); }
         }
-        if (spentToday > dailyBudget && !notifiedThatDailyBudgetSurpassed) {
-            sendNotification(getString(R.string.surpassedDailyBudgetNotification));
-            notifiedThatDailyBudgetSurpassed = true;
+        if (spentThisYear > yearlyBudget && !notifiedThatYearlyBudgetSurpassed) {
+            sendNotification(getString(R.string.surpassedYearlyBudgetNotification));
+            notifiedThatYearlyBudgetSurpassed = true;
             try { Thread.sleep(7 * 1000); }
             catch (InterruptedException e) { e.printStackTrace(); }
         }

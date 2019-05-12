@@ -130,6 +130,11 @@ public class SignUpActivity extends AppCompatActivity implements PrivacyPolicyDi
             boolean privacyPolicy = privacyPolicyCheckBox.isChecked();
             boolean notifications = notificationsCheckBox.isChecked();
             String gender = genderChoiceBox.getSelectedItem().toString();
+            switch (gender) {
+                case "male": gender = "M"; break;
+                case "female": gender = "F"; break;
+                default: break;
+            }
             String specialDiet = dietChoiceBox.getSelectedItem().toString();
             String favoriteCuisine = cuisineChoiceBox.getSelectedItem().toString();
             String objective = objectiveChoiceBox.getSelectedItem().toString();
