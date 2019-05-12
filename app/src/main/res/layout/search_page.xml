@@ -47,9 +47,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/check"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="20dp">
 
         <android.support.v7.widget.RecyclerView
