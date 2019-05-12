@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
         // starting the service after getting the current user
         startNotificationService();
-        sendNotification("random message");
 
         vwPager = findViewById(R.id.container);
         setupViewPager(vwPager);
