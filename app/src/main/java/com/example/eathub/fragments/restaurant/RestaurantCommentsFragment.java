@@ -90,6 +90,8 @@ public class RestaurantCommentsFragment extends Fragment {
                     //visitToAdd.setImageBitmap(imageBitmap);
                     DatabaseHandler.addVisitToDB(visitToAdd);
                     VisitDatabase.getVisits().add(visitToAdd);
+                    getCommentList();
+                    commentRVAdapter.notifyDataSetChanged();
                 }
                 popup.dismiss();
             });
@@ -112,6 +114,7 @@ public class RestaurantCommentsFragment extends Fragment {
     }
 
     private void getCommentList() {
+        commentList.clear();
         for (VisitModel visit : VisitDatabase.getVisits()) {
             if (visit.getRestaurant().equals(this.restaurantModel)) {
                 commentList.add(visit);
