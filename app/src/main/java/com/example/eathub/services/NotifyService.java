@@ -208,7 +208,7 @@ public class NotifyService extends Service {
         double dailyCalorieNeeds = connectedProfile.getRequired();
         double consumedCalories = connectedProfile.getCaloriesConsumed();
         System.out.println(dailyCalorieNeeds + " " + consumedCalories);
-        if (consumedCalories > dailyCalorieNeeds) {
+        if (consumedCalories > dailyCalorieNeeds && !notifiedThatDailyCaloriesSurpassed) {
             sendNotification(getString(R.string.surpassedDailyCaloriesNotification));
             notifiedThatDailyCaloriesSurpassed = true;
         }
