@@ -2,109 +2,119 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/rl1li"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/signUpLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="@string/signUp"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        android:textColor="@color/design_default_color_primary"
-        android:textStyle="normal" />
-
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <RelativeLayout
-        android:id="@+id/rl2li"
+        android:id="@+id/rl1li"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:gravity="center">
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/signUpLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/signUp"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            android:textColor="@color/design_default_color_primary"
+            android:textStyle="normal" />
 
         <RelativeLayout
-            android:id="@+id/rl3li"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/eatHubLogoOnLogInPage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:visibility="visible"
-                app:srcCompat="@drawable/eathub_logo" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl4li"
+            android:id="@+id/rl2li"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rl3li"
-            android:layout_centerHorizontal="false"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             android:gravity="center">
 
-            <EditText
-                android:id="@+id/emailFieldOnLogInPage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
-                android:ems="10"
-                android:hint="@string/emailPrompt"
-                android:inputType="textEmailAddress"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+            <RelativeLayout
+                android:id="@+id/rl3li"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/passwordFieldOnLogInPage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/emailFieldOnLogInPage"
-                android:layout_marginBottom="30dp"
-                android:ems="10"
-                android:hint="@string/passwordPrompt"
-                android:inputType="textPassword"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                <ImageView
+                    android:id="@+id/eatHubLogoOnLogInPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/eathub_logo" />
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/forgotPasswordLink"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/rl4li"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/passwordFieldOnLogInPage"
-                android:layout_centerInParent="true"
-                android:text="@string/forgotPasswordLink"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                android:textColor="@color/design_default_color_primary" />
+                android:layout_below="@id/rl3li"
+                android:layout_centerHorizontal="false"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/emailFieldOnLogInPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:ems="10"
+                    android:hint="@string/emailPrompt"
+                    android:inputType="textEmailAddress"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+                <EditText
+                    android:id="@+id/passwordFieldOnLogInPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/emailFieldOnLogInPage"
+                    android:layout_marginBottom="30dp"
+                    android:ems="10"
+                    android:hint="@string/passwordPrompt"
+                    android:inputType="textPassword"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+                <TextView
+                    android:id="@+id/forgotPasswordLink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/passwordFieldOnLogInPage"
+                    android:layout_centerInParent="true"
+                    android:text="@string/forgotPasswordLink"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:textColor="@color/design_default_color_primary" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl5li"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl4li"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/errorMessageOnLogInPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:text=""
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/rl5li"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rl4li"
-            android:gravity="center">
 
-            <TextView
-                android:id="@+id/errorMessageOnLogInPage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
-                android:text=""
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                android:textColor="@android:color/holo_red_dark"
-                android:visibility="invisible" />
-        </RelativeLayout>
 
     </RelativeLayout>
 
+</ScrollView>
     <Button
         android:id="@+id/logInButton"
         android:layout_width="match_parent"
@@ -113,5 +123,6 @@
         android:background="@android:color/holo_orange_light"
         android:text="@string/logIn"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
-
 </RelativeLayout>
+
+

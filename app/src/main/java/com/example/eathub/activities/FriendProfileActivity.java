@@ -18,6 +18,8 @@ import com.example.eathub.models.ProfileModel;
 
 public class FriendProfileActivity extends AppCompatActivity {
     private ProfileModel profileModel;
+    private BottomNavigationView navigation;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -61,12 +63,16 @@ public class FriendProfileActivity extends AppCompatActivity {
         if (savedInstanceState != null)
             profileModel = savedInstanceState.getParcelable("currentProfile");
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        if (savedInstanceState != null){
+            navigation.setSelectedItemId(savedInstanceState.getInt("fragSelected"));}
+        else {
 
         ProfileDetailsFragment defaultFragment = new ProfileDetailsFragment();
         defaultFragment.setProfile(profileModel);
-        showFragment(defaultFragment);
+        showFragment(defaultFragment);}
 
     }
 
@@ -80,6 +86,7 @@ public class FriendProfileActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the state
+        savedInstanceState.putInt("fragSelected", navigation.getSelectedItemId());
         savedInstanceState.putParcelable("currentProfile", profileModel);
         super.onSaveInstanceState(savedInstanceState);
 

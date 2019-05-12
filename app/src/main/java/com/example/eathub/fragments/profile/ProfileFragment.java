@@ -17,6 +17,7 @@ import com.example.eathub.models.ProfileModel;
 public class ProfileFragment extends Fragment {
     private View view;
     private ProfileModel profileModel;
+    private BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -55,15 +56,19 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.profile, container, false);
 
-        BottomNavigationView navigation = view.findViewById(R.id.navigation);
+        navigation = view.findViewById(R.id.navigation);
 
         if (savedInstanceState != null)
             profileModel = savedInstanceState.getParcelable("connectedProfile");
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        if (savedInstanceState != null){
+            navigation.setSelectedItemId(savedInstanceState.getInt("fragSelected"));}
+        else {
+
         ProfileDetailsFragment defaultFragment = new ProfileDetailsFragment();
         defaultFragment.setProfile(profileModel);
-        showFragment(defaultFragment);
+        showFragment(defaultFragment);}
 
         return view;
     }
@@ -82,6 +87,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the state
+        savedInstanceState.putInt("fragSelected", navigation.getSelectedItemId());
         savedInstanceState.putParcelable("connectedProfile", profileModel);
         super.onSaveInstanceState(savedInstanceState);
 

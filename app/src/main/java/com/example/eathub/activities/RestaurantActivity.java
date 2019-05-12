@@ -23,6 +23,7 @@ public class RestaurantActivity extends AppCompatActivity {
 
     private RestaurantModel theRestaurant;
     private ProfileModel profileModel;
+    private BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -78,14 +79,17 @@ public class RestaurantActivity extends AppCompatActivity {
             profileModel = savedInstanceState.getParcelable("currentProfile");
         }
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        if (savedInstanceState != null) {
+            navigation.setSelectedItemId(savedInstanceState.getInt("fragSelected"));
+        }else {
 
         RestaurantProfileFragment restaurantProfile = new RestaurantProfileFragment();
         restaurantProfile.setRestaurantModel(theRestaurant);
         restaurantProfile.setProfileModel(profileModel);
-        showFragment(restaurantProfile);
+        showFragment(restaurantProfile);}
 
     }
 
@@ -99,6 +103,7 @@ public class RestaurantActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the state
+        savedInstanceState.putInt("fragSelected", navigation.getSelectedItemId());
         savedInstanceState.putParcelable("currentRestaurant", theRestaurant);
         savedInstanceState.putParcelable("currentProfile", profileModel);
         super.onSaveInstanceState(savedInstanceState);
