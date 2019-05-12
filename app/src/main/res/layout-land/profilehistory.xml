@@ -6,30 +6,28 @@
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
-        android:layout_marginRight="100dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginRight="20dp" />
 
     <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/spinner"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"
+        android:id="@+id/divider2"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/spinner"
         android:background="?android:attr/listDivider" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/historyView"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_below="@id/divider"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="50dp"
+        android:layout_toRightOf="@id/divider2"
         android:orientation="vertical"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 </RelativeLayout>
