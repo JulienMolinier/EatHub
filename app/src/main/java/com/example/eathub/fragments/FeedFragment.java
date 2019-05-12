@@ -47,11 +47,16 @@ public class FeedFragment extends Fragment {
         friendRV = view.findViewById(R.id.friendRV);
         feedRV = view.findViewById(R.id.feedRV);
 
-        if (savedInstanceState != null)
-            profile = savedInstanceState.getParcelable("currentProfile");
-
         shared = true;
         visited = true;
+
+        if (savedInstanceState != null){
+            profile = savedInstanceState.getParcelable("currentProfile");
+            visited = savedInstanceState.getBoolean("visitedbool");
+            shared = savedInstanceState.getBoolean("sharedbool");
+            filterFeed.setText(savedInstanceState.getString("filterFeed"));
+        }
+
         restaurantList = new ArrayList<>();
         friends = new ArrayList<>();
         buildFriendsList();
@@ -120,6 +125,9 @@ public class FeedFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the state
+        savedInstanceState.putBoolean("visitedbool",visited);
+        savedInstanceState.putBoolean("sharedbool",shared);
+        savedInstanceState.putString("filterFeed", filterFeed.getText().toString());
         savedInstanceState.putParcelable("currentProfile", profile);
         super.onSaveInstanceState(savedInstanceState);
     }
