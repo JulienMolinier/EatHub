@@ -9,7 +9,7 @@ public enum CulinaryFence {
     }
 
     public static CulinaryFence fromName(String name) {
-        for (CulinaryFence c: CulinaryFence.values()) {
+        for (CulinaryFence c : CulinaryFence.values()) {
             if (c.toString().equals(name)) {
                 return c;
             }

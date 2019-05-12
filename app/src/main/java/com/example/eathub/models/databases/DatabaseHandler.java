@@ -293,10 +293,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 7.05796, 43.6184);
         ContentValues contentValues7 = createRestaurant(lebelagio);
 
-        RestaurantModel lebarbusse = new RestaurantModel(3, "Le Barbusse", 18.0,
+        RestaurantModel lebarbusse = new RestaurantModel(3, "Le Barbusse", 17.0,
                 CulinaryFence.vegan, "18 rue des arbres", "0102030405",
                 7.06452, 43.6166);
         ContentValues contentValues8 = createRestaurant(lebarbusse);
+
+        RestaurantModel leriche = new RestaurantModel(4, "Le Riche", 14.0,
+                CulinaryFence.vegan, "18 rue des arbres", "0102030405",
+                7.06452, 43.6166);
+        ContentValues contentValues13 = createRestaurant(leriche);
 
         db.insert(PROFILE_TABLE_NAME, null, contentValues);
         db.insert(PROFILE_TABLE_NAME, null, contentValues2);
@@ -308,6 +313,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(RESTAURANT_TABLE_NAME, null, contentValues6);
         db.insert(RESTAURANT_TABLE_NAME, null, contentValues7);
         db.insert(RESTAURANT_TABLE_NAME, null, contentValues8);
+        db.insert(RESTAURANT_TABLE_NAME, null, contentValues13);
 
         mmdurand.addFriend(jpot.getId());
         mmdurand.addFriend(fleca.getId());
@@ -315,6 +321,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         RestaurantDatabase.getRestaurants().add(pizzaCorsica);
         RestaurantDatabase.getRestaurants().add(lebelagio);
         RestaurantDatabase.getRestaurants().add(lebarbusse);
+        RestaurantDatabase.getRestaurants().add(leriche);
 
         ContentValues contentValues11 = new ContentValues();
         contentValues11.put(SHARED_PROFILE, 2);

@@ -93,6 +93,7 @@ public class ProfileModel implements Parcelable {
         weight = in.readDouble();
         budget = in.readDouble();
         diet = Diet.values()[in.readInt()];
+        culinaryFence = CulinaryFence.values()[in.readInt()];
         friendList = new ArrayList<>();
         in.readList(friendList, Integer.class.getClassLoader());
         profileDetailsList = in.createStringArrayList();
@@ -114,6 +115,7 @@ public class ProfileModel implements Parcelable {
         dest.writeDouble(weight);
         dest.writeDouble(budget);
         dest.writeInt(diet.ordinal());
+        dest.writeInt(culinaryFence.ordinal());
         dest.writeList(friendList);
         dest.writeStringList(profileDetailsList);
         dest.writeInt(visitNumber);
