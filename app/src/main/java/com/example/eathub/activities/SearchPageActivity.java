@@ -51,6 +51,8 @@ public class SearchPageActivity extends AppCompatActivity {
         bundle.putString("params", search);
 
         searchView = findViewById(R.id.search);
+        buttonPrice = findViewById(R.id.filterPrice);
+
 
         if (savedInstanceState != null)
             profile = savedInstanceState.getParcelable("currentProfile");
@@ -60,22 +62,31 @@ public class SearchPageActivity extends AppCompatActivity {
         final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                search = query;
+                if(query != null){
+                    search = query;
+                }
                 getRestaurantList(savedInstanceState);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                search = newText;
+                if (newText != null) {
+                    search = newText;
+                }
                 getRestaurantList(savedInstanceState);
                 return true;
             }
         };
         searchView.setOnQueryTextListener(queryTextListener);
+        filterList(savedInstanceState);
 
-        filterList();
-
+        if(savedInstanceState != null){
+            isPrice10 = savedInstanceState.getBoolean("isPrice10");
+            isPrice20 = savedInstanceState.getBoolean("isPrice20");
+            isPrice30 = savedInstanceState.getBoolean("isPrice30");
+            buttonPrice.setText(savedInstanceState.getString("button"));
+        }
 
     }
 
@@ -90,35 +101,43 @@ public class SearchPageActivity extends AppCompatActivity {
         }
     }
 
-    public void filterList() {
-        buttonPrice = findViewById(R.id.filterPrice);
+    public void filterList(Bundle savedInstanceState) {
+
+        if (savedInstanceState != null)
+            filterRestaurants = savedInstanceState.getParcelableArrayList("filterRestaurants");
         buttonPrice.setOnClickListener((View v) -> {
             switch (buttonPrice.getText().toString()) {
                 case "All":
                     isPrice10 = true;
+                    isPrice20 = false;
+                    isPrice30 = false;
                     buttonPrice.setText("0-10€");
                     break;
                 case "0-10€":
                     isPrice10 = false;
                     isPrice20 = true;
+                    isPrice30 = false;
                     buttonPrice.setText("10-20€");
                     break;
                 case "10-20€":
                     isPrice20 = false;
                     isPrice30 = true;
-                    buttonPrice.setText("20€ et plus");
-                    break;
-                case "20€ et plus":
                     isPrice10 = false;
-                    isPrice20 = false;
-                    isPrice30 = false;
+                    buttonPrice.setText("20€ and more");
+                    break;
+                case "20€ and more":
+                    isPrice10 = true;
+                    isPrice20 = true;
+                    isPrice30 = true;
                     buttonPrice.setText("All");
                     break;
             }
+            if (savedInstanceState != null)
+                search = savedInstanceState.getString("currentSearch");
             buildRestaurantList(search, isPrice10, isPrice20, isPrice30);
             restaurantAdapter.notifyDataSetChanged();
-
         });
+        restaurantAdapter.notifyDataSetChanged();
 
     }
 
@@ -153,9 +172,11 @@ public class SearchPageActivity extends AppCompatActivity {
             }
         }
 
-        if (!button10 && !button10To20 && !button20) {
+        if (button10 && button10To20 && button20) {
             for (RestaurantModel restaurant : RestaurantDatabase.getRestaurantsBySearch(searchQuery)) {
-                filterRestaurants.add(restaurant);
+                if(!filterRestaurants.contains(restaurant)) {
+                    filterRestaurants.add(restaurant);
+                }
             }
         }
     }
@@ -166,6 +187,10 @@ public class SearchPageActivity extends AppCompatActivity {
         savedInstanceState.putString("currentSearch", search);
         savedInstanceState.putParcelable("currentProfile", profile);
         savedInstanceState.putParcelableArrayList("filterRestaurants", (ArrayList) filterRestaurants);
+        savedInstanceState.putBoolean("isPrice10", isPrice10);
+        savedInstanceState.putBoolean("isPrice20", isPrice20);
+        savedInstanceState.putBoolean("isPrice30", isPrice30);
+        savedInstanceState.putString("button", buttonPrice.getText().toString());
 
         super.onSaveInstanceState(savedInstanceState);
 

@@ -42,7 +42,8 @@ public class NotifyService extends Service {
     private boolean notifiedThatYearlyBudgetSurpassed,
             notifiedThatMonthlyBudgetSurpassed,
             notifiedThatDailyBudgetSurpassed,
-            notifiedThatDailyCaloriesSurpassed;
+            notifiedThatDailyCaloriesSurpassed,
+            notifiedThatRestaurantShared;
 
     public static class NotifyServiceReceiver extends BroadcastReceiver {
         private int NOTIFY_ID = 1;
@@ -97,20 +98,27 @@ public class NotifyService extends Service {
         notifiedThatMonthlyBudgetSurpassed = false;
         notifiedThatDailyBudgetSurpassed = false;
         notifiedThatDailyCaloriesSurpassed = false;
+        notifiedThatRestaurantShared = false;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) { // called with every pending intent
         createNotificationChannel();
         connectedProfile = intent.getParcelableExtra("currentProfile");
-        final int UPDATE_INTERVAL = 10 * 1000; // check for updates every 10 seconds
+        final int UPDATE_INTERVAL = 5 * 1000; // check for updates every 5 seconds
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() { // checks if there are updates here and notifies if true
-                connectedProfile = ProfileDatabase.getProfile(connectedProfile.getEmail());
-                checkBudget();
-                checkCalories();
-                checkSharedRestaurant();
+                if (!notifiedThatRestaurantShared) {
+                    checkSharedRestaurant();
+                }
+                if (!notifiedThatDailyBudgetSurpassed || !notifiedThatMonthlyBudgetSurpassed
+                        || !notifiedThatYearlyBudgetSurpassed) {
+                    checkBudget();
+                }
+                if (!notifiedThatDailyCaloriesSurpassed) {
+                    checkCalories();
+                }
             }
         }, 0, UPDATE_INTERVAL);
 
