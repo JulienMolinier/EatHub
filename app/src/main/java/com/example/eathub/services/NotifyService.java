@@ -110,6 +110,7 @@ public class NotifyService extends Service {
                 connectedProfile = ProfileDatabase.getProfile(connectedProfile.getEmail());
                 checkBudget();
                 checkCalories();
+                checkSharedRestaurant();
             }
         }, 0, UPDATE_INTERVAL);
 
@@ -227,6 +228,18 @@ public class NotifyService extends Service {
             notifiedThatDailyCaloriesSurpassed = true;
             try { Thread.sleep(7 * 1000); }
             catch (InterruptedException e) { e.printStackTrace(); }
+        }
+    }
+
+    private void checkSharedRestaurant(){
+        List<ProfileModel> friendList = connectedProfile.getFriendsProfiles();
+        for(ProfileModel friend : friendList){
+            if(friend.getNewRestaurantShared()!=null){
+                sendNotification(friend.getName()+" has shared a new restaurant : " + friend.getNewRestaurantShared().getName());
+                friend.setNewRestaurantSharedNull();
+                try { Thread.sleep(7 * 1000); }
+                catch (InterruptedException e) { e.printStackTrace(); }
+            }
         }
     }
 }

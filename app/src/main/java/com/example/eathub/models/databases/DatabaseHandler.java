@@ -14,6 +14,8 @@ import com.example.eathub.models.RestaurantModel;
 import com.example.eathub.models.VisitModel;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -53,6 +55,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String VISIT_PRICE = "price";
     private static final String VISIT_COMMENT = "commentary";
     private static final String VISIT_MARK = "mark";
+    private static final String VISIT_IMAGE_PATH = "imagepath";
     private static final String SHARED_PROFILE = "sharedRestaurant";
     private static final String SHARED_RESTAURANT = "sharedProfile";
     private static final String VISIT_TABLE_NAME = "Visits";
@@ -67,7 +70,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     VISIT_CALORIES + " TEXT, " +
                     VISIT_PRICE + " TEXT, " +
                     VISIT_COMMENT + " DOUBLE, " +
-                    VISIT_MARK + " DOUBLE" + ");";
+                    VISIT_MARK + " DOUBLE, " +
+                    VISIT_IMAGE_PATH + " TEXT" + ");";
 
     private static final String VISIT_TABLE_DROP = "DROP TABLE IF EXISTS " + VISIT_TABLE_NAME + ";";
 
@@ -169,6 +173,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(VISIT_PRICE, visit.getPrice());
         contentValues.put(VISIT_COMMENT, visit.getCommentary());
         contentValues.put(VISIT_MARK, visit.getMark());
+        contentValues.put(VISIT_IMAGE_PATH, visit.getImage());
         return contentValues;
     }
 
@@ -238,10 +243,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         double price = cursor.getDouble(5);
         String commentary = cursor.getString(6);
         double mark = cursor.getDouble(7);
+        String imagepath = cursor.getString(8);
 
-        return new VisitModel(ProfileDatabase.getAllProfiles().get(profileId - 1),
+        VisitModel visitModel = new VisitModel(ProfileDatabase.getAllProfiles().get(profileId - 1),
                 RestaurantDatabase.getRestaurants().get(restaurantId - 1), date, calories, price,
                 commentary, mark);
+        visitModel.setImagePath(imagepath);
+        return visitModel;
     }
 
     public void openDB() {
@@ -341,21 +349,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ProfileDatabase.addNewProfile(jpot);
         ProfileDatabase.addNewProfile(fleca);
 
-        VisitModel visit0 = new VisitModel(mmdurand, pizzaCorsica,
-                LocalDate.of(2019, 5, 2), 800, 16,
-                "Pas mal !", 3);
-        ContentValues contentValues9 = createVisit(visit0);
-
-        VisitModel visit1 = new VisitModel(mmdurand, lebarbusse,
-                LocalDate.of(2019, 4, 2), 1100, 15,
-                "Excellent !", 4);
-        ContentValues contentValues10 = createVisit(visit1);
-
-        db.insert(VISIT_TABLE_NAME, null, contentValues9);
-        db.insert(VISIT_TABLE_NAME, null, contentValues10);
-
-        VisitDatabase.getVisits().add(visit0);
-        VisitDatabase.getVisits().add(visit1);
     }
 
     private ProfileModel createProfileFromRaw(Cursor cursor) {

@@ -28,6 +28,7 @@ public class ProfileModel implements Parcelable {
     private CulinaryFence culinaryFence;
     private List<Integer> friendList;
     private List<RestaurantModel> sharedRestaurants;
+    private RestaurantModel newRestaurantShared = null;
 
     private ArrayList<String> profileDetailsList;
     private ArrayList<VisitModel> history;
@@ -142,6 +143,7 @@ public class ProfileModel implements Parcelable {
 
     public void shareARestaurant(RestaurantModel restaurantModel) {
         this.sharedRestaurants.add(restaurantModel);
+        this.newRestaurantShared = restaurantModel;
     }
 
     public String getSurname() {
@@ -333,5 +335,13 @@ public class ProfileModel implements Parcelable {
             diffYears--;
         }
         return diffYears;
+    }
+
+    public RestaurantModel getNewRestaurantShared() {
+        return newRestaurantShared;
+    }
+
+    public void setNewRestaurantSharedNull(){
+        this.newRestaurantShared=null;
     }
 }

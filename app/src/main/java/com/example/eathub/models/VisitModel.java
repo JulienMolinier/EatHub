@@ -16,7 +16,7 @@ public class VisitModel implements Parcelable {
     private double price;
     private String commentary;
     private double mark;
-    private Bitmap image;
+    private String image;
 
     public VisitModel(ProfileModel profileModel, RestaurantModel restaurant, LocalDate date, double calories,
                       double price, String commentary, double mark) {
@@ -103,7 +103,11 @@ public class VisitModel implements Parcelable {
                 " the " + date;
     }
 
-    public void setImageBitmap(Bitmap image) {
+    public void setImagePath(String image) {
         this.image = image;
+    }
+
+    public String getImage(){
+        return this.image;
     }
 }

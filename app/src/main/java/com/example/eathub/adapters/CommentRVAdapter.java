@@ -2,6 +2,7 @@ package com.example.eathub.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -43,7 +44,9 @@ public class CommentRVAdapter extends RecyclerView.Adapter<CommentHolder> {
                 context.getPackageName()));
         commentHolder.getComment().setText(visit.getCommentary());
         commentHolder.getRate().setRating((float) visit.getMark());
-
+        if(visit.getImage()!=null) {
+            commentHolder.getImageView().setImageBitmap(BitmapFactory.decodeFile(visit.getImage()));
+        }
         commentHolder.itemView.setOnClickListener((View v) -> {
             Intent myIntent = new Intent(context, RestaurantActivity.class);
             myIntent.putExtra("currentRestaurant", comments.get(i).getRestaurant());

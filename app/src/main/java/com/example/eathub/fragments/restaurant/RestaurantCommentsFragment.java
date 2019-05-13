@@ -3,10 +3,16 @@ package com.example.eathub.fragments.restaurant;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.icu.text.SimpleDateFormat;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,12 +32,17 @@ import com.example.eathub.models.VisitModel;
 import com.example.eathub.models.databases.DatabaseHandler;
 import com.example.eathub.models.databases.VisitDatabase;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 
 public class RestaurantCommentsFragment extends Fragment {
+    private int PRENDRE_PHOTO=1;
     private View view;
     private RecyclerView listComments;
     private ProfileModel profileModel;
@@ -41,6 +52,7 @@ public class RestaurantCommentsFragment extends Fragment {
     private ArrayList<VisitModel> commentList = new ArrayList<>();
     private ImageView imageView;
     private Bitmap imageBitmap;
+    private String photoPath=null;
 
     @Nullable
     @Override
@@ -69,12 +81,20 @@ public class RestaurantCommentsFragment extends Fragment {
 
             button_image.setOnClickListener(view ->{
                 Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 1);
+                String time = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                File photoDir = getContext().getExternalFilesDir((Environment.DIRECTORY_PICTURES));
+                try {
+                    File photoFile = File.createTempFile("photo"  + time, ".jpg", photoDir);
+                    photoPath = photoFile.getAbsolutePath();
+                    Uri photoUri = FileProvider.getUriForFile(getContext(),getContext().getPackageName()+".provider", photoFile);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                startActivityForResult(intent, PRENDRE_PHOTO);
             });
 
-
             cancelButton.setOnClickListener((View v1) -> popup.dismiss());
-
             addFriendButton.setOnClickListener((View v2) -> {
                 if (rateInput.getRating() != 0.0 && commentInput.getText() != null
                         && caloriesInput.getText() != null) {
@@ -87,7 +107,7 @@ public class RestaurantCommentsFragment extends Fragment {
                             Double.valueOf(priceInput.getText().toString()),
                             commentInput.getText().toString(),
                             (double) rateInput.getRating());
-                    //visitToAdd.setImageBitmap(imageBitmap);
+                    visitToAdd.setImagePath(photoPath);
                     DatabaseHandler.addVisitToDB(visitToAdd);
                     VisitDatabase.getVisits().add(visitToAdd);
                     getCommentList();
@@ -134,9 +154,8 @@ public class RestaurantCommentsFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            imageBitmap = (Bitmap) extras.get("data");
+        if (requestCode == PRENDRE_PHOTO && resultCode == RESULT_OK) {
+            imageBitmap =  BitmapFactory.decodeFile(photoPath);
             imageView.setImageBitmap(imageBitmap);
         }
     }
