@@ -125,6 +125,8 @@
     <string name="caloriesEvolution">Calories Evolution</string>
     <string name="budgetEvolution">Budget Evolution</string>
     <string name="picture">Picture</string>
+    <string name="lastComments">Last Comments</string>
+    <string name="addAComment">Add a comment</string>
 
     <string-array name="choice_array">
         <item>Daily</item>

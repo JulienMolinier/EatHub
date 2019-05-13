@@ -16,7 +16,7 @@
 
         <ImageView
             android:id="@+id/CVimgRestaurant"
-            android:layout_width="250dp"
+            android:layout_width="240dp"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/lebelagio" />
@@ -29,7 +29,7 @@
 
             <View
                 android:id="@+id/CVindicator"
-                android:layout_width="3dp"
+                android:layout_width="5dp"
                 android:layout_height="match_parent"
                 android:background="#E91E63" />
 
@@ -57,11 +57,11 @@
                         android:id="@+id/CVTypeRestaurant"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/CVRestaurantName"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
-                        android:layout_toRightOf="@id/CVRestaurantName"
                         android:text="TextView"
                         android:textColor="#FF9800"
+                        android:textSize="18sp"
                         android:textStyle="italic" />
 
                 </RelativeLayout>
@@ -71,7 +71,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/layoutNameType"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textSize="20sp" />
 
                 <View
                     android:id="@+id/separator"
@@ -89,10 +90,11 @@
                     style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/separator"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:text="CALL"
+                    android:layout_alignParentBottom="false"
                     android:drawableLeft="@drawable/ic_phone_black_24dp"
+                    android:text="CALL"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -108,7 +110,7 @@
 
                 <RatingBar
                     android:id="@+id/ratingBar2"
-                    style="?android:attr/ratingBarStyleSmall"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
