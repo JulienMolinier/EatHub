@@ -40,12 +40,21 @@
             android:layout_toRightOf="@id/ImgRestaurant"
             android:paddingBottom="10dp" />
 
+        <Button
+            android:id="@+id/openPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/ratingBar4"
+            android:text="Open" />
+
         <ImageView
             android:id="@+id/imageView"
-            android:layout_marginRight="0dp"
-            android:layout_marginLeft="250dp"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="250dp"
+            android:layout_marginRight="0dp"
+            android:visibility="invisible"
             app:srcCompat="@drawable/resto" />
 
 

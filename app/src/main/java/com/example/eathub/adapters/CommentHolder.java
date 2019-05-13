@@ -3,6 +3,7 @@ package com.example.eathub.adapters;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ class CommentHolder extends RecyclerView.ViewHolder {
     private CircleImageView img;
     private TextView comment;
     private ImageView imageView;
+    private Button openPhoto;
 
     CommentHolder(@NonNull View itemView) {
         super(itemView);
@@ -22,6 +24,7 @@ class CommentHolder extends RecyclerView.ViewHolder {
         img = itemView.findViewById(R.id.ImgRestaurant);
         comment = itemView.findViewById(R.id.comment);
         imageView=itemView.findViewById(R.id.imageView);
+        openPhoto = itemView.findViewById(R.id.openPhoto);
     }
 
     RatingBar getRate() {
@@ -37,4 +40,8 @@ class CommentHolder extends RecyclerView.ViewHolder {
     }
 
     ImageView getImageView(){return imageView;}
+
+    public Button getOpenPhoto() {
+        return openPhoto;
+    }
 }

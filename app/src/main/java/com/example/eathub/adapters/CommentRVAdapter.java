@@ -1,5 +1,6 @@
 package com.example.eathub.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -8,10 +9,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.example.eathub.R;
 import com.example.eathub.activities.RestaurantActivity;
+import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.VisitModel;
+import com.example.eathub.models.databases.DatabaseHandler;
 
 import java.util.List;
 
@@ -44,8 +50,18 @@ public class CommentRVAdapter extends RecyclerView.Adapter<CommentHolder> {
                 context.getPackageName()));
         commentHolder.getComment().setText(visit.getCommentary());
         commentHolder.getRate().setRating((float) visit.getMark());
+        commentHolder.getOpenPhoto().setVisibility(View.INVISIBLE);
         if(visit.getImage()!=null) {
-            commentHolder.getImageView().setImageBitmap(BitmapFactory.decodeFile(visit.getImage()));
+            commentHolder.getOpenPhoto().setVisibility(View.VISIBLE);
+            Dialog popup = new Dialog(context);
+            commentHolder.getOpenPhoto().setOnClickListener((View v) -> {
+                popup.setContentView(R.layout.image_popup);
+                Button buttonClose = popup.findViewById(R.id.buttonClose);
+                ImageView phototaken = popup.findViewById(R.id.phototaken);
+                phototaken.setImageBitmap(BitmapFactory.decodeFile(visit.getImage()));
+                buttonClose.setOnClickListener((View v1) -> popup.dismiss());
+                popup.show();
+            });
         }
         commentHolder.itemView.setOnClickListener((View v) -> {
             Intent myIntent = new Intent(context, RestaurantActivity.class);
