@@ -287,9 +287,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues4.put(FRIENDONE, 1);
         contentValues4.put(FRIENDTWO, 2);
 
-        ContentValues contentValues5 = new ContentValues();
-        contentValues5.put(FRIENDONE, 1);
-        contentValues5.put(FRIENDTWO, 3);
 
         RestaurantModel pizzaCorsica = new RestaurantModel(1, "Pizza Corsica", 15.0,
                 CulinaryFence.italian, "5895 rue des arbres", "0102030405",
@@ -316,7 +313,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(PROFILE_TABLE_NAME, null, contentValues3);
 
         db.insert(FRIEND_TABLE_NAME, null, contentValues4);
-        db.insert(FRIEND_TABLE_NAME, null, contentValues5);
 
         db.insert(RESTAURANT_TABLE_NAME, null, contentValues6);
         db.insert(RESTAURANT_TABLE_NAME, null, contentValues7);
@@ -324,7 +320,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(RESTAURANT_TABLE_NAME, null, contentValues13);
 
         mmdurand.addFriend(jpot.getId());
-        mmdurand.addFriend(fleca.getId());
 
         RestaurantDatabase.getRestaurants().add(pizzaCorsica);
         RestaurantDatabase.getRestaurants().add(lebelagio);
