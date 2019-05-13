@@ -16,7 +16,6 @@ import com.example.eathub.R;
 import com.example.eathub.activities.MainActivity;
 import com.example.eathub.models.ProfileModel;
 import com.example.eathub.models.VisitModel;
-import com.example.eathub.models.databases.ProfileDatabase;
 import com.example.eathub.models.databases.VisitDatabase;
 
 import java.time.LocalDate;
